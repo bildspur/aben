@@ -23,27 +23,36 @@ void setup()
   frameRate(60);
   size(800, 600, P3D);
   surface.setTitle("åben Debug Monitor");
+
   //pixelDensity = 2;
 
   fx = new PostFX(this);
 
-  cam = new PeasyCam(this, 400);
+  cam = new PeasyCam(this, -20, 200, 0, 800);
+  cam.rotateX(radians(-75));
 
-  randomSeed(100);
+  randomSeed(7148);
+  initPortals();
 
+  // try to attach
+  checkDevices();
+  if (isMcuAvailable)
+    mcu.attach();
+}
+
+void initPortals()
+{
   // fix luboids sizes
   float hw = width / 2f;
   float hh = height / 2f;
 
   for (int i = 0; i < portals.length; i++)
   {
-    portals[i] = new Portal(i, i * 4, random(-hw, hw), random(-hh, hh));
+    portals[i] = new Portal(i, i * 4, 
+      random(-hw, hw), 
+      random(-hh, hh), 
+      random(0, 360));
   }
-
-  // try to attach
-  checkDevices();
-  if (isMcuAvailable)
-    mcu.attach();
 }
 
 void draw()
@@ -120,18 +129,32 @@ void renderLights()
 
   for (Portal portal : portals)
   {
-    stroke(100);
-    strokeWeight(1.0f);
-
-    if (portal.isOn)
-    {
-      stroke(0, 255, 0);
-      strokeWeight(2.0f);
-      portal.isOn = false;
-    }
-
+    noStroke();
     fill(portal.rgb);
-    rect(portal.x, portal.y, portal.width, portal.height);
+
+    pushMatrix();
+    translate(portal.x, portal.y);
+    rotateZ(radians(portal.r));
+
+    // side 1
+    pushMatrix();
+    translate(portal.width * 0.5f, 0f);
+    box(portal.thickness, portal.thickness, portal.height);
+    popMatrix();
+
+    // side 2
+    pushMatrix();
+    translate(portal.width * -0.5f, 0f);
+    box(portal.thickness, portal.thickness, portal.height);
+    popMatrix();
+
+    // top
+    pushMatrix();
+    translate(0f, 0f, portal.height / 2f);
+    box(portal.width + portal.thickness, portal.thickness, portal.thickness);
+    popMatrix();
+
+    popMatrix();
   }
   popMatrix();
 }
@@ -145,6 +168,15 @@ void keyPressed()
       mcu.attach();
     else
       println("No MCU detected!");
+  }
+
+  if (key == 'i')
+  {
+    int seed = (int)random(0, 10000);
+    randomSeed(seed);
+    initPortals();
+
+    println("Seed: " + seed);
   }
 }
 
