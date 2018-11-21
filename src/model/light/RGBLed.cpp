@@ -111,3 +111,7 @@ float RGBLed::getChannel(unsigned int channel) {
             return NAN;
     }
 }
+
+unsigned int RGBLed::getChannelCount() {
+    return 3;
+}

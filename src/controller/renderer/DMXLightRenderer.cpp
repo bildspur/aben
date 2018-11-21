@@ -1,3 +1,5 @@
+#include <cmath>
+
 //
 // Created by Florian Bruggisser on 21.10.18.
 //
@@ -34,16 +36,14 @@ void DMXLightRenderer::render(PortalPtr portal) {
     // get address
     auto address = portal->getId() * lightChannelSize;
 
-    // map global brightness
-    // todo: fix!!
-    auto brightness = 0.0f; // mapToGlobalBrightnessRange(portal->getBrightness());
+    for (unsigned int i = 0; i < portal->getLed()->getChannelCount(); i++) {
+        // map global brightness
+        auto brightness = mapToGlobalBrightnessRange(portal->getLed()->getChannel(i));
 
-    // convert to dmx
-    auto dmxValue = static_cast<uint8_t>(lround(
-            MathUtils::map(brightness, LED_MIN_BRIGHTNESS, LED_MAX_BRIGHTNESS, DMX_MIN_VALUE, DMX_MAX_VALUE)));
+        // convert to dmx
+        auto dmxValue = static_cast<uint8_t>(std::lround(
+                MathUtils::map(brightness, LED_MIN_BRIGHTNESS, LED_MAX_BRIGHTNESS, DMX_MIN_VALUE, DMX_MAX_VALUE)));
 
-    // set dmx on all 4 channels
-    for (int i = 0; i < lightChannelSize; i++) {
         dmxBuffer[static_cast<uint16_t>(address + i)] = dmxValue;
     }
 }

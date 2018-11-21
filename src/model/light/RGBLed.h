@@ -46,6 +46,8 @@ public:
 
     float getChannel(unsigned int channel);
 
+    unsigned int getChannelCount();
+
     void setRGB(RGBColor color);
 
     RGBColor getRGB();
