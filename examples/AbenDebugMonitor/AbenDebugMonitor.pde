@@ -94,9 +94,13 @@ void updateLights()
   {
     try
     {
-      float value = Float.parseFloat(data[i+1]);
-      int brightness = (int)round(map(value, 0f, 1f, 0f, 255f));
-      portals[i].rgb = color(brightness);
+      String[] rawValues = data[i+1].split(" ");
+
+      float r = (int)round(map(Float.parseFloat(rawValues[0]), 0f, 1f, 0f, 255f));
+      float g = (int)round(map(Float.parseFloat(rawValues[1]), 0f, 1f, 0f, 255f));
+      float b = (int)round(map(Float.parseFloat(rawValues[2]), 0f, 1f, 0f, 255f));
+
+      portals[i].rgb = color(r, g, b);
     }
     catch(Exception ex)
     {
