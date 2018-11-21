@@ -78,8 +78,10 @@ bool WaveScene::updateLuboid(PortalPtr luboid, unsigned long timeDiff) {
     // get brightness and update
     float brightness = MathUtils::windowedSine(x);
     float clamped = MathUtils::mapFromLEDBrightness(brightness, installation->getSettings().getWaveMinBrightness(),
+
                                                     installation->getSettings().getWaveMaxBrightness());
-    luboid->setBrightness(clamped);
+    // todo: refactoring fix!
+    //luboid->setBrightness(clamped);
     return true;
 }
 

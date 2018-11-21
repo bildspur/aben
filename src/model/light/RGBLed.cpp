@@ -1,0 +1,69 @@
+//
+// Created by Florian Bruggisser on 21.11.18.
+//
+
+#include "RGBLed.h"
+
+RGBLed::RGBLed(float easingSpeed) {
+    r = Led(easingSpeed);
+    g = Led(easingSpeed);
+    b = Led(easingSpeed);
+}
+
+void RGBLed::update() {
+    r.update();
+    g.update();
+    b.update();
+}
+
+void RGBLed::turnOn(bool easing) {
+    setBrightness(LED_MAX_BRIGHTNESS, easing);
+}
+
+void RGBLed::turnOff(bool easing) {
+    setBrightness(LED_MIN_BRIGHTNESS, easing);
+}
+
+void RGBLed::setBrightness(float value, bool easing) {
+    setRed(value, easing);
+    setGreen(value, easing);
+    setBlue(value, easing);
+}
+
+float RGBLed::getBrightness() {
+    return (r.getBrightness() + g.getBrightness() + b.getBrightness()) / 3.0f;
+}
+
+void RGBLed::setRed(float value, bool easing) {
+    r.setBrightness(value, easing);
+}
+
+void RGBLed::setGreen(float value, bool easing) {
+    g.setBrightness(value, easing);
+}
+
+void RGBLed::setBlue(float value, bool easing) {
+    b.setBrightness(value, easing);
+}
+
+float RGBLed::getRed() {
+    r.getBrightness();
+}
+
+float RGBLed::getGreen() {
+    g.getBrightness();
+}
+
+float RGBLed::getBlue() {
+    b.getBrightness();
+}
+
+void RGBLed::setColor(RGBColor color) {
+    setRed(color.r);
+    setGreen(color.g);
+    setBlue(color.b);
+}
+
+RGBColor RGBLed::getColor() {
+    return RGBColor(getRed(), getGreen(), getBlue());
+}

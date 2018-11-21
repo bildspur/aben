@@ -3,6 +3,7 @@
 //
 
 #include <Arduino.h>
+#include <model/light/Led.h>
 #include "MathUtils.h"
 #include "../model/Portal.h"
 
@@ -29,7 +30,7 @@ bool MathUtils::isRandomCalled(float factor) {
 }
 
 float MathUtils::mapFromLEDBrightness(float value, float minValue, float maxValue) {
-    return MathUtils::map(value, LUBOID_MIN_BRIGHTNESS, LUBOID_MAX_BRIGHTNESS, minValue, maxValue);
+    return MathUtils::map(value, LED_MIN_BRIGHTNESS, LED_MAX_BRIGHTNESS, minValue, maxValue);
 }
 
 unsigned long MathUtils::millisToSeconds(unsigned long millis) {

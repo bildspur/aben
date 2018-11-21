@@ -23,7 +23,8 @@ void SerialLightRenderer::loop() {
         String msg = "SLR;";
 
         for (int i = 0; i < installation->getSize(); i++) {
-            auto brightness = mapToGlobalBrightnessRange(installation->getLuboid(i)->getBrightness());
+            // todo: fix!
+            auto brightness = mapToGlobalBrightnessRange(0.0f);//installation->getLuboid(i)->getBrightness());
             msg += String(brightness) + ";";
         }
 

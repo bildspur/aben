@@ -7,32 +7,16 @@
 
 #include "../util/EasingValue.h"
 
-#define LUBOID_MIN_BRIGHTNESS 0.0f
-#define LUBOID_MAX_BRIGHTNESS 1.0f
-
-// todo: set right easing speed for framerate
-#define EASING_SPEED 0.1
-
 class Portal {
 private:
-    uint8_t id;
-
-    EasingValue brightness = EasingValue(0.0, EASING_SPEED);
+    unsigned short id;
 
 public:
-    explicit Portal(uint8_t id, uint8_t distance = 0);
+    explicit Portal(unsigned short id);
 
     void update();
 
-    void turnOn(bool easing = true);
-
-    void turnOff(bool easing = true);
-
-    void setBrightness(float value, bool easing = true);
-
-    float getBrightness();
-
-    uint8_t getId();
+    unsigned short getId();
 };
 
 

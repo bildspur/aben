@@ -36,13 +36,15 @@ void Installation::initPortals() {
 
 void Installation::turnOn() {
     for (auto i = 0; i < size; i++) {
-        lubiods[i]->turnOn();
+        // todo: refactoring fix!
+        //lubiods[i]->turnOn();
     }
 }
 
 void Installation::turnOff() {
     for (auto i = 0; i < size; i++) {
-        lubiods[i]->turnOff();
+        // todo: refactoring fix!
+        //lubiods[i]->turnOff();
     }
 }
 

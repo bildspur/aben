@@ -3,6 +3,7 @@
 //
 
 #include <esp_task_wdt.h>
+#include <model/light/Led.h>
 #include "DMXLightRenderer.h"
 #include "../../util/MathUtils.h"
 #include "../driver/LXESP32DMX/LXESP32DMX.h"
@@ -35,11 +36,12 @@ void DMXLightRenderer::render(PortalPtr luboid) {
     auto address = luboid->getId() * lightChannelSize;
 
     // map global brightness
-    auto brightness = mapToGlobalBrightnessRange(luboid->getBrightness());
+    // todo: fix!!
+    auto brightness = 0.0f; // mapToGlobalBrightnessRange(luboid->getBrightness());
 
     // convert to dmx
     auto dmxValue = static_cast<uint8_t>(lround(
-            MathUtils::map(brightness, LUBOID_MIN_BRIGHTNESS, LUBOID_MAX_BRIGHTNESS, DMX_MIN_VALUE, DMX_MAX_VALUE)));
+            MathUtils::map(brightness, LED_MIN_BRIGHTNESS, LED_MAX_BRIGHTNESS, DMX_MIN_VALUE, DMX_MAX_VALUE)));
 
     // set dmx on all 4 channels
     for (int i = 0; i < lightChannelSize; i++) {

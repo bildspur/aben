@@ -11,7 +11,6 @@
 #include "controller/network/OscController.h"
 #include "controller/renderer/LightRenderer.h"
 #include "controller/scene/BaseScene.h"
-#include "controller/scene/StarScene.h"
 #include "controller/scene/SceneController.h"
 #include "controller/renderer/SerialLightRenderer.h"
 #include "controller/renderer/DMXLightRenderer.h"
@@ -22,7 +21,7 @@
 #include "util/MathUtils.h"
 
 // global
-#define PORTAL_COUNT 33
+#define PORTAL_COUNT 5
 
 // motion
 #define MOTION_IN_PIN 12
@@ -64,10 +63,10 @@ LightRenderer *renderer = new DMXLightRenderer(DMX_TX_PIN, DMX_LIGHT_ADDRESS_SIZ
 LightRenderer *debugRenderer = new SerialLightRenderer(&installation);
 
 // sensors
+// todo: refactoring fix!
 MotionSensor *motionSensor = nullptr;
 
 // scenes
-//StarScene starScene = StarScene(&installation);
 TimeStarScene timeStarScene = TimeStarScene(&installation);
 WaveScene waveScene = WaveScene(&installation, motionSensor, &timeStarScene);
 

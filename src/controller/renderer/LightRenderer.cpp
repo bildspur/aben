@@ -2,6 +2,7 @@
 // Created by Florian on 06.12.17.
 //
 
+#include <model/light/Led.h>
 #include "LightRenderer.h"
 #include "../../util/MathUtils.h"
 
@@ -28,7 +29,7 @@ void LightRenderer::render(PortalPtr luboid) {
 
 float LightRenderer::mapToGlobalBrightnessRange(float value) {
     return MathUtils::map(value,
-                          LUBOID_MIN_BRIGHTNESS, LUBOID_MAX_BRIGHTNESS,
+                          LED_MIN_BRIGHTNESS, LED_MAX_BRIGHTNESS,
                           installation->getSettings().getMinBrightness(),
                           installation->getSettings().getMaxBrightness());
 }
