@@ -11,10 +11,12 @@ struct AppSettings {
 private:
     int version = ABEN_SETTINGS_VERSION;
 
-    // global settings
+    // global render settings
     float minBrightness = 0.0f;
 
     float maxBrightness = 1.0f;
+
+    bool gammaCorrection = true;
 
     // time star scene settings
     unsigned long timeStarMinDuration = 3000L;
@@ -37,6 +39,10 @@ public:
     float getMaxBrightness() const;
 
     void setMaxBrightness(float maxBrightness);
+
+    bool isGammaCorrection() const;
+
+    void setGammaCorrection(bool gammaCorrection);
 
     unsigned long getTimeStarMinDuration() const;
 

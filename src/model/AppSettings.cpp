@@ -63,3 +63,11 @@ void AppSettings::setTimeStarMaxBrightness(float timeStarMaxBrightness) {
 int AppSettings::getVersion() const {
     return version;
 }
+
+bool AppSettings::isGammaCorrection() const {
+    return gammaCorrection;
+}
+
+void AppSettings::setGammaCorrection(bool gammaCorrection) {
+    AppSettings::gammaCorrection = gammaCorrection;
+}
