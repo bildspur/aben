@@ -108,7 +108,7 @@ void showDebug(String text)
 {
   cam.beginHUD();
   fill(0, 255, 0);
-  textSize(8);
+  textSize(14);
   text("Debug \"" + text + "\"", 20, height - 50);
   cam.endHUD();
 }
@@ -117,7 +117,7 @@ void showInfo()
 {
   cam.beginHUD();
   fill(255);
-  textSize(12);
+  textSize(14);
   text("MCU detected: " + isMcuAvailable + "\tattached: " + (mcu.isAttached()) + "\tFPS: " + round(frameRate), 20, 20);
   cam.endHUD();
 }

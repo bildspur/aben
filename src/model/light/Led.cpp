@@ -5,7 +5,7 @@
 #include "Led.h"
 
 void Led::update() {
-
+    this->brightness.update();
 }
 
 Led::Led(float easingSpeed) {

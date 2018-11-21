@@ -12,9 +12,9 @@ private:
     int version = ABEN_SETTINGS_VERSION;
 
     // global settings
-    float minBrightness = 0.15f;
+    float minBrightness = 0.0f;
 
-    float maxBrightness = 0.5f;
+    float maxBrightness = 1.0f;
 
     // time star scene settings
     unsigned long timeStarMinDuration = 3000L;
@@ -25,7 +25,7 @@ private:
 
     float timeStarMinBrightness = 0.0f;
 
-    float timeStarMaxBrightness = 0.7f;
+    float timeStarMaxBrightness = 1.0f;
 
 public:
     int getVersion() const;
