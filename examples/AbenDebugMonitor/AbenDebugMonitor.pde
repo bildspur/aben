@@ -1,4 +1,9 @@
 import peasy.PeasyCam;
+import ch.bildspur.postfx.builder.*;
+import ch.bildspur.postfx.pass.*;
+import ch.bildspur.postfx.*;
+
+PostFX fx;
 
 int padding = 50;
 
@@ -18,7 +23,9 @@ void setup()
   frameRate(60);
   size(800, 600, P3D);
   surface.setTitle("åben Debug Monitor");
-  pixelDensity = 2;
+  //pixelDensity = 2;
+
+  fx = new PostFX(this);
 
   cam = new PeasyCam(this, 400);
 
@@ -46,6 +53,12 @@ void draw()
   background(0);
   updateLights();
   renderLights();
+
+  // add bloom filter
+  fx.render()
+    .bloom(0.0f, 10, 20f)
+    .compose();
+
   showInfo();
 }
 
