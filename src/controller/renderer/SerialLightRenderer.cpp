@@ -38,7 +38,7 @@ void SerialLightRenderer::loop() {
 
     if (debugTimer.elapsed()) {
         auto led = installation->getPortal(0)->getLed();
-        Serial.printf("Debug: R:%f G:%f B:%f\n", led->getRed(), led->getGreen(), led->getBlue());
+        Serial.printf("R:%f G:%f B:%f\n", led->getRed(), led->getGreen(), led->getBlue());
     }
 }
 
