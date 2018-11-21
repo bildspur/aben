@@ -7,6 +7,7 @@
 
 
 #include <model/color/RGBColor.h>
+#include <model/color/HSVColor.h>
 #include "Led.h"
 
 class RGBLed {
@@ -41,9 +42,13 @@ public:
 
     float getBlue();
 
-    void setColor(RGBColor color);
+    void setRGB(RGBColor color);
 
-    RGBColor getColor();
+    RGBColor getRGB();
+
+    void setHSV(HSVColor color);
+
+    HSVColor getHSV();
 };
 
 

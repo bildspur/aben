@@ -2,6 +2,7 @@
 // Created by Florian Bruggisser on 21.11.18.
 //
 
+#include <model/color/ColorSpace.h>
 #include "RGBLed.h"
 
 RGBLed::RGBLed(float easingSpeed) {
@@ -58,12 +59,20 @@ float RGBLed::getBlue() {
     b.getBrightness();
 }
 
-void RGBLed::setColor(RGBColor color) {
+void RGBLed::setRGB(RGBColor color) {
     setRed(color.r);
     setGreen(color.g);
     setBlue(color.b);
 }
 
-RGBColor RGBLed::getColor() {
+RGBColor RGBLed::getRGB() {
     return RGBColor(getRed(), getGreen(), getBlue());
+}
+
+void RGBLed::setHSV(HSVColor color) {
+    setRGB(ColorSpace::hsvToRGB(color));
+}
+
+HSVColor RGBLed::getHSV() {
+    return ColorSpace::rgbToHSV(getRGB());
 }
