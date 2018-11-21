@@ -140,6 +140,10 @@ void handleOsc(OSCMessage &msg) {
         installation.getSettings().setMaxBrightness(msg.getFloat(0));
     });
 
+    msg.dispatch("/aben/gamma/on", [](OSCMessage &msg) {
+        installation.getSettings().setGammaCorrection(!installation.getSettings().isGammaCorrection());
+    });
+
     msg.dispatch("/aben/scenemanager/on", [](OSCMessage &msg) {
         sceneController.setRunning(!sceneController.isRunning());
     });
@@ -208,7 +212,10 @@ void sendRefresh() {
     // global
     osc.send("/aben/brightness/min", installation.getSettings().getMinBrightness());
     osc.send("/aben/brightness/max", installation.getSettings().getMaxBrightness());
+
+    osc.send("/aben/gamma/on", installation.getSettings().isGammaCorrection());
     osc.send("/aben/scenemanager/on", sceneController.isRunning());
+
     //osc.send("/aben/sensor/on", motionSensor->isRunning());
     osc.send("/aben/version", installation.getSettings().getVersion());
 
