@@ -16,5 +16,4 @@ struct RGBColor {
     RGBColor(float red, float green, float blue);
 };
 
-
 #endif //ABEN_RGBCOLOR_H

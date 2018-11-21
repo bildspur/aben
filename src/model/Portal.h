@@ -5,11 +5,14 @@
 #ifndef SILVA_LEAF_H
 #define SILVA_LEAF_H
 
+#include <model/light/RGBLed.h>
 #include "../util/EasingValue.h"
 
 class Portal {
 private:
     unsigned short id;
+
+    RGBLed led;
 
 public:
     explicit Portal(unsigned short id);
