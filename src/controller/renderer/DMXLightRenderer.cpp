@@ -44,7 +44,10 @@ void DMXLightRenderer::render(PortalPtr portal) {
         auto dmxValue = static_cast<uint8_t>(std::lround(
                 MathUtils::map(brightness, LED_MIN_BRIGHTNESS, LED_MAX_BRIGHTNESS, DMX_MIN_VALUE, DMX_MAX_VALUE)));
 
-        dmxBuffer[static_cast<uint16_t>(address + i)] = dmxValue;
+        // apply gamma correction
+        auto gammaValue = gamma8[dmxValue];
+
+        dmxBuffer[static_cast<uint16_t>(address + i)] = gammaValue;
     }
 }
 
