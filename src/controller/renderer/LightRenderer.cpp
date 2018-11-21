@@ -18,7 +18,7 @@ void LightRenderer::loop() {
     BaseController::loop();
 
     for (auto i = 0; i < installation->getSize(); i++) {
-        auto leaf = installation->getLuboid(i);
+        auto leaf = installation->getPortal(i);
         render(leaf);
     }
 }

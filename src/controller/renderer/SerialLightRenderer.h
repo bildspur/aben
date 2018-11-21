@@ -12,7 +12,6 @@
 
 class SerialLightRenderer : public LightRenderer {
 private:
-    u_long counter = 0;
     StopWatch watch = StopWatch();
 
     Timer monitorTimer = Timer(33);
@@ -24,7 +23,7 @@ public:
 
     void loop() override;
 
-    void render(PortalPtr luboid) override;
+    void render(PortalPtr portal) override;
 };
 
 

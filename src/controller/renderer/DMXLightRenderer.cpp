@@ -29,15 +29,15 @@ void DMXLightRenderer::loop() {
     publishBuffer();
 }
 
-void DMXLightRenderer::render(PortalPtr luboid) {
-    LightRenderer::render(luboid);
+void DMXLightRenderer::render(PortalPtr portal) {
+    LightRenderer::render(portal);
 
     // get address
-    auto address = luboid->getId() * lightChannelSize;
+    auto address = portal->getId() * lightChannelSize;
 
     // map global brightness
     // todo: fix!!
-    auto brightness = 0.0f; // mapToGlobalBrightnessRange(luboid->getBrightness());
+    auto brightness = 0.0f; // mapToGlobalBrightnessRange(portal->getBrightness());
 
     // convert to dmx
     auto dmxValue = static_cast<uint8_t>(lround(

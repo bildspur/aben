@@ -24,7 +24,7 @@ void SerialLightRenderer::loop() {
 
         for (int i = 0; i < installation->getSize(); i++) {
             // todo: fix!
-            auto brightness = mapToGlobalBrightnessRange(0.0f);//installation->getLuboid(i)->getBrightness());
+            auto brightness = mapToGlobalBrightnessRange(0.0f);//installation->getPortal(i)->getBrightness());
             msg += String(brightness) + ";";
         }
 
@@ -33,6 +33,6 @@ void SerialLightRenderer::loop() {
     }
 }
 
-void SerialLightRenderer::render(PortalPtr luboid) {
-    LightRenderer::render(luboid);
+void SerialLightRenderer::render(PortalPtr portal) {
+    LightRenderer::render(portal);
 }

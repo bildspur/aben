@@ -5,11 +5,11 @@
 #ifndef TIL_APPSETTINGS_H
 #define TIL_APPSETTINGS_H
 
-#define TIL_SETTINGS_VERSION 1001
+#define ABEN_SETTINGS_VERSION 1002
 
 struct AppSettings {
 private:
-    int version = TIL_SETTINGS_VERSION;
+    int version = ABEN_SETTINGS_VERSION;
 
     // global settings
     float minBrightness = 0.15f;
@@ -26,15 +26,6 @@ private:
     float timeStarMinBrightness = 0.0f;
 
     float timeStarMaxBrightness = 0.7f;
-
-    // wave settings
-    unsigned long waveDuration = 500L;
-
-    unsigned long waveTravelSpeed = 135L;
-
-    float waveMinBrightness = 0.0f;
-
-    float waveMaxBrightness = 1.0f;
 
 public:
     int getVersion() const;
@@ -66,22 +57,6 @@ public:
     float getTimeStarMaxBrightness() const;
 
     void setTimeStarMaxBrightness(float timeStarMaxBrightness);
-
-    unsigned long getWaveDuration() const;
-
-    void setWaveDuration(unsigned long waveDuration);
-
-    unsigned long getWaveTravelSpeed() const;
-
-    void setWaveTravelSpeed(unsigned long waveTravelSpeed);
-
-    float getWaveMinBrightness() const;
-
-    void setWaveMinBrightness(float waveMinBrightness);
-
-    float getWaveMaxBrightness() const;
-
-    void setWaveMaxBrightness(float waveMaxBrightness);
 };
 
 

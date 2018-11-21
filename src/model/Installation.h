@@ -14,22 +14,22 @@ typedef Portal *PortalPtr;
 
 class Installation {
 private:
-    PortalPtr *lubiods;
+    PortalPtr *portals;
 
     uint16_t size;
 
     AppSettings settings;
 
 public:
-    Installation(uint16_t size, PortalPtr *luboids);
+    Installation(uint16_t size, PortalPtr *portals);
 
     uint16_t getSize();
 
-    PortalPtr *getLuboids();
+    PortalPtr *getPortals();
 
-    PortalPtr getLuboid(uint16_t index);
+    PortalPtr getPortal(uint16_t index);
 
-    PortalPtr getLuboid(int index);
+    PortalPtr getPortal(int index);
 
     void initPortals();
 

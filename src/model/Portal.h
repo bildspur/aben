@@ -8,11 +8,13 @@
 #include <model/light/RGBLed.h>
 #include "../util/EasingValue.h"
 
+typedef RGBLed *RGBLedPtr;
+
 class Portal {
 private:
     unsigned short id;
 
-    RGBLed led;
+    RGBLedPtr led;
 
 public:
     explicit Portal(unsigned short id);
@@ -20,6 +22,12 @@ public:
     void update();
 
     unsigned short getId();
+
+    void turnOn();
+
+    void turnOff();
+
+    RGBLedPtr getLed();
 };
 
 

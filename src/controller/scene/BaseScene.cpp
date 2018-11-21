@@ -16,9 +16,9 @@ void BaseScene::setup() {
 void BaseScene::loop() {
     BaseController::loop();
 
-    // update lubiods
+    // update portals
     for (auto i = 0; i < installation->getSize(); i++) {
-        installation->getLuboid(i)->update();
+        installation->getPortal(i)->update();
     }
 }
 

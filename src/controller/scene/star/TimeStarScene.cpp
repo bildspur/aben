@@ -43,8 +43,8 @@ void TimeStarScene::loop() {
         float clampedBrightness = MathUtils::mapFromLEDBrightness(brightness,
                                                                   installation->getSettings().getTimeStarMinBrightness(),
                                                                   installation->getSettings().getTimeStarMaxBrightness());
-        // todo: refactoring fix!
-        //installation->getLuboid(i)->setBrightness(clampedBrightness);
+
+        installation->getPortal(i)->getLed()->setBrightness(clampedBrightness);
     }
 }
 

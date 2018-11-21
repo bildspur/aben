@@ -14,7 +14,6 @@
 #include "controller/scene/SceneController.h"
 #include "controller/renderer/SerialLightRenderer.h"
 #include "controller/renderer/DMXLightRenderer.h"
-#include "controller/scene/WaveScene.h"
 #include "controller/sensor/interaction/MotionSensor.h"
 #include "controller/sensor/interaction/SerialMotionSensor.h"
 #include "controller/scene/star/TimeStarScene.h"
@@ -64,12 +63,10 @@ LightRenderer *debugRenderer = new SerialLightRenderer(&installation);
 
 // sensors
 // todo: refactoring fix!
-MotionSensor *motionSensor = nullptr;
+//MotionSensor *motionSensor = nullptr;
 
 // scenes
 TimeStarScene timeStarScene = TimeStarScene(&installation);
-WaveScene waveScene = WaveScene(&installation, motionSensor, &timeStarScene);
-
 auto sceneController = SceneController(&timeStarScene);
 
 // controller list
@@ -79,7 +76,6 @@ BaseControllerPtr controllers[] = {
         &osc,
         debugRenderer,
         renderer,
-        motionSensor,
         &sceneController,
 };
 
@@ -94,7 +90,7 @@ void setup() {
     Serial.begin(BAUD_RATE);
 
     // wait some seconds for debugging
-    delay(5000);
+    delay(1000);
 
     // setup random seed
     randomSeed(static_cast<unsigned long>(analogRead(0)));
@@ -149,7 +145,7 @@ void handleOsc(OSCMessage &msg) {
     });
 
     msg.dispatch("/aben/sensor/on", [](OSCMessage &msg) {
-        motionSensor->setRunning(!motionSensor->isRunning());
+        //motionSensor->setRunning(!motionSensor->isRunning());
     });
 
     // time star
@@ -175,23 +171,6 @@ void handleOsc(OSCMessage &msg) {
                 MathUtils::secondsToMillis(static_cast<unsigned long>(msg.getFloat(0))));
     });
 
-    // wave
-    msg.dispatch("/aben/wave/brightness/min", [](OSCMessage &msg) {
-        installation.getSettings().setWaveMinBrightness(msg.getFloat(0));
-    });
-
-    msg.dispatch("/aben/wave/brightness/max", [](OSCMessage &msg) {
-        installation.getSettings().setWaveMaxBrightness(msg.getFloat(0));
-    });
-
-    msg.dispatch("/aben/wave/duration", [](OSCMessage &msg) {
-        installation.getSettings().setWaveDuration(static_cast<unsigned long>(msg.getFloat(0)));
-    });
-
-    msg.dispatch("/aben/wave/travelspeed", [](OSCMessage &msg) {
-        installation.getSettings().setWaveTravelSpeed(static_cast<unsigned long>(msg.getFloat(0)));
-    });
-
     // controls
     msg.dispatch("/aben/installation/on", [](OSCMessage &msg) {
         sceneController.setRunning(false);
@@ -201,10 +180,6 @@ void handleOsc(OSCMessage &msg) {
     msg.dispatch("/aben/installation/off", [](OSCMessage &msg) {
         sceneController.setRunning(false);
         installation.turnOff();
-    });
-
-    msg.dispatch("/aben/wave", [](OSCMessage &msg) {
-        waveScene.startWave();
     });
 
     msg.dispatch("/aben/refresh", [](OSCMessage &msg) {
@@ -234,7 +209,7 @@ void sendRefresh() {
     osc.send("/aben/brightness/min", installation.getSettings().getMinBrightness());
     osc.send("/aben/brightness/max", installation.getSettings().getMaxBrightness());
     osc.send("/aben/scenemanager/on", sceneController.isRunning());
-    osc.send("/aben/sensor/on", motionSensor->isRunning());
+    //osc.send("/aben/sensor/on", motionSensor->isRunning());
     osc.send("/aben/version", installation.getSettings().getVersion());
 
     // time star
@@ -245,10 +220,4 @@ void sendRefresh() {
              static_cast<float>(MathUtils::millisToSeconds(installation.getSettings().getTimeStarMinDuration())));
     osc.send("/aben/timestar/duration/max",
              static_cast<float>(MathUtils::millisToSeconds(installation.getSettings().getTimeStarMaxDuration())));
-
-    // wave
-    osc.send("/aben/wave/brightness/min", installation.getSettings().getWaveMinBrightness());
-    osc.send("/aben/wave/brightness/max", installation.getSettings().getWaveMaxBrightness());
-    osc.send("/aben/wave/duration", static_cast<float>(installation.getSettings().getWaveDuration()));
-    osc.send("/aben/wave/travelspeed", static_cast<float>(installation.getSettings().getWaveTravelSpeed()));
 }

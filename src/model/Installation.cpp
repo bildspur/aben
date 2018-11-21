@@ -5,9 +5,9 @@
 #include "Installation.h"
 #include "../util/MathUtils.h"
 
-Installation::Installation(uint16_t size, PortalPtr *luboids) {
+Installation::Installation(uint16_t size, PortalPtr *portals) {
     this->size = size;
-    this->lubiods = luboids;
+    this->portals = portals;
     this->settings = AppSettings();
 }
 
@@ -15,36 +15,34 @@ uint16_t Installation::getSize() {
     return size;
 }
 
-PortalPtr *Installation::getLuboids() {
-    return lubiods;
+PortalPtr *Installation::getPortals() {
+    return portals;
 }
 
-PortalPtr Installation::getLuboid(uint16_t index) {
+PortalPtr Installation::getPortal(uint16_t index) {
     assert(index >= 0 && index < size);
-    return lubiods[index];
+    return portals[index];
 }
 
-PortalPtr Installation::getLuboid(int index) {
-    return getLuboid(static_cast<uint16_t>(index));
+PortalPtr Installation::getPortal(int index) {
+    return getPortal(static_cast<uint16_t>(index));
 }
 
 void Installation::initPortals() {
     for (uint8_t i = 0; i < size; i++) {
-        lubiods[i] = new Portal(i);
+        portals[i] = new Portal(i);
     }
 }
 
 void Installation::turnOn() {
     for (auto i = 0; i < size; i++) {
-        // todo: refactoring fix!
-        //lubiods[i]->turnOn();
+        portals[i]->turnOn();
     }
 }
 
 void Installation::turnOff() {
     for (auto i = 0; i < size; i++) {
-        // todo: refactoring fix!
-        //lubiods[i]->turnOff();
+        portals[i]->turnOff();
     }
 }
 
@@ -61,7 +59,7 @@ void Installation::loadFromEEPROM() {
     Serial.printf("Loaded Version: %d\n", settings.getVersion());
 
     // check version and set default if needed
-    if (settings.getVersion() != TIL_SETTINGS_VERSION) {
+    if (settings.getVersion() != ABEN_SETTINGS_VERSION) {
         Serial.println("applying default app settings!");
         loadDefaultSettings();
     }

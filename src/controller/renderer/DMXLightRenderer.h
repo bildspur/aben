@@ -29,7 +29,7 @@ public:
 
     void loop() override;
 
-    void render(PortalPtr luboid) override;
+    void render(PortalPtr portal) override;
 };
 
 

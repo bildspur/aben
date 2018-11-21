@@ -7,13 +7,25 @@
 
 Portal::Portal(unsigned short id) {
     this->id = id;
-    this->led = RGBLed();
+    this->led = new RGBLed();
 }
 
 void Portal::update() {
-    led.update();
+    led->update();
 }
 
 unsigned short Portal::getId() {
     return id;
+}
+
+void Portal::turnOn() {
+    led->turnOn(true);
+}
+
+void Portal::turnOff() {
+    led->turnOff(true);
+}
+
+RGBLedPtr Portal::getLed() {
+    return led;
 }

@@ -48,15 +48,15 @@ void RGBLed::setBlue(float value, bool easing) {
 }
 
 float RGBLed::getRed() {
-    r.getBrightness();
+    return r.getBrightness();
 }
 
 float RGBLed::getGreen() {
-    g.getBrightness();
+    return g.getBrightness();
 }
 
 float RGBLed::getBlue() {
-    b.getBrightness();
+    return b.getBrightness();
 }
 
 void RGBLed::setRGB(RGBColor color) {
@@ -66,7 +66,7 @@ void RGBLed::setRGB(RGBColor color) {
 }
 
 RGBColor RGBLed::getRGB() {
-    return RGBColor(getRed(), getGreen(), getBlue());
+    return {getRed(), getGreen(), getBlue()};
 }
 
 void RGBLed::setHSV(HSVColor color) {
