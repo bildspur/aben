@@ -3,6 +3,7 @@
 //
 
 #include <model/color/ColorSpace.h>
+#include <cmath>
 #include "RGBLed.h"
 
 RGBLed::RGBLed(float easingSpeed) {
@@ -75,4 +76,38 @@ void RGBLed::setHSV(HSVColor color) {
 
 HSVColor RGBLed::getHSV() {
     return ColorSpace::rgbToHSV(getRGB());
+}
+
+void RGBLed::setChannel(unsigned int channel, float value, bool easing) {
+    switch (channel) {
+        case 0:
+            setRed(value, easing);
+            break;
+
+        case 1:
+            setGreen(value, easing);
+            break;
+
+        case 2:
+            setBlue(value, easing);
+            break;
+        default:
+            break;
+    }
+}
+
+float RGBLed::getChannel(unsigned int channel) {
+    switch (channel) {
+        case 0:
+            return getRed();
+
+        case 1:
+            return getGreen();
+
+        case 2:
+            return getBlue();
+
+        default:
+            return NAN;
+    }
 }

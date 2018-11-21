@@ -42,6 +42,10 @@ public:
 
     float getBlue();
 
+    void setChannel(unsigned int channel, float value, bool easing = true);
+
+    float getChannel(unsigned int channel);
+
     void setRGB(RGBColor color);
 
     RGBColor getRGB();
