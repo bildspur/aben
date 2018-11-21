@@ -44,7 +44,7 @@ void TimeStarScene::loop() {
                                                                   installation->getSettings().getTimeStarMinBrightness(),
                                                                   installation->getSettings().getTimeStarMaxBrightness());
 
-        installation->getPortal(i)->getLed()->setHSV(HSVColor(defaultHue, defaultHue, clampedBrightness));
+        installation->getPortal(i)->getLed()->setHSV(HSVColor(defaultHue, defaultSaturation, clampedBrightness));
     }
 }
 

@@ -78,8 +78,10 @@ void updateLights()
 
   String raw = mcu.readData();
 
-  if (debug && raw != null && !raw.startsWith("SLR") && raw.trim() != "")
+  if (debug && raw != null && !raw.startsWith("SLR") && !raw.trim().equals(""))
+  {
     println("MCU: " + raw.trim());
+  }
 
   if (raw == null || !raw.startsWith("SLR"))
     return;
@@ -129,7 +131,6 @@ void showInfo()
 void renderLights()
 {
   pushMatrix();
-  //translate(padding, padding);
 
   for (Portal portal : portals)
   {

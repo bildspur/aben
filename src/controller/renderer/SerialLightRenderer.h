@@ -15,6 +15,7 @@ private:
     StopWatch watch = StopWatch();
 
     Timer monitorTimer = Timer(33);
+    Timer debugTimer = Timer(1000);
 
 public:
     explicit SerialLightRenderer(Installation *installation);
