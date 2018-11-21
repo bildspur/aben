@@ -24,7 +24,7 @@ void SerialLightRenderer::loop() {
 
         for (int i = 0; i < installation->getSize(); i++) {
             // todo: fix!
-            auto brightness = mapToGlobalBrightnessRange(0.0f);//installation->getPortal(i)->getBrightness());
+            auto brightness = mapToGlobalBrightnessRange(installation->getPortal(i)->getLed()->getBrightness());
             msg += String(brightness) + ";";
         }
 
