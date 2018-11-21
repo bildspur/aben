@@ -23,7 +23,7 @@ void LightRenderer::loop() {
     }
 }
 
-void LightRenderer::render(PortalPtr luboid) {
+void LightRenderer::render(PortalPtr portal) {
     // send out data
 }
 

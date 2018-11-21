@@ -19,7 +19,7 @@ public:
 
     void loop() override;
 
-    virtual void render(PortalPtr luboid);
+    virtual void render(PortalPtr portal);
 
     float mapToGlobalBrightnessRange(float value);
 };

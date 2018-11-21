@@ -8,8 +8,7 @@
 #include "../../util/MathUtils.h"
 #include "../driver/LXESP32DMX/LXESP32DMX.h"
 
-DMXLightRenderer::DMXLightRenderer(uint8_t txPin, uint8_t lightAddressSize, Installation *installation,
-                                   float minBrightness, float maxBrightness)
+DMXLightRenderer::DMXLightRenderer(uint8_t txPin, uint8_t lightAddressSize, Installation *installation)
         : LightRenderer(installation) {
     this->lightChannelSize = lightAddressSize;
     this->txPin = txPin;

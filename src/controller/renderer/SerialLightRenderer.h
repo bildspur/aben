@@ -17,7 +17,7 @@ private:
     Timer monitorTimer = Timer(33);
 
 public:
-    explicit SerialLightRenderer(Installation *installation, float minBrightness = 0.0f, float maxBrightness = 1.0f);
+    explicit SerialLightRenderer(Installation *installation);
 
     void setup() override;
 

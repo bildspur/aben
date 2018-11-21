@@ -5,7 +5,7 @@
 #include <HardwareSerial.h>
 #include "SerialLightRenderer.h"
 
-SerialLightRenderer::SerialLightRenderer(Installation *installation, float minBrightness, float maxBrightness)
+SerialLightRenderer::SerialLightRenderer(Installation *installation)
         : LightRenderer(installation) {
 
 }
