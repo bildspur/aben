@@ -29,3 +29,11 @@ void Portal::turnOff() {
 RGBLedPtr Portal::getLed() {
     return led;
 }
+
+bool Portal::isActivated() const {
+    return activated;
+}
+
+void Portal::setActivated(bool activated) {
+    Portal::activated = activated;
+}

@@ -14,8 +14,6 @@
 #include "controller/scene/SceneController.h"
 #include "controller/renderer/SerialLightRenderer.h"
 #include "controller/renderer/DMXLightRenderer.h"
-#include "controller/sensor/interaction/MotionSensor.h"
-#include "controller/sensor/interaction/SerialMotionSensor.h"
 #include "controller/scene/star/TimeStarScene.h"
 #include "util/MathUtils.h"
 
@@ -23,7 +21,7 @@
 #define PORTAL_COUNT 5
 
 // motion
-#define MOTION_IN_PIN 12
+const uint8_t PROGMEM MOTION_SENSOR_PINS[5] = {12, 12, 12, 12, 12};
 
 // serial
 #define BAUD_RATE 115200
@@ -45,7 +43,9 @@
 #define DMX_LIGHT_ADDRESS_SIZE 4
 
 // typedefs
-typedef BaseController *BaseControllerPtr;
+typedef BaseController
+        *
+        BaseControllerPtr;
 typedef Portal *PortalPtr;
 
 // variables

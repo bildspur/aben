@@ -33,7 +33,7 @@ bool MotionSensor::isMotionDetected(bool clearFlag) {
 }
 
 void MotionSensor::measure() {
-
+    // to implement
 }
 
 bool MotionSensor::isRunning() const {

@@ -16,6 +16,8 @@ private:
 
     RGBLedPtr led;
 
+    bool activated;
+
 public:
     explicit Portal(unsigned short id);
 
@@ -28,6 +30,10 @@ public:
     void turnOff();
 
     RGBLedPtr getLed();
+
+    bool isActivated() const;
+
+    void setActivated(bool activated);
 };
 
 
