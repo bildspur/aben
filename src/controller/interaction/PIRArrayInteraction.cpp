@@ -4,8 +4,8 @@
 
 #include "PIRArrayInteraction.h"
 
-PIRArrayInteraction::PIRArrayInteraction(Installation *installation, const uint8_t *sensorPins,
-                                         unsigned int updateFrequency) : BaseController() {
+PIRArrayInteraction::PIRArrayInteraction(Installation *installation, const uint8_t *sensorPins)
+        : TimeBasedController(PIR_ARRAY_IX_FPS, FRAMES_PER_SECOND) {
     this->installation = installation;
     this->sensorCount = installation->getSize();
 
@@ -14,12 +14,12 @@ PIRArrayInteraction::PIRArrayInteraction(Installation *installation, const uint8
     // init sensors
     this->sensors = new PIRMotionSensorPtr[sensorCount];
     for (int i = 0; i < sensorCount; i++) {
-        this->sensors[i] = new PIRMotionSensor(sensorPins[i], updateFrequency);
+        this->sensors[i] = new PIRMotionSensor(sensorPins[i]);
     }
 }
 
 void PIRArrayInteraction::setup() {
-    BaseController::setup();
+    TimeBasedController::setup();
 
     // setup sensors
     for (int i = 0; i < sensorCount; i++) {
@@ -27,12 +27,12 @@ void PIRArrayInteraction::setup() {
     }
 }
 
-void PIRArrayInteraction::loop() {
-    BaseController::loop();
+void PIRArrayInteraction::timedLoop() {
+    TimeBasedController::timedLoop();
 
     // update sensors and activate doors
     for (int i = 0; i < sensorCount; i++) {
-        this->sensors[i]->loop();
+        this->sensors[i]->measure();
 
         if (sensors[i]->isMotionDetected(true)) {
             this->installation->getPortal(i)->setActivated(true);

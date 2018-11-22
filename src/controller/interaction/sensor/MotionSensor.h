@@ -7,33 +7,24 @@
 
 
 #include <cstdint>
+#include <controller/TimeBasedController.h>
 #include "../../BaseController.h"
 #include "../../../util/Timer.h"
 
-class MotionSensor : public BaseController {
+class MotionSensor {
 private:
 
 protected:
-    explicit MotionSensor(unsigned int updateFrequency = 250);
+    explicit MotionSensor();
 
     bool motionDetected = false;
 
-    bool running = true;
-
-    Timer *timer;
-
 public:
-    void setup() override;
-
-    void loop() override;
+    virtual void setup();
 
     virtual void measure();
 
     virtual bool isMotionDetected(bool clearFlag = false);
-
-    bool isRunning() const;
-
-    void setRunning(bool running);
 };
 
 #endif //TIL_MOTIONSENSOR_H

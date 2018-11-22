@@ -15,7 +15,7 @@ private:
     bool pinState = false;
 
 public:
-    explicit PIRMotionSensor(uint8_t pin, unsigned int updateFrequency = 250);
+    explicit PIRMotionSensor(uint8_t pin);
 
     void setup() override;
 

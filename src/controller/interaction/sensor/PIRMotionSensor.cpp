@@ -4,7 +4,7 @@
 
 #include "PIRMotionSensor.h"
 
-PIRMotionSensor::PIRMotionSensor(uint8_t pin, unsigned int updateFrequency) : MotionSensor(updateFrequency) {
+PIRMotionSensor::PIRMotionSensor(uint8_t pin) : MotionSensor() {
     this->pin = pin;
 }
 
