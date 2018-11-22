@@ -7,7 +7,7 @@
 #include "../../util/MathUtils.h"
 
 LightRenderer::LightRenderer(Installation *installation, unsigned long frameRate)
-        : TimeBasedController(static_cast<unsigned long>(lround(1000.0 / frameRate))) {
+        : TimeBasedController(frameRate, FRAMES_PER_SECOND) {
     this->installation = installation;
 }
 

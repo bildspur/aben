@@ -4,7 +4,13 @@
 
 #include "TimeBasedController.h"
 
-TimeBasedController::TimeBasedController(unsigned long waitTime) {
+TimeBasedController::TimeBasedController(unsigned long time, TimeType timeType) {
+    auto waitTime = time;
+
+    // calculate fps
+    if (timeType == FRAMES_PER_SECOND)
+        waitTime = static_cast<unsigned long>(lround(1000.0 / waitTime));
+
     loopTimer = new Timer(waitTime);
 }
 

@@ -10,11 +10,17 @@
 #include "BaseController.h"
 
 class TimeBasedController : public BaseController {
+public:
+    enum TimeType {
+        MILLISECONDS,
+        FRAMES_PER_SECOND
+    };
+
 private:
     Timer *loopTimer;
 
 protected:
-    explicit TimeBasedController(unsigned long waitTime = 0);
+    explicit TimeBasedController(unsigned long time = 0, TimeType timeType = MILLISECONDS);
 
     ~TimeBasedController();
 
