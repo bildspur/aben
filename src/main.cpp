@@ -67,7 +67,7 @@ auto interactionSensor = PIRArrayInteraction(&installation, MOTION_SENSOR_PINS);
 
 // scenes
 TimeStarScene timeStarScene = TimeStarScene(&installation);
-auto sceneController = SceneController(&timeStarScene);
+auto sceneController = SceneController(&installation, &timeStarScene);
 
 // controller list
 BaseControllerPtr controllers[] = {

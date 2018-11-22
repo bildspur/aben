@@ -23,7 +23,7 @@ public:
 
     void loop() override;
 
-    const char * getName() const;
+    const char *getName() const;
 };
 
 

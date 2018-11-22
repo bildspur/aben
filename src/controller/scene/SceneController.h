@@ -7,18 +7,21 @@
 
 #include "BaseScene.h"
 
-class SceneController : public BaseController {
+class SceneController : public TimeBasedController {
 private:
+    Installation *installation;
+
     BaseScene *activeScene;
 
     bool running = true;
 
+
 public:
-    explicit SceneController(BaseScene *defaultScene);
+    explicit SceneController(Installation *installation, BaseScene *defaultScene);
 
     void setup() override;
 
-    void loop() override;
+    void timedLoop() override;
 
     BaseScene *getActiveScene() const;
 

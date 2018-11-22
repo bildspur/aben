@@ -4,18 +4,20 @@
 
 #include "SceneController.h"
 
-SceneController::SceneController(BaseScene *defaultScene) {
-    activeScene = defaultScene;
+SceneController::SceneController(Installation *installation, BaseScene *defaultScene) :
+        TimeBasedController(installation->getSettings().getAppFrameRate(), FRAMES_PER_SECOND) {
+    this->installation = installation;
+    this->activeScene = defaultScene;
 }
 
 void SceneController::setup() {
-    BaseController::setup();
+    TimeBasedController::setup();
 
     activeScene->setup();
 }
 
-void SceneController::loop() {
-    BaseController::loop();
+void SceneController::timedLoop() {
+    TimeBasedController::loop();
 
     // update scene
     if (running)
