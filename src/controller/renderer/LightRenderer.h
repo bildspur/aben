@@ -5,19 +5,22 @@
 #ifndef SILVA_LIGHTRENDERER_H
 #define SILVA_LIGHTRENDERER_H
 
+#include <controller/TimeBasedController.h>
 #include "../BaseController.h"
 #include "../../model/Installation.h"
 
-class LightRenderer : public BaseController {
+class LightRenderer : public TimeBasedController {
+private:
+
 protected:
-    explicit LightRenderer(Installation *installation);
+    explicit LightRenderer(Installation *installation, unsigned long frameRate);
 
     Installation *installation;
 
 public:
     void setup() override;
 
-    void loop() override;
+    void timedLoop() override;
 
     virtual void render(PortalPtr portal);
 

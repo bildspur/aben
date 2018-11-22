@@ -6,16 +6,17 @@
 #include "LightRenderer.h"
 #include "../../util/MathUtils.h"
 
-LightRenderer::LightRenderer(Installation *installation) {
+LightRenderer::LightRenderer(Installation *installation, unsigned long frameRate)
+        : TimeBasedController(static_cast<unsigned long>(lround(1000.0 / frameRate))) {
     this->installation = installation;
 }
 
 void LightRenderer::setup() {
-    BaseController::setup();
+    TimeBasedController::setup();
 }
 
-void LightRenderer::loop() {
-    BaseController::loop();
+void LightRenderer::timedLoop() {
+    TimeBasedController::timedLoop();
 
     for (auto i = 0; i < installation->getSize(); i++) {
         auto leaf = installation->getPortal(i);

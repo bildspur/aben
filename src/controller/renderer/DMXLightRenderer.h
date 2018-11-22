@@ -8,6 +8,8 @@
 
 #include "LightRenderer.h"
 
+#define DMX_RENDER_FRAMERATE 60
+
 #define DMX_MAX_CHANNEL 512
 
 #define DMX_MIN_VALUE 0
@@ -45,7 +47,7 @@ public:
 
     void setup() override;
 
-    void loop() override;
+    void timedLoop() override;
 
     void render(PortalPtr portal) override;
 };

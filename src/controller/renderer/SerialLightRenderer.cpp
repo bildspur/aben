@@ -6,7 +6,7 @@
 #include "SerialLightRenderer.h"
 
 SerialLightRenderer::SerialLightRenderer(Installation *installation)
-        : LightRenderer(installation) {
+        : LightRenderer(installation, SERIAL_RENDER_FRAMERATE) {
 
 }
 
@@ -16,25 +16,23 @@ void SerialLightRenderer::setup() {
     watch.start();
 }
 
-void SerialLightRenderer::loop() {
+void SerialLightRenderer::timedLoop() {
     LightRenderer::loop();
 
-    if (monitorTimer.elapsed()) {
-        String msg = "SLR;";
+    String msg = "SLR;";
 
-        for (int i = 0; i < installation->getSize(); i++) {
-            auto r = mapToGlobalBrightnessRange(installation->getPortal(i)->getLed()->getRed());
-            auto g = mapToGlobalBrightnessRange(installation->getPortal(i)->getLed()->getGreen());
-            auto b = mapToGlobalBrightnessRange(installation->getPortal(i)->getLed()->getBlue());
+    for (int i = 0; i < installation->getSize(); i++) {
+        auto r = mapToGlobalBrightnessRange(installation->getPortal(i)->getLed()->getRed());
+        auto g = mapToGlobalBrightnessRange(installation->getPortal(i)->getLed()->getGreen());
+        auto b = mapToGlobalBrightnessRange(installation->getPortal(i)->getLed()->getBlue());
 
-            msg += String(r) + " ";
-            msg += String(g) + " ";
-            msg += String(b) + ";";
-        }
-
-        msg += "\n";
-        Serial.println(msg);
+        msg += String(r) + " ";
+        msg += String(g) + " ";
+        msg += String(b) + ";";
     }
+
+    msg += "\n";
+    Serial.println(msg);
 
     if (debugTimer.elapsed()) {
         auto led = installation->getPortal(0)->getLed();

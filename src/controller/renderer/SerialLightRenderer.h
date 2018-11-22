@@ -10,11 +10,12 @@
 #include "../../util/StopWatch.h"
 #include "../../util/Timer.h"
 
+#define SERIAL_RENDER_FRAMERATE 30
+
 class SerialLightRenderer : public LightRenderer {
 private:
     StopWatch watch = StopWatch();
 
-    Timer monitorTimer = Timer(33);
     Timer debugTimer = Timer(1000);
 
 public:
@@ -22,7 +23,7 @@ public:
 
     void setup() override;
 
-    void loop() override;
+    void timedLoop() override;
 
     void render(PortalPtr portal) override;
 };

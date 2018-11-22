@@ -11,7 +11,7 @@
 #include "../driver/LXESP32DMX/LXESP32DMX.h"
 
 DMXLightRenderer::DMXLightRenderer(uint8_t txPin, uint8_t lightAddressSize, Installation *installation)
-        : LightRenderer(installation) {
+        : LightRenderer(installation, DMX_RENDER_FRAMERATE) {
     this->lightChannelSize = lightAddressSize;
     this->txPin = txPin;
 }
@@ -23,8 +23,8 @@ void DMXLightRenderer::setup() {
     ESP32DMX.startOutput(txPin);
 }
 
-void DMXLightRenderer::loop() {
-    LightRenderer::loop();
+void DMXLightRenderer::timedLoop() {
+    LightRenderer::timedLoop();
 
     // send dmx bulk
     publishBuffer();
