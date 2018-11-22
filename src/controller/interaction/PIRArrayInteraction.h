@@ -10,8 +10,6 @@
 #include <model/Installation.h>
 #include <controller/interaction/sensor/PIRMotionSensor.h>
 
-#define PIR_ARRAY_IX_FPS 60
-
 class PIRArrayInteraction : public TimeBasedController {
 private:
     typedef PIRMotionSensor *PIRMotionSensorPtr;

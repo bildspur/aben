@@ -5,13 +5,15 @@
 #ifndef TIL_APPSETTINGS_H
 #define TIL_APPSETTINGS_H
 
-#define ABEN_SETTINGS_VERSION 1002
+#define ABEN_SETTINGS_VERSION 1003
 
 struct AppSettings {
 private:
     int version = ABEN_SETTINGS_VERSION;
 
     // global render settings
+    unsigned long appFrameRate = 60L;
+
     float minBrightness = 0.0f;
 
     float maxBrightness = 1.0f;
@@ -31,6 +33,8 @@ private:
 
 public:
     int getVersion() const;
+
+    unsigned long getAppFrameRate() const;
 
     float getMinBrightness() const;
 

@@ -71,3 +71,7 @@ bool AppSettings::isGammaCorrection() const {
 void AppSettings::setGammaCorrection(bool gammaCorrection) {
     AppSettings::gammaCorrection = gammaCorrection;
 }
+
+unsigned long AppSettings::getAppFrameRate() const {
+    return appFrameRate;
+}
