@@ -18,6 +18,8 @@ private:
 
     bool activated;
 
+    unsigned long activatedTimeStamp = 0;
+
 public:
     explicit Portal(unsigned short id);
 

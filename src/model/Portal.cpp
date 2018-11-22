@@ -35,5 +35,8 @@ bool Portal::isActivated() const {
 }
 
 void Portal::setActivated(bool activated) {
+    if (activated)
+        activatedTimeStamp = millis();
+
     Portal::activated = activated;
 }
