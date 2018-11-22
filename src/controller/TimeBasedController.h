@@ -16,6 +16,8 @@ private:
 protected:
     explicit TimeBasedController(unsigned long waitTime = 0);
 
+    ~TimeBasedController();
+
 public:
     void setup() override;
 

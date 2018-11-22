@@ -23,3 +23,7 @@ void TimeBasedController::loop() {
 void TimeBasedController::timedLoop() {
 
 }
+
+TimeBasedController::~TimeBasedController() {
+    delete loopTimer;
+}
