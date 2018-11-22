@@ -11,7 +11,7 @@
 
 class TimeBasedController : public BaseController {
 private:
-    Timer loopTimer = Timer(0);
+    Timer *loopTimer;
 
 protected:
     explicit TimeBasedController(unsigned long waitTime = 0);

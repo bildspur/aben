@@ -5,7 +5,7 @@
 #include "TimeBasedController.h"
 
 TimeBasedController::TimeBasedController(unsigned long waitTime) {
-    loopTimer.setWaitTime(waitTime);
+    loopTimer = new Timer(waitTime);
 }
 
 void TimeBasedController::setup() {
@@ -16,7 +16,7 @@ void TimeBasedController::loop() {
     BaseController::loop();
 
     // loop timed loop if elapsed
-    if (loopTimer.elapsed())
+    if (loopTimer->elapsed())
         timedLoop();
 }
 
