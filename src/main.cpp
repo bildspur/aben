@@ -6,7 +6,7 @@
 
 #include "controller/BaseController.h"
 #include "model/Portal.h"
-#include "model/Installation.h"
+#include "controller/app/Installation.h"
 #include "controller/network/NetworkController.h"
 #include "controller/network/OTAController.h"
 #include "controller/network/OscController.h"
@@ -78,6 +78,7 @@ BaseControllerPtr controllers[] = {
         &interactionSensor,
         renderer,
         &sceneController,
+        &installation
 };
 
 // methods

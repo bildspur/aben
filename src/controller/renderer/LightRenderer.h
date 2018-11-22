@@ -7,7 +7,7 @@
 
 #include <controller/TimeBasedController.h>
 #include "../BaseController.h"
-#include "../../model/Installation.h"
+#include "controller/app/Installation.h"
 
 class LightRenderer : public TimeBasedController {
 private:

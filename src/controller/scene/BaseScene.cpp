@@ -15,11 +15,6 @@ void BaseScene::setup() {
 
 void BaseScene::loop() {
     BaseController::loop();
-
-    // update portals
-    for (auto i = 0; i < installation->getSize(); i++) {
-        installation->getPortal(i)->update();
-    }
 }
 
 const char *BaseScene::getName() const {

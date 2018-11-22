@@ -6,7 +6,7 @@
 #define SILVA_BASESCENE_H
 
 #include "../BaseController.h"
-#include "../../model/Installation.h"
+#include "controller/app/Installation.h"
 
 class BaseScene : public BaseController {
 private:

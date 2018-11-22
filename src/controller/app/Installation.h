@@ -3,7 +3,8 @@
 
 #include <EEPROM.h>
 #include <assert.h>
-#include "Portal.h"
+#include <controller/TimeBasedController.h>
+#include "model/Portal.h"
 #include "EEPROM.h"
 #include "AppSettings.h"
 
@@ -12,7 +13,7 @@
 
 typedef Portal *PortalPtr;
 
-class Installation {
+class Installation : public TimeBasedController {
 private:
     PortalPtr *portals;
 
@@ -22,6 +23,8 @@ private:
 
 public:
     Installation(uint16_t size, PortalPtr *portals);
+
+    void timedLoop() override;
 
     uint16_t getSize();
 

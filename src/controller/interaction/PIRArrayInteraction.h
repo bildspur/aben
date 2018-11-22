@@ -7,7 +7,7 @@
 
 
 #include <controller/BaseController.h>
-#include <model/Installation.h>
+#include <controller/app/Installation.h>
 #include <controller/interaction/sensor/PIRMotionSensor.h>
 
 class PIRArrayInteraction : public TimeBasedController {

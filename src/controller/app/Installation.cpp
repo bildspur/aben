@@ -3,9 +3,11 @@
 //
 
 #include "Installation.h"
-#include "../util/MathUtils.h"
+#include "util/MathUtils.h"
 
-Installation::Installation(uint16_t size, PortalPtr *portals) {
+Installation::Installation(uint16_t size, PortalPtr *portals) :
+        TimeBasedController(APP_FRAME_RATE, FRAMES_PER_SECOND) {
+
     this->size = size;
     this->portals = portals;
     this->settings = AppSettings();
@@ -87,4 +89,13 @@ AppSettings &Installation::getSettings() {
 
 void Installation::loadDefaultSettings() {
     settings = AppSettings();
+}
+
+void Installation::timedLoop() {
+    TimeBasedController::timedLoop();
+
+    // update portals
+    for (auto i = 0; i < getSize(); i++) {
+        getPortal(i)->update();
+    }
 }

@@ -7,12 +7,14 @@
 
 #define ABEN_SETTINGS_VERSION 1003
 
+#define APP_FRAME_RATE 60L
+
 struct AppSettings {
 private:
     int version = ABEN_SETTINGS_VERSION;
 
     // global render settings
-    unsigned long appFrameRate = 60L;
+    unsigned long appFrameRate = APP_FRAME_RATE;
 
     float minBrightness = 0.0f;
 
