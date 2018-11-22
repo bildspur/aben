@@ -20,12 +20,18 @@ private:
 
     Installation *installation;
 
+    bool running;
+
 public:
     explicit PIRArrayInteraction(Installation *installation, const uint8_t *sensorPins);
 
     void setup() override;
 
     void timedLoop() override;
+
+    bool isRunning() const;
+
+    void setRunning(bool running);
 };
 
 

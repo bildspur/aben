@@ -30,6 +30,10 @@ void PIRArrayInteraction::setup() {
 void PIRArrayInteraction::timedLoop() {
     TimeBasedController::timedLoop();
 
+    // check if is running
+    if (!running)
+        return;
+
     // update sensors and activate doors
     for (int i = 0; i < sensorCount; i++) {
         this->sensors[i]->measure();
@@ -38,4 +42,12 @@ void PIRArrayInteraction::timedLoop() {
             this->installation->getPortal(i)->setActivated(true);
         }
     }
+}
+
+bool PIRArrayInteraction::isRunning() const {
+    return running;
+}
+
+void PIRArrayInteraction::setRunning(bool running) {
+    PIRArrayInteraction::running = running;
 }
