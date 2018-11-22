@@ -21,7 +21,8 @@ private:
     Installation *installation;
 
 public:
-    explicit PIRArrayInteraction(Installation *installation, uint8_t *sensorPins, unsigned int updateFrequency = 250);
+    explicit PIRArrayInteraction(Installation *installation, const uint8_t *sensorPins,
+                                 unsigned int updateFrequency = 250);
 
     void setup() override;
 

@@ -4,7 +4,7 @@
 
 #include "PIRArrayInteraction.h"
 
-PIRArrayInteraction::PIRArrayInteraction(Installation *installation, uint8_t *sensorPins,
+PIRArrayInteraction::PIRArrayInteraction(Installation *installation, const uint8_t *sensorPins,
                                          unsigned int updateFrequency) : BaseController() {
     this->installation = installation;
     this->sensorCount = installation->getSize();

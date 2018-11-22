@@ -2,6 +2,7 @@
 #include <Wire.h>
 #include <ESPmDNS.h>
 #include <inttypes.h>
+#include <controller/interaction/PIRArrayInteraction.h>
 
 #include "controller/BaseController.h"
 #include "model/Portal.h"
@@ -20,8 +21,8 @@
 // global
 #define PORTAL_COUNT 5
 
-// motion
-const uint8_t PROGMEM MOTION_SENSOR_PINS[5] = {12, 12, 12, 12, 12};
+// motion sensor
+const uint8_t PROGMEM MOTION_SENSOR_PINS[PORTAL_COUNT] = {12, 12, 12, 12, 12};
 
 // serial
 #define BAUD_RATE 115200
@@ -62,8 +63,7 @@ LightRenderer *renderer = new DMXLightRenderer(DMX_TX_PIN, DMX_LIGHT_ADDRESS_SIZ
 LightRenderer *debugRenderer = new SerialLightRenderer(&installation);
 
 // sensors
-// todo: refactoring fix!
-//MotionSensor *motionSensor = nullptr;
+auto interactionSensor = PIRArrayInteraction(&installation, MOTION_SENSOR_PINS);
 
 // scenes
 TimeStarScene timeStarScene = TimeStarScene(&installation);
@@ -75,6 +75,7 @@ BaseControllerPtr controllers[] = {
         &ota,
         &osc,
         debugRenderer,
+        &interactionSensor,
         renderer,
         &sceneController,
 };
