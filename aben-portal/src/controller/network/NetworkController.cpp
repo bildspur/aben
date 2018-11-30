@@ -118,5 +118,5 @@ String NetworkController::getIPAddress() {
 }
 
 void NetworkController::addMDNSService(const char *service, const char *proto, uint16_t port) {
-    MDNS.addService("_osc", "_udp", port);
+    MDNS.addService(service, proto, port);
 }
