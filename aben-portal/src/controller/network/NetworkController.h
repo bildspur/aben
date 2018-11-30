@@ -5,10 +5,13 @@
 #ifndef SILVA_NETWORKCONTROLLER_H
 #define SILVA_NETWORKCONTROLLER_H
 
+#ifdef ESP32
+
 #include <WiFi.h>
-#include <WiFiClient.h>
-#include <WiFiUdp.h>
-#include <IPAddress.h>
+
+#elif defined(ESP8266)
+#include <ESP8266WiFi.h>
+#endif // ESP32
 
 #include "../BaseController.h"
 
@@ -23,15 +26,20 @@ private:
     WiFiMode_t wifiMode;
 
     void initSTA();
+
     void setupSTA();
+
     void setupAP();
+
     void setupMDNS();
+
     String getIPAddress();
 
 public:
     NetworkController(const char *deviceName, const char *ssid, const char *password, WiFiMode_t wifiMode = WIFI_AP);
 
     void setup() override;
+
     void loop() override;
 
     void printNetworkInformation();

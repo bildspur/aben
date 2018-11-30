@@ -2,7 +2,16 @@
 // Created by Florian on 27.11.17.
 //
 
+#ifdef ESP32
+
 #include <ESPmDNS.h>
+
+#elif defined(ESP8266)
+
+#include <ESP8266mDNS.h>
+
+#endif // ESP32
+
 #include "NetworkController.h"
 
 NetworkController::NetworkController(const char *deviceName, const char *ssid, const char *password,
@@ -19,17 +28,18 @@ void NetworkController::setup() {
     // disconnect first
     WiFi.disconnect(true);
 
-    if(wifiMode == WIFI_STA)
-    {
+    if (wifiMode == WIFI_STA) {
         initSTA();
         setupSTA();
-    }
-    else
-    {
+    } else {
         setupAP();
     }
 
+#ifdef ESP32
     WiFi.setHostname(deviceName);
+#elif defined(ESP8266)
+    WiFi.hostname(deviceName);
+#endif // ESP32
 
     setupMDNS();
 
@@ -40,8 +50,7 @@ void NetworkController::loop() {
     BaseController::loop();
 
     // check for connection loss
-    if (wifiMode == WIFI_STA && WiFi.status() != WL_CONNECTED)
-    {
+    if (wifiMode == WIFI_STA && WiFi.status() != WL_CONNECTED) {
         Serial.println("lost connection...");
         setup();
     }
@@ -101,8 +110,7 @@ void NetworkController::printNetworkInformation() {
 }
 
 
-String NetworkController::getIPAddress()
-{
+String NetworkController::getIPAddress() {
     if (wifiMode == WIFI_AP)
         return WiFi.softAPIP().toString();
     else

@@ -1,6 +1,14 @@
 #include <Arduino.h>
 #include <Wire.h>
+
+#ifdef ESP32
+
 #include <ESPmDNS.h>
+
+#elif defined(ESP8266)
+#include <ESP8266mDNS.h>
+#endif // ESP32
+
 #include <inttypes.h>
 #include "controller/BaseController.h"
 #include "model/Portal.h"
@@ -78,7 +86,11 @@ void setup() {
     osc.onMessageReceived(handleOsc);
 
     // add osc mdns
+#ifdef ESP32
     MDNS.addService("_osc", "_udp", OSC_IN_PORT);
+#elif defined(ESP8266)
+    MDNS.addServiceTxt("osc", "udp", "mac", WiFi.macAddress());
+#endif // ESP32
 
     Serial.println("setup finished!");
     sendRefresh();

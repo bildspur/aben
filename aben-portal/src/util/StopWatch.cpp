@@ -2,8 +2,8 @@
 // Created by Florian Bruggisser on 23.10.18.
 //
 
-#include <esp32-hal.h>
 #include "StopWatch.h"
+#include "Arduino.h"
 
 StopWatch::StopWatch() = default;
 

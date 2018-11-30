@@ -11,10 +11,7 @@ App::App() :
 }
 
 void App::loadFromEEPROM() {
-    if (!EEPROM.begin(EEPROM_SIZE)) {
-        Serial.println("failed to initialise EEPROM");
-        return;
-    }
+    EEPROM.begin(EEPROM_SIZE);
 
     // set start address
     int address = EEPROM_START_ADDRESS;
@@ -32,10 +29,7 @@ void App::loadFromEEPROM() {
 }
 
 void App::saveToEEPROM() {
-    if (!EEPROM.begin(EEPROM_SIZE)) {
-        Serial.println("failed to initialise EEPROM");
-        return;
-    }
+    EEPROM.begin(EEPROM_SIZE);
 
     // set start address
     int address = EEPROM_START_ADDRESS;

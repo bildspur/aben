@@ -4,6 +4,7 @@
 
 #include <HardwareSerial.h>
 #include "Portal.h"
+#include "Arduino.h"
 
 Portal::Portal(unsigned short id) {
     this->id = id;

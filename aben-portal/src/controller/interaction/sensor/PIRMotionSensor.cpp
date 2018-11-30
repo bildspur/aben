@@ -12,7 +12,7 @@ void PIRMotionSensor::setup() {
     MotionSensor::setup();
 
     // setup pin mode
-    pinMode(pin, INPUT_PULLDOWN);
+    pinMode(pin, INPUT);
 }
 
 void PIRMotionSensor::measure() {
