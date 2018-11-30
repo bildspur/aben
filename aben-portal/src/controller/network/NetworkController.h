@@ -45,6 +45,8 @@ public:
     void printNetworkInformation();
 
     void addMDNSService(const char *service, const char *proto, uint16_t port);
+
+    void addMDNSServiceTxt(String name, String proto, String key, String value);
 };
 
 

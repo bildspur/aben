@@ -94,8 +94,8 @@ void NetworkController::setupMDNS() {
         Serial.println("Error setting up MDNS responder!");
     }
 
-    // Add service to MDNS-SD -> does not work atm
-    //MDNS.addServiceTxt("_osc", "_udp", "mac", WiFi.macAddress());
+    // Add service to MDNS-SD
+    MDNS.addServiceTxt("_osc", "_udp", "mac", WiFi.macAddress());
 }
 
 void NetworkController::printNetworkInformation() {
@@ -119,4 +119,8 @@ String NetworkController::getIPAddress() {
 
 void NetworkController::addMDNSService(const char *service, const char *proto, uint16_t port) {
     MDNS.addService(service, proto, port);
+}
+
+void NetworkController::addMDNSServiceTxt(String name, String proto, String key, String value) {
+    MDNS.addServiceTxt(name.c_str(), proto.c_str(), key.c_str(), value.c_str());
 }
