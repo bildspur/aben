@@ -116,3 +116,7 @@ String NetworkController::getIPAddress() {
     else
         return WiFi.localIP().toString();
 }
+
+void NetworkController::addMDNSService(const char *service, const char *proto, uint16_t port) {
+    MDNS.addService("_osc", "_udp", port);
+}

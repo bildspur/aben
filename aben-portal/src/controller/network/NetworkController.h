@@ -43,6 +43,8 @@ public:
     void loop() override;
 
     void printNetworkInformation();
+
+    void addMDNSService(const char *service, const char *proto, uint16_t port);
 };
 
 
