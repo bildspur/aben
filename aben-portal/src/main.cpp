@@ -32,8 +32,9 @@
 #define OTA_PASSWORD "bildspur"
 #define OTA_PORT 8266
 
-#define OSC_OUT_PORT 9000
-#define OSC_IN_PORT 8000
+// twisted
+#define OSC_OUT_PORT 8000
+#define OSC_IN_PORT 9000
 
 // typedefs
 typedef BaseController *BaseControllerPtr;
@@ -97,14 +98,14 @@ void loop() {
 
 void handleOsc(OSCMessage &msg) {
     // global
+    /*
     msg.dispatch("/aben/brightness/min", [](OSCMessage &msg) {
 
     });
-
-    sendRefresh();
+    */
 }
 
 void sendRefresh() {
     // global
-    osc.send("/aben/portal/min", 10);
+    osc.send("/aben/portal/online", app.getSettings().getPortalId());
 }

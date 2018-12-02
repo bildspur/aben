@@ -20,7 +20,7 @@ private:
 
     float minThreshold = 30.0f;
 
-    uint8_t portalId = 0;
+    int portalId = -1;
 
 public:
     int getVersion() const;
@@ -31,9 +31,9 @@ public:
 
     void setMinThreshold(float minThreshold);
 
-    uint8_t getPortalId() const;
+    int getPortalId() const;
 
-    void setPortalId(uint8_t portalId);
+    void setPortalId(int portalId);
 };
 
 

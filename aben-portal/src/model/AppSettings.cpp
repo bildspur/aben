@@ -21,10 +21,10 @@ void AppSettings::setMinThreshold(float minThreshold) {
     AppSettings::minThreshold = minThreshold;
 }
 
-uint8_t AppSettings::getPortalId() const {
+int AppSettings::getPortalId() const {
     return portalId;
 }
 
-void AppSettings::setPortalId(uint8_t portalId) {
+void AppSettings::setPortalId(int portalId) {
     AppSettings::portalId = portalId;
 }
