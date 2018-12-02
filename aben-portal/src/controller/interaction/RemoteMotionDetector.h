@@ -21,6 +21,8 @@ private:
 
     OscController *osc;
 
+    bool pinState = false;
+
 public:
     RemoteMotionDetector(App *app, OscController *osc, uint8_t triggerPin, uint8_t echoPin);
 

@@ -28,8 +28,8 @@ void HCSR04MotionSensor::measure() {
 
     Serial.printf("Distance: %f\n", distanceCM);
 
-    if (distanceCM > 0.0 && distanceCM >= minThreshold) {
-        this->motionDetected = true;
+    if (distanceCM > 0.0 && distanceCM <= minThreshold) {
+        motionDetected = true;
     }
 }
 

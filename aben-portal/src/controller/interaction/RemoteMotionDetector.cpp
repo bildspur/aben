@@ -22,9 +22,12 @@ void RemoteMotionDetector::timedLoop() {
     TimeBasedController::loop();
 
     sensor->measure();
+    auto motionDetected = sensor->isMotionDetected(true);
 
-    if (sensor->isMotionDetected(true)) {
-        Serial.println("portal is active");
+    if (motionDetected && !pinState) {
+        Serial.println("portal has been activated!");
         osc->send("/aben/portal/active", app->getSettings().getPortalId());
+    } else if (!motionDetected && pinState) {
+        pinState = false;
     }
 }
