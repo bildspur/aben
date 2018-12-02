@@ -26,8 +26,6 @@ void HCSR04MotionSensor::measure() {
 
     auto distanceCM = (pingTime / 2.0f) * sonic / 10000.0f;
 
-    Serial.printf("Distance: %f\n", distanceCM);
-
     if (distanceCM > 0.0 && distanceCM <= minThreshold) {
         motionDetected = true;
     }
