@@ -34,6 +34,7 @@ typedef BaseController *BaseControllerPtr;
 typedef Portal *PortalPtr;
 
 // variables
+auto portal = new Portal(0);
 auto app = App();
 
 // controllers

@@ -40,7 +40,7 @@ const uint8_t PROGMEM MOTION_SENSOR_PINS[PORTAL_COUNT] = {12, 12, 12, 12, 12};
 #define OSC_IN_PORT 8000
 
 // dmx
-#define DMX_TX_PIN 2
+#define DMX_TX_PIN 25
 #define DMX_LIGHT_ADDRESS_SIZE 4
 
 // typedefs

@@ -134,7 +134,7 @@ void renderLights()
 
   for (Portal portal : portals)
   {
-    noStroke();
+    stroke(255);
     fill(portal.rgb);
 
     pushMatrix();
