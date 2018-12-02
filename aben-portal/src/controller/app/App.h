@@ -4,14 +4,11 @@
 #include <EEPROM.h>
 #include <assert.h>
 #include <controller/TimeBasedController.h>
-#include "model/Portal.h"
 #include "EEPROM.h"
 #include "model/AppSettings.h"
 
 #define EEPROM_SIZE 0xFF
 #define EEPROM_START_ADDRESS 0x00
-
-typedef Portal *PortalPtr;
 
 class App : public TimeBasedController {
 private:

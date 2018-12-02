@@ -4,7 +4,6 @@
 
 #include <Arduino.h>
 #include "MathUtils.h"
-#include "../model/Portal.h"
 
 MathUtils::MathUtils() = default;
 

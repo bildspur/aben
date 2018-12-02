@@ -1,8 +1,8 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <inttypes.h>
+#include <controller/interaction/RemoteMotionDetector.h>
 #include "controller/BaseController.h"
-#include "model/Portal.h"
 #include "controller/app/App.h"
 #include "controller/network/NetworkController.h"
 #include "controller/network/OTAController.h"
@@ -11,8 +11,14 @@
 
 // global
 
+// id rotatry
+#define ID_0BIT_PIN D3
+#define ID_2BIT_PIN D2
+#define ID_4BIT_PIN D1
+
 // motion sensor
-#define MOTION_SENSOR_PIN 5
+#define MOTION_TRIGGER_PIN D6
+#define MOTION_ECHO_PIN D7
 
 // serial
 #define BAUD_RATE 115200
@@ -31,10 +37,6 @@
 
 // typedefs
 typedef BaseController *BaseControllerPtr;
-typedef Portal *PortalPtr;
-
-// variables
-auto portal = new Portal(0);
 auto app = App();
 
 // controllers
@@ -43,13 +45,15 @@ auto ota = OTAController(DEVICE_NAME, OTA_PASSWORD, OTA_PORT);
 auto osc = OscController(OSC_IN_PORT, OSC_OUT_PORT);
 
 // sensors
+auto motionSensor = RemoteMotionDetector(&app, &osc, MOTION_TRIGGER_PIN, MOTION_ECHO_PIN);
 
 // controller list
 BaseControllerPtr controllers[] = {
         &network,
         &ota,
         &osc,
-        &app
+        &app,
+        &motionSensor
 };
 
 // methods

@@ -5,6 +5,8 @@
 #ifndef TIL_APPSETTINGS_H
 #define TIL_APPSETTINGS_H
 
+#include <cstdint>
+
 #define ABEN_SETTINGS_VERSION 1001
 
 #define APP_FRAME_RATE 60L
@@ -18,6 +20,8 @@ private:
 
     float minThreshold = 30.0f;
 
+    uint8_t portalId = 0;
+
 public:
     int getVersion() const;
 
@@ -26,6 +30,10 @@ public:
     float getMinThreshold() const;
 
     void setMinThreshold(float minThreshold);
+
+    uint8_t getPortalId() const;
+
+    void setPortalId(uint8_t portalId);
 };
 
 
