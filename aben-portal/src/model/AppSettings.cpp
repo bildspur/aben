@@ -12,3 +12,11 @@ int AppSettings::getVersion() const {
 unsigned long AppSettings::getAppFrameRate() const {
     return appFrameRate;
 }
+
+float AppSettings::getMinThreshold() const {
+    return minThreshold;
+}
+
+void AppSettings::setMinThreshold(float minThreshold) {
+    AppSettings::minThreshold = minThreshold;
+}

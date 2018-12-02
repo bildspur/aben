@@ -16,10 +16,16 @@ private:
     // global render settings
     unsigned long appFrameRate = APP_FRAME_RATE;
 
+    float minThreshold = 30.0f;
+
 public:
     int getVersion() const;
 
     unsigned long getAppFrameRate() const;
+
+    float getMinThreshold() const;
+
+    void setMinThreshold(float minThreshold);
 };
 
 
