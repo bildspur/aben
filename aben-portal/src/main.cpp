@@ -2,6 +2,7 @@
 #include <Wire.h>
 #include <inttypes.h>
 #include <controller/interaction/RemoteMotionDetector.h>
+#include <util/PinReader.h>
 #include "controller/BaseController.h"
 #include "controller/app/App.h"
 #include "controller/network/NetworkController.h"
@@ -66,13 +67,18 @@ void setup() {
     Serial.begin(BAUD_RATE);
 
     // wait some seconds for debugging
-    delay(1000);
+    delay(5000);
 
     // setup random seed
     randomSeed(static_cast<unsigned long>(analogRead(0)));
 
     // load settings
     app.loadFromEEPROM();
+
+    // read id from pins
+    auto portalId = PinReader::read3BitEncoder(ID_0BIT_PIN, ID_2BIT_PIN, ID_4BIT_PIN);
+    Serial.printf("Portal Id: %d\n", portalId);
+    app.getSettings().setPortalId(portalId);
 
     // setup controllers
     for (auto &controller : controllers) {
