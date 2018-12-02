@@ -21,9 +21,6 @@
 // global
 #define PORTAL_COUNT 5
 
-// motion sensor
-const uint8_t PROGMEM MOTION_SENSOR_PINS[PORTAL_COUNT] = {12, 12, 12, 12, 12};
-
 // serial
 #define BAUD_RATE 115200
 
@@ -62,9 +59,6 @@ auto osc = OscController(OSC_IN_PORT, OSC_OUT_PORT);
 LightRenderer *renderer = new DMXLightRenderer(DMX_TX_PIN, DMX_LIGHT_ADDRESS_SIZE, &installation);
 LightRenderer *debugRenderer = new SerialLightRenderer(&installation);
 
-// sensors
-auto interactionSensor = PIRArrayInteraction(&installation, MOTION_SENSOR_PINS);
-
 // scenes
 TimeStarScene timeStarScene = TimeStarScene(&installation);
 auto sceneController = SceneController(&installation, &timeStarScene);
@@ -75,7 +69,6 @@ BaseControllerPtr controllers[] = {
         &ota,
         &osc,
         debugRenderer,
-        &interactionSensor,
         renderer,
         &sceneController,
         &installation
@@ -92,7 +85,7 @@ void setup() {
     Serial.begin(BAUD_RATE);
 
     // wait some seconds for debugging
-    delay(1000);
+    delay(5000);
 
     // setup random seed
     randomSeed(static_cast<unsigned long>(analogRead(0)));
