@@ -17,24 +17,27 @@ void AbenSceneController::setup() {
 
 void AbenSceneController::timedLoop() {
     SceneController::loop();
-
     selectRelevantScene();
 }
 
 void AbenSceneController::selectRelevantScene() {
+    bool allActivated = areAllPortalsActivated();
+
     // switch to show scene
-    if (areAllPortalsActivated() && getActiveScene() != showScene) {
-        changeScene(showScene);
+    if (allActivated && getActiveScene() != showScene) {
+        setActiveScene(showScene);
+        Serial.println("switched to show scene!");
     }
 
-    if (!areAllPortalsActivated() || showScene->isFinished()) {
-        changeScene(portalScene);
+    if (!allActivated || showScene->isFinished()) {
+        setActiveScene(portalScene);
+        Serial.println("switched to portal scene!");
     }
 }
 
 bool AbenSceneController::areAllPortalsActivated() {
-    auto allActivated = true;
-    for (int i = 0; i < installation->getSize(); i++) {
+    bool allActivated = true;
+    for (uint8_t i = 0; i < installation->getSize(); i++) {
         if (!installation->getPortal(i)->isActivated())
             allActivated = false;
     }

@@ -8,13 +8,12 @@
 #include "BaseScene.h"
 
 class SceneController : public TimeBasedController {
-private:
+protected:
     Installation *installation;
 
     BaseScene *activeScene;
 
     bool running = true;
-
 
 public:
     explicit SceneController(Installation *installation, BaseScene *defaultScene);

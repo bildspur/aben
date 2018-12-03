@@ -10,8 +10,6 @@
 
 class AbenSceneController : public SceneController {
 private:
-    Installation *installation;
-
     BaseScene *portalScene;
 
     BaseScene *showScene;
