@@ -83,9 +83,9 @@ void NetworkController::setupSTA() {
         }
 
         StatusLed::turnOff();
-        delay(300);
+        delay(150);
         StatusLed::turnOn();
-        delay(300);
+        delay(150);
         StatusLed::turnOff();
     }
 

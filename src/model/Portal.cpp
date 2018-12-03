@@ -40,3 +40,7 @@ void Portal::setActivated(bool activated) {
 
     Portal::activated = activated;
 }
+
+void Portal::onlineStateReceived() {
+    onlineTimeStamp = millis();
+}

@@ -26,7 +26,7 @@
 #define BAUD_RATE 115200
 
 // network
-#define DEVICE_NAME "aben-master"
+#define DEVICE_NAME String("aben-portal-" + FIX_PORTAL_ID)
 
 #define SSID_NAME "aben"
 #define SSID_PASSWORD "ABENbildspur"
@@ -45,8 +45,8 @@ typedef BaseController *BaseControllerPtr;
 auto app = App();
 
 // controllers
-auto network = NetworkController(DEVICE_NAME, SSID_NAME, SSID_PASSWORD, WIFI_STA);
-auto ota = OTAController(DEVICE_NAME, OTA_PASSWORD, OTA_PORT);
+auto network = NetworkController(DEVICE_NAME.c_str(), SSID_NAME, SSID_PASSWORD, WIFI_STA);
+auto ota = OTAController(DEVICE_NAME.c_str(), OTA_PASSWORD, OTA_PORT);
 auto osc = OscController(OSC_IN_PORT, OSC_OUT_PORT);
 auto heartBeat = HeartBeat(HEARTBEAT_TIME);
 

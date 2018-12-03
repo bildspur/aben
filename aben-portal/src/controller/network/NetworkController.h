@@ -17,7 +17,7 @@
 
 #include "../BaseController.h"
 
-#define STA_MAX_DELAYS 20
+#define STA_MAX_DELAYS 50
 
 class NetworkController : public BaseController {
 private:

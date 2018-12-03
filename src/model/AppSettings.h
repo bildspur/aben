@@ -33,6 +33,8 @@ private:
 
     float timeStarMaxBrightness = 1.0f;
 
+    float portalMinTreshold = 30.0;
+
 public:
     int getVersion() const;
 
@@ -69,6 +71,10 @@ public:
     float getTimeStarMaxBrightness() const;
 
     void setTimeStarMaxBrightness(float timeStarMaxBrightness);
+
+    float getPortalMinTreshold() const;
+
+    void setPortalMinTreshold(float portalMinTreshold);
 };
 
 

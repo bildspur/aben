@@ -75,3 +75,11 @@ void AppSettings::setGammaCorrection(bool gammaCorrection) {
 unsigned long AppSettings::getAppFrameRate() const {
     return appFrameRate;
 }
+
+float AppSettings::getPortalMinTreshold() const {
+    return portalMinTreshold;
+}
+
+void AppSettings::setPortalMinTreshold(float portalMinTreshold) {
+    AppSettings::portalMinTreshold = portalMinTreshold;
+}

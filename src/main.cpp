@@ -143,10 +143,6 @@ void handleOsc(OSCMessage &msg) {
         sceneController.setRunning(!sceneController.isRunning());
     });
 
-    msg.dispatch("/aben/sensor/on", [](OSCMessage &msg) {
-        //motionSensor->setRunning(!motionSensor->isRunning());
-    });
-
     // time star
     msg.dispatch("/aben/timestar/brightness/min", [](OSCMessage &msg) {
         installation.getSettings().setTimeStarMinBrightness(msg.getFloat(0));
@@ -192,12 +188,36 @@ void handleOsc(OSCMessage &msg) {
 
     msg.dispatch("/aben/settings/save", [](OSCMessage &msg) {
         installation.saveToEEPROM();
+        osc.send("/aben/portal/save", 0);
         osc.send("/aben/status", "Status: saved");
     });
 
     msg.dispatch("/aben/settings/default", [](OSCMessage &msg) {
         installation.loadDefaultSettings();
+
+        // send portal values
+        osc.send("/aben/portal/threshold", installation.getSettings().getPortalMinTreshold());
+
+        // send back update info
         osc.send("/aben/status", "Status: default");
+    });
+
+    // portal settings
+    msg.dispatch("/aben/portal/threshold", [](OSCMessage &msg) {
+        installation.getSettings().setPortalMinTreshold(msg.getFloat(0));
+    });
+
+    // portal
+    msg.dispatch("/aben/portal/online", [](OSCMessage &msg) {
+        auto id = msg.getInt(0);
+        installation.getPortal(id)->onlineStateReceived();
+        Serial.printf("portal %d is online!\n", id);
+    });
+
+    msg.dispatch("/aben/portal/active", [](OSCMessage &msg) {
+        auto id = msg.getInt(0);
+        installation.getPortal(id)->setActivated(true);
+        Serial.printf("portal %d activated!\n", id);
     });
 
     sendRefresh();
@@ -211,7 +231,6 @@ void sendRefresh() {
     osc.send("/aben/gamma/on", installation.getSettings().isGammaCorrection());
     osc.send("/aben/scenemanager/on", sceneController.isRunning());
 
-    //osc.send("/aben/sensor/on", motionSensor->isRunning());
     osc.send("/aben/version", installation.getSettings().getVersion());
 
     // time star
@@ -222,4 +241,7 @@ void sendRefresh() {
              static_cast<float>(MathUtils::millisToSeconds(installation.getSettings().getTimeStarMinDuration())));
     osc.send("/aben/timestar/duration/max",
              static_cast<float>(MathUtils::millisToSeconds(installation.getSettings().getTimeStarMaxDuration())));
+
+    // portal
+    osc.send("/aben/portal/threshold", installation.getSettings().getPortalMinTreshold());
 }

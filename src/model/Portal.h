@@ -20,6 +20,8 @@ private:
 
     unsigned long activatedTimeStamp = 0;
 
+    unsigned long onlineTimeStamp = 0;
+
 public:
     explicit Portal(unsigned short id);
 
@@ -36,6 +38,8 @@ public:
     bool isActivated() const;
 
     void setActivated(bool activated);
+
+    void onlineStateReceived();
 };
 
 
