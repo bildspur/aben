@@ -11,11 +11,7 @@
 
 class PortalScene : public BaseScene {
 private:
-    typedef TimeStar *TimeStarPtr;
-
-    uint16_t starCount;
-
-    TimeStarPtr *stars;
+    float getPortalBrightness(PortalPtr portal, unsigned long timeStamp, float blinkTime);
 
 public:
     explicit PortalScene(Installation *installation);
@@ -23,8 +19,6 @@ public:
     void setup() override;
 
     void loop() override;
-
-    void resetStar(int id);
 };
 
 

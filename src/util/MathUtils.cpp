@@ -21,8 +21,7 @@ float MathUtils::windowedSine(float x) {
     if (x < 0.0f || x > 1.0f)
         return 0.0f;
 
-    // calculate sine
-    return static_cast<float>(0.5 * (1 + sin(2 * PI * x - (PI / 2))));
+    return absSine(x);
 }
 
 bool MathUtils::isRandomCalled(float factor) {
@@ -39,4 +38,9 @@ unsigned long MathUtils::millisToSeconds(unsigned long millis) {
 
 unsigned long MathUtils::secondsToMillis(unsigned long seconds) {
     return seconds * 1000;
+}
+
+float MathUtils::absSine(float x, float phaseShift) {
+    // calculate sine
+    return static_cast<float>(0.5 * (1 + sin(2 * PI * x + phaseShift)));
 }

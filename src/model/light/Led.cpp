@@ -13,10 +13,10 @@ Led::Led(float easingSpeed) {
 }
 
 void Led::setBrightness(float value, bool easing) {
-    if (easing)
-        brightness.setTarget(value);
-    else
+    if (!easing)
         brightness.set(value);
+
+    brightness.setTarget(value);
 }
 
 float Led::getBrightness() {

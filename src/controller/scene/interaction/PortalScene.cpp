@@ -9,18 +9,8 @@ PortalScene::PortalScene(Installation *installation) : BaseScene(
         "PortalScene", installation) {
 }
 
-
 void PortalScene::setup() {
     BaseScene::setup();
-
-    // setup stars
-    this->starCount = installation->getSize();
-    this->stars = new TimeStarPtr[starCount];
-
-    // init stars
-    for (auto i = 0; i < starCount; i++) {
-        stars[i] = new TimeStar();
-    }
 }
 
 void PortalScene::loop() {
@@ -28,40 +18,30 @@ void PortalScene::loop() {
 
     auto timeStamp = millis();
 
-    // rnd stars
-    for (auto i = 0; i < starCount; i++) {
-        auto star = stars[i];
-        if (!star->isRunning(timeStamp)) {
-            star->start(timeStamp, installation->getSettings().getTimeStarMaxDuration());
-        }
+    for (auto i = 0; i < installation->getSize(); i++) {
+        auto portal = installation->getPortal(i);
 
-        // update
-        float brightness = star->getBrightness(timeStamp);
+        auto brightness = getPortalBrightness(portal, timeStamp,
+                                              installation->getSettings().getTimeStarMinDuration());
         float clampedBrightness = MathUtils::mapFromLEDBrightness(brightness,
                                                                   installation->getSettings().getTimeStarMinBrightness(),
                                                                   installation->getSettings().getTimeStarMaxBrightness());
 
-        // check portal state
-        auto portal = installation->getPortal(i);
-
-        if (portal->isActivated()) {
-            // todo: check activation time if needed
-
-            // is activated
-            portal->getLed()->setHSV(
-                    HSVColor(installation->getSettings().getDefaultHue(),
-                             installation->getSettings().getDefaultSaturation(),
-                             clampedBrightness));
-        } else {
-            // not activated
-            portal->getLed()->setHSV(
-                    HSVColor(installation->getSettings().getDefaultHue(),
-                             installation->getSettings().getDefaultSaturation(),
-                             installation->getSettings().getTimeStarMaxBrightness()));
-        }
+        // update hsv color
+        portal->getLed()->setHSV(
+                HSVColor(installation->getSettings().getDefaultHue(),
+                         installation->getSettings().getDefaultSaturation(),
+                         clampedBrightness
+                )
+        );
     }
 }
 
-void PortalScene::resetStar(int id) {
-    stars[id]->reset();
+float PortalScene::getPortalBrightness(PortalPtr portal, unsigned long timeStamp, float blinkTime) {
+    if (!portal->isActivated())
+        return LED_MAX_BRIGHTNESS;
+
+    // portal is activated
+    auto nvalue = (timeStamp - portal->getActivatedTimeStamp()) / blinkTime;
+    return MathUtils::absSine(nvalue, static_cast<float>(PI));
 }

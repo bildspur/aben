@@ -5,6 +5,7 @@
 #ifndef SILVA_FLOATUTIL_H
 #define SILVA_FLOATUTIL_H
 
+#include <Arduino.h>
 
 class MathUtils {
 protected:
@@ -16,6 +17,8 @@ public:
     static float limit(float value, float min, float max);
 
     static float windowedSine(float x);
+
+    static float absSine(float x, float phaseShift = PI * -0.5);
 
     static bool isRandomCalled(float factor);
 

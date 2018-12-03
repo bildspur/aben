@@ -54,3 +54,11 @@ void Portal::updateActivation(unsigned long activationTime) {
     if (millis() - activatedTimeStamp >= activationTime && isActivated())
         setActivated(false);
 }
+
+unsigned long Portal::getActivatedTimeStamp() const {
+    return activatedTimeStamp;
+}
+
+long Portal::getOnlineTimeStamp() const {
+    return onlineTimeStamp;
+}

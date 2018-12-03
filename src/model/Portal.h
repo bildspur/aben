@@ -45,6 +45,10 @@ public:
     bool isOnline(unsigned long maxTimeSinceUpdate = 15000);
 
     void updateActivation(unsigned long activationTime);
+
+    unsigned long getActivatedTimeStamp() const;
+
+    long getOnlineTimeStamp() const;
 };
 
 
