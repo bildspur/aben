@@ -207,6 +207,13 @@ void handleOsc(OSCMessage &msg) {
         installation.getSettings().setPortalMinTreshold(msg.getFloat(0));
     });
 
+    msg.dispatch("/aben/portal/debug/activate", [](OSCMessage &msg) {
+        int id = static_cast<int>(msg.getFloat(0));
+        Serial.printf("portal %d actived by debug console\n", id);
+        installation.getPortal(id)->setActivated(true);
+    });
+
+
     // portal
     msg.dispatch("/aben/portal/online", [](OSCMessage &msg) {
         auto id = msg.getInt(0);
@@ -214,7 +221,7 @@ void handleOsc(OSCMessage &msg) {
         Serial.printf("portal %d is online!\n", id);
     });
 
-    msg.dispatch("/aben/portal/active", [](OSCMessage &msg) {
+    msg.dispatch("/aben/portal/activated", [](OSCMessage &msg) {
         auto id = msg.getInt(0);
         installation.getPortal(id)->setActivated(true);
         Serial.printf("portal %d activated!\n", id);
@@ -244,4 +251,13 @@ void sendRefresh() {
 
     // portal
     osc.send("/aben/portal/threshold", installation.getSettings().getPortalMinTreshold());
+
+    // send portal updates
+    for (auto i = 0; i < installation.getSize(); i++) {
+        auto portal = installation.getPortal(i);
+        auto portalAddress = String("/aben/portal/") + String(portal->getId()) + String("/").c_str();
+
+        osc.send((String(portalAddress.c_str()) + "online").c_str(), portal->isOnline());
+        osc.send((String(portalAddress.c_str()) + "activated").c_str(), portal->isActivated());
+    }
 }

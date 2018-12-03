@@ -16,11 +16,11 @@ private:
 
     RGBLedPtr led;
 
-    bool activated;
+    bool activated = false;
 
     unsigned long activatedTimeStamp = 0;
 
-    unsigned long onlineTimeStamp = 0;
+    unsigned long onlineTimeStamp = 100000;
 
 public:
     explicit Portal(unsigned short id);
@@ -40,6 +40,8 @@ public:
     void setActivated(bool activated);
 
     void onlineStateReceived();
+
+    bool isOnline(unsigned long maxTimeSinceUpdate = 30000);
 };
 
 

@@ -31,7 +31,7 @@ void RemoteMotionDetector::timedLoop() {
 
     if (motionDetected && !pinState) {
         Serial.println("portal has been activated!");
-        osc->send("/aben/portal/active", app->getSettings().getPortalId());
+        osc->send("/aben/portal/activated", app->getSettings().getPortalId());
         pinState = true;
         digitalWrite(LED_BUILTIN, LOW);
     } else if (!motionDetected && pinState) {

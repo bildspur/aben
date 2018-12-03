@@ -122,8 +122,8 @@ void handleOsc(OSCMessage &msg) {
     msg.dispatch("/aben/portal/settings", [](OSCMessage &msg) {
         auto portalAddress = String("/aben/portal/") + String(app.getSettings().getPortalId()) + String("/");
 
-        osc.send((portalAddress + "version").c_str(), app.getSettings().getVersion());
-        osc.send((portalAddress + "threshold").c_str(), app.getSettings().getMinThreshold());
+        osc.send((String(portalAddress.c_str()) + "version").c_str(), app.getSettings().getVersion());
+        osc.send((String(portalAddress.c_str()) + "threshold").c_str(), app.getSettings().getMinThreshold());
     });
 }
 

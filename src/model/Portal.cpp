@@ -44,3 +44,7 @@ void Portal::setActivated(bool activated) {
 void Portal::onlineStateReceived() {
     onlineTimeStamp = millis();
 }
+
+bool Portal::isOnline(unsigned long maxTimeSinceUpdate) {
+    return (millis() - onlineTimeStamp) <= maxTimeSinceUpdate;
+}
