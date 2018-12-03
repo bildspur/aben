@@ -4,6 +4,8 @@
 #include <inttypes.h>
 #include <controller/interaction/PIRArrayInteraction.h>
 #include <controller/scene/interaction/PortalScene.h>
+#include <controller/scene/AbenSceneController.h>
+#include <controller/scene/show/ShowScene.h>
 
 #include "controller/BaseController.h"
 #include "model/Portal.h"
@@ -62,7 +64,8 @@ LightRenderer *debugRenderer = new SerialLightRenderer(&installation);
 
 // scenes
 PortalScene portalScene = PortalScene(&installation);
-auto sceneController = SceneController(&installation, &portalScene);
+ShowScene showScene = ShowScene(&installation);
+auto sceneController = AbenSceneController(&installation, &portalScene, &showScene);
 
 // controller list
 BaseControllerPtr controllers[] = {
@@ -80,8 +83,6 @@ bool sendOSCFeedback = false;
 
 // methods
 void handleOsc(OSCMessage &msg);
-
-void changeScene(BaseScene *scene);
 
 void sendRefresh();
 
@@ -120,13 +121,6 @@ void loop() {
     for (auto &controller : controllers) {
         controller->loop();
     }
-}
-
-void changeScene(BaseScene *scene) {
-    sceneController.setActiveScene(scene);
-
-    // setup scene
-    sceneController.getActiveScene()->setup();
 }
 
 void handleOsc(OSCMessage &msg) {

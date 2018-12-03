@@ -23,13 +23,15 @@ public:
 
     void timedLoop() override;
 
-    BaseScene *getActiveScene() const;
+    virtual BaseScene *getActiveScene() const;
 
-    void setActiveScene(BaseScene *activeScene);
+    virtual void setActiveScene(BaseScene *activeScene);
 
-    bool isRunning() const;
+    virtual bool isRunning() const;
 
-    void setRunning(bool running);
+    virtual void setRunning(bool running);
+
+    virtual void changeScene(BaseScene *scene);
 };
 
 #endif //SILVA_SCENECONTROLLER_H

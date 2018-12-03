@@ -11,6 +11,7 @@ BaseScene::BaseScene(const char *name, Installation *installation) {
 
 void BaseScene::setup() {
     BaseController::setup();
+    this->finished = false;
 }
 
 void BaseScene::loop() {
@@ -19,4 +20,12 @@ void BaseScene::loop() {
 
 const char *BaseScene::getName() const {
     return name;
+}
+
+bool BaseScene::isFinished() const {
+    return finished;
+}
+
+void BaseScene::setFinished(bool finished) {
+    BaseScene::finished = finished;
 }

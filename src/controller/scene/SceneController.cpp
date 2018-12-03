@@ -39,3 +39,10 @@ bool SceneController::isRunning() const {
 void SceneController::setRunning(bool running) {
     SceneController::running = running;
 }
+
+void SceneController::changeScene(BaseScene *scene) {
+    setActiveScene(scene);
+
+    // setup scene
+    getActiveScene()->setup();
+}

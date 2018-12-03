@@ -18,12 +18,18 @@ protected:
 
     const char *name;
 
+    bool finished = false;
+
 public:
     void setup() override;
 
     void loop() override;
 
     const char *getName() const;
+
+    bool isFinished() const;
+
+    void setFinished(bool finished);
 };
 
 
