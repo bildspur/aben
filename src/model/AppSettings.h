@@ -5,7 +5,7 @@
 #ifndef TIL_APPSETTINGS_H
 #define TIL_APPSETTINGS_H
 
-#define ABEN_SETTINGS_VERSION 1003
+#define ABEN_SETTINGS_VERSION 1004
 
 #define APP_FRAME_RATE 60L
 
@@ -34,6 +34,15 @@ private:
     float timeStarMaxBrightness = 1.0f;
 
     float portalMinTreshold = 30.0;
+
+    // colors
+    float defaultHue = 200.0;
+
+    float defaultSaturation = 0.8f;
+
+    // installation
+    unsigned long portalActivationTime = 10000L;
+
 
 public:
     int getVersion() const;
@@ -75,6 +84,20 @@ public:
     float getPortalMinTreshold() const;
 
     void setPortalMinTreshold(float portalMinTreshold);
+
+    float getDefaultHue() const;
+
+    void setDefaultHue(float defaultHue);
+
+    float getDefaultSaturation() const;
+
+    void setDefaultSaturation(float defaultSaturation);
+
+    unsigned long getPortalActivationTime() const;
+
+    void setPortalActivationTime(unsigned long doorActivationTime);
+
+
 };
 
 

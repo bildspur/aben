@@ -38,13 +38,19 @@ void Installation::initPortals() {
 
 void Installation::turnOn() {
     for (auto i = 0; i < size; i++) {
-        portals[i]->turnOn();
+        portals[i]->getLed()->setHSV(
+                HSVColor(settings.getDefaultHue(),
+                         settings.getDefaultSaturation(),
+                         1.0f));
     }
 }
 
 void Installation::turnOff() {
     for (auto i = 0; i < size; i++) {
-        portals[i]->turnOff();
+        portals[i]->getLed()->setHSV(
+                HSVColor(settings.getDefaultHue(),
+                         settings.getDefaultSaturation(),
+                         0.0f));
     }
 }
 

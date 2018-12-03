@@ -131,6 +131,24 @@ void changeScene(BaseScene *scene) {
 void handleOsc(OSCMessage &msg) {
     sendOSCFeedback = false;
 
+    // color
+    msg.dispatch("/aben/color/hue", [](OSCMessage &msg) {
+        installation.getSettings().setDefaultHue(msg.getFloat(0));
+        sendOSCFeedback = true;
+    });
+
+    msg.dispatch("/aben/color/saturation", [](OSCMessage &msg) {
+        installation.getSettings().setDefaultSaturation(msg.getFloat(0));
+        sendOSCFeedback = true;
+    });
+
+    // installation
+    msg.dispatch("/aben/activationtime", [](OSCMessage &msg) {
+        installation.getSettings().setPortalActivationTime(
+                MathUtils::secondsToMillis(static_cast<unsigned long>(msg.getFloat(0))));
+        sendOSCFeedback = true;
+    });
+
     // global
     msg.dispatch("/aben/brightness/min", [](OSCMessage &msg) {
         installation.getSettings().setMinBrightness(msg.getFloat(0));
@@ -233,7 +251,6 @@ void handleOsc(OSCMessage &msg) {
         sendOSCFeedback = true;
     });
 
-
     // portal
     msg.dispatch("/aben/portal/online", [](OSCMessage &msg) {
         auto id = msg.getInt(0);
@@ -261,6 +278,14 @@ void sendRefresh() {
     osc.send("/aben/scenemanager/on", sceneController.isRunning());
 
     osc.send("/aben/version", installation.getSettings().getVersion());
+
+    // installation
+    osc.send("/aben/activationtime",
+             static_cast<float>(MathUtils::millisToSeconds(installation.getSettings().getPortalActivationTime())));
+
+    // colors
+    osc.send("/aben/color/hue", installation.getSettings().getDefaultHue());
+    osc.send("/aben/color/saturation", installation.getSettings().getDefaultSaturation());
 
     // time star
     osc.send("/aben/timestar/brightness/min", installation.getSettings().getTimeStarMinBrightness());

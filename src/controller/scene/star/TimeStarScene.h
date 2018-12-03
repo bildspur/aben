@@ -17,9 +17,6 @@ private:
 
     TimeStarPtr *stars;
 
-    float defaultHue = 200.0;
-    float defaultSaturation = 0.8f;
-
 public:
     explicit TimeStarScene(Installation *installation);
 

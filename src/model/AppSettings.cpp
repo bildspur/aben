@@ -83,3 +83,27 @@ float AppSettings::getPortalMinTreshold() const {
 void AppSettings::setPortalMinTreshold(float portalMinTreshold) {
     AppSettings::portalMinTreshold = portalMinTreshold;
 }
+
+float AppSettings::getDefaultHue() const {
+    return defaultHue;
+}
+
+void AppSettings::setDefaultHue(float defaultHue) {
+    AppSettings::defaultHue = defaultHue;
+}
+
+float AppSettings::getDefaultSaturation() const {
+    return defaultSaturation;
+}
+
+void AppSettings::setDefaultSaturation(float defaultSaturation) {
+    AppSettings::defaultSaturation = defaultSaturation;
+}
+
+unsigned long AppSettings::getPortalActivationTime() const {
+    return portalActivationTime;
+}
+
+void AppSettings::setPortalActivationTime(unsigned long doorActivationTime) {
+    AppSettings::portalActivationTime = doorActivationTime;
+}
