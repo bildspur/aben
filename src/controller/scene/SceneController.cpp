@@ -44,5 +44,5 @@ void SceneController::changeScene(BaseScene *scene) {
     setActiveScene(scene);
 
     // setup scene
-    getActiveScene()->setup();
+    getActiveScene()->reset();
 }

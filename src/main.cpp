@@ -63,8 +63,8 @@ LightRenderer *renderer = new DMXLightRenderer(DMX_TX_PIN, DMX_LIGHT_ADDRESS_SIZ
 LightRenderer *debugRenderer = new SerialLightRenderer(&installation);
 
 // scenes
-PortalScene portalScene = PortalScene(&installation);
-ShowScene showScene = ShowScene(&installation);
+auto portalScene = PortalScene(&installation);
+auto showScene = ShowScene(&installation);
 auto sceneController = AbenSceneController(&installation, &portalScene, &showScene);
 
 // controller list

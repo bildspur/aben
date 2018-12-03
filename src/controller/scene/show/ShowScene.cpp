@@ -11,7 +11,6 @@ ShowScene::ShowScene(Installation *installation) : BaseScene(
 
 void ShowScene::setup() {
     BaseScene::setup();
-    showTimer.reset();
 }
 
 void ShowScene::loop() {
@@ -31,4 +30,9 @@ void ShowScene::loop() {
 
     if (showTimer.elapsed())
         finished = true;
+}
+
+void ShowScene::reset() {
+    BaseScene::reset();
+    showTimer.reset();
 }

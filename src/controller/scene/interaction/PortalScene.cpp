@@ -45,3 +45,7 @@ float PortalScene::getPortalBrightness(PortalPtr portal, unsigned long timeStamp
     auto nvalue = (timeStamp - portal->getActivatedTimeStamp()) / blinkTime;
     return MathUtils::absSine(nvalue, static_cast<float>(PI));
 }
+
+void PortalScene::reset() {
+    BaseScene::reset();
+}

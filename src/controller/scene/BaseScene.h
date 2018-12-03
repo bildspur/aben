@@ -30,6 +30,8 @@ public:
     bool isFinished() const;
 
     void setFinished(bool finished);
+
+    virtual void reset();
 };
 
 

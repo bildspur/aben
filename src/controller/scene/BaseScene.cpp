@@ -11,7 +11,7 @@ BaseScene::BaseScene(const char *name, Installation *installation) {
 
 void BaseScene::setup() {
     BaseController::setup();
-    this->finished = false;
+    reset();
 }
 
 void BaseScene::loop() {
@@ -28,4 +28,8 @@ bool BaseScene::isFinished() const {
 
 void BaseScene::setFinished(bool finished) {
     BaseScene::finished = finished;
+}
+
+void BaseScene::reset() {
+    this->finished = false;
 }

@@ -16,7 +16,7 @@ void AbenSceneController::setup() {
 }
 
 void AbenSceneController::timedLoop() {
-    SceneController::loop();
+    SceneController::timedLoop();
     selectRelevantScene();
 }
 
@@ -25,12 +25,18 @@ void AbenSceneController::selectRelevantScene() {
 
     // switch to show scene
     if (allActivated && getActiveScene() != showScene) {
-        setActiveScene(showScene);
+        changeScene(showScene);
+
+        // turn all doors off
+        for (uint8_t i = 0; i < installation->getSize(); i++) {
+            installation->getPortal(i)->setActivated(false);
+        }
+
         Serial.println("switched to show scene!");
     }
 
-    if (!allActivated || showScene->isFinished()) {
-        setActiveScene(portalScene);
+    if ((!allActivated || showScene->isFinished()) && getActiveScene() != portalScene) {
+        changeScene(portalScene);
         Serial.println("switched to portal scene!");
     }
 }

@@ -19,6 +19,8 @@ public:
     void setup() override;
 
     void loop() override;
+
+    void reset() override;
 };
 
 
