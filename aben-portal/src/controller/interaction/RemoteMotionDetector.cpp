@@ -3,6 +3,7 @@
 //
 
 #include <util/PinReader.h>
+#include <util/StatusLed.h>
 #include "RemoteMotionDetector.h"
 
 
@@ -17,6 +18,9 @@ void RemoteMotionDetector::setup() {
     TimeBasedController::setup();
 
     sensor->setup();
+
+    pinMode(LED_BUILTIN, OUTPUT);
+    digitalWrite(LED_BUILTIN, HIGH);
 }
 
 void RemoteMotionDetector::timedLoop() {
@@ -29,7 +33,9 @@ void RemoteMotionDetector::timedLoop() {
         Serial.println("portal has been activated!");
         osc->send("/aben/portal/active", app->getSettings().getPortalId());
         pinState = true;
+        digitalWrite(LED_BUILTIN, LOW);
     } else if (!motionDetected && pinState) {
         pinState = false;
+        digitalWrite(LED_BUILTIN, HIGH);
     }
 }
