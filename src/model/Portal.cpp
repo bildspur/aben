@@ -35,8 +35,9 @@ bool Portal::isActivated() const {
 }
 
 void Portal::setActivated(bool activated) {
-    if (activated)
+    if (activated) {
         activatedTimeStamp = millis();
+    }
 
     Portal::activated = activated;
 }
@@ -47,4 +48,9 @@ void Portal::onlineStateReceived() {
 
 bool Portal::isOnline(unsigned long maxTimeSinceUpdate) {
     return (millis() - onlineTimeStamp) <= maxTimeSinceUpdate;
+}
+
+void Portal::updateActivation(unsigned long activationTime) {
+    if (millis() - activatedTimeStamp >= activationTime && isActivated())
+        setActivated(false);
 }

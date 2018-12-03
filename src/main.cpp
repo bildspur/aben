@@ -3,6 +3,7 @@
 #include <ESPmDNS.h>
 #include <inttypes.h>
 #include <controller/interaction/PIRArrayInteraction.h>
+#include <controller/scene/interaction/PortalScene.h>
 
 #include "controller/BaseController.h"
 #include "model/Portal.h"
@@ -60,8 +61,8 @@ LightRenderer *renderer = new DMXLightRenderer(DMX_TX_PIN, DMX_LIGHT_ADDRESS_SIZ
 LightRenderer *debugRenderer = new SerialLightRenderer(&installation);
 
 // scenes
-TimeStarScene timeStarScene = TimeStarScene(&installation);
-auto sceneController = SceneController(&installation, &timeStarScene);
+PortalScene portalScene = PortalScene(&installation);
+auto sceneController = SceneController(&installation, &portalScene);
 
 // controller list
 BaseControllerPtr controllers[] = {

@@ -10,7 +10,7 @@
 #include "../../util/StopWatch.h"
 #include "../../util/Timer.h"
 
-#define SERIAL_RENDER_FRAMERATE 24
+#define SERIAL_RENDER_FRAMERATE 10
 
 class SerialLightRenderer : public LightRenderer {
 private:

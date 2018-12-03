@@ -103,5 +103,6 @@ void Installation::timedLoop() {
     // update portals
     for (auto i = 0; i < getSize(); i++) {
         getPortal(i)->update();
+        getPortal(i)->updateActivation(settings.getPortalActivationTime());
     }
 }

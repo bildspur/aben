@@ -6,6 +6,7 @@
 #define SILVA_LEAF_H
 
 #include <model/light/RGBLed.h>
+#include <util/Timer.h>
 #include "../util/EasingValue.h"
 
 typedef RGBLed *RGBLedPtr;
@@ -42,6 +43,8 @@ public:
     void onlineStateReceived();
 
     bool isOnline(unsigned long maxTimeSinceUpdate = 15000);
+
+    void updateActivation(unsigned long activationTime);
 };
 
 
