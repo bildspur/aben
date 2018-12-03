@@ -20,7 +20,7 @@ private:
 
     unsigned long activatedTimeStamp = 0;
 
-    unsigned long onlineTimeStamp = 100000;
+    long onlineTimeStamp = -100000;
 
 public:
     explicit Portal(unsigned short id);
@@ -41,7 +41,7 @@ public:
 
     void onlineStateReceived();
 
-    bool isOnline(unsigned long maxTimeSinceUpdate = 30000);
+    bool isOnline(unsigned long maxTimeSinceUpdate = 15000);
 };
 
 

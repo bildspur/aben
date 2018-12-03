@@ -10,7 +10,7 @@
 #define LED_MIN_BRIGHTNESS 0.0f
 #define LED_MAX_BRIGHTNESS 1.0f
 
-#define EASING_SPEED 0.01
+#define EASING_SPEED 0.05
 
 class Led {
 private:

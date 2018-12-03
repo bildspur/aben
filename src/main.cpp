@@ -74,6 +74,9 @@ BaseControllerPtr controllers[] = {
         &installation
 };
 
+// vars
+bool sendOSCFeedback = false;
+
 // methods
 void handleOsc(OSCMessage &msg);
 
@@ -126,64 +129,78 @@ void changeScene(BaseScene *scene) {
 }
 
 void handleOsc(OSCMessage &msg) {
+    sendOSCFeedback = false;
+
     // global
     msg.dispatch("/aben/brightness/min", [](OSCMessage &msg) {
         installation.getSettings().setMinBrightness(msg.getFloat(0));
+        sendOSCFeedback = true;
     });
 
     msg.dispatch("/aben/brightness/max", [](OSCMessage &msg) {
         installation.getSettings().setMaxBrightness(msg.getFloat(0));
+        sendOSCFeedback = true;
     });
 
     msg.dispatch("/aben/gamma/on", [](OSCMessage &msg) {
         installation.getSettings().setGammaCorrection(!installation.getSettings().isGammaCorrection());
+        sendOSCFeedback = true;
     });
 
     msg.dispatch("/aben/scenemanager/on", [](OSCMessage &msg) {
         sceneController.setRunning(!sceneController.isRunning());
+        sendOSCFeedback = true;
     });
 
     // time star
     msg.dispatch("/aben/timestar/brightness/min", [](OSCMessage &msg) {
         installation.getSettings().setTimeStarMinBrightness(msg.getFloat(0));
+        sendOSCFeedback = true;
     });
 
     msg.dispatch("/aben/timestar/brightness/max", [](OSCMessage &msg) {
         installation.getSettings().setTimeStarMaxBrightness(msg.getFloat(0));
+        sendOSCFeedback = true;
     });
 
     msg.dispatch("/aben/timestar/randomFactor", [](OSCMessage &msg) {
         installation.getSettings().setTimeStarRandomOnFactor(msg.getFloat(0));
+        sendOSCFeedback = true;
     });
 
     msg.dispatch("/aben/timestar/duration/min", [](OSCMessage &msg) {
         installation.getSettings().setTimeStarMinDuration(
                 MathUtils::secondsToMillis(static_cast<unsigned long>(msg.getFloat(0))));
+        sendOSCFeedback = true;
     });
 
     msg.dispatch("/aben/timestar/duration/max", [](OSCMessage &msg) {
         installation.getSettings().setTimeStarMaxDuration(
                 MathUtils::secondsToMillis(static_cast<unsigned long>(msg.getFloat(0))));
+        sendOSCFeedback = true;
     });
 
     // controls
     msg.dispatch("/aben/installation/on", [](OSCMessage &msg) {
         sceneController.setRunning(false);
         installation.turnOn();
+        sendOSCFeedback = true;
     });
 
     msg.dispatch("/aben/installation/off", [](OSCMessage &msg) {
         sceneController.setRunning(false);
         installation.turnOff();
+        sendOSCFeedback = true;
     });
 
     msg.dispatch("/aben/refresh", [](OSCMessage &msg) {
-        sendRefresh();
+        sendOSCFeedback = true;
     });
 
     msg.dispatch("/aben/settings/load", [](OSCMessage &msg) {
         installation.loadFromEEPROM();
         osc.send("/aben/status", "Status: loaded");
+        sendOSCFeedback = true;
     });
 
     msg.dispatch("/aben/settings/save", [](OSCMessage &msg) {
@@ -200,17 +217,20 @@ void handleOsc(OSCMessage &msg) {
 
         // send back update info
         osc.send("/aben/status", "Status: default");
+        sendOSCFeedback = true;
     });
 
     // portal settings
     msg.dispatch("/aben/portal/threshold", [](OSCMessage &msg) {
         installation.getSettings().setPortalMinTreshold(msg.getFloat(0));
+        sendOSCFeedback = true;
     });
 
     msg.dispatch("/aben/portal/debug/activate", [](OSCMessage &msg) {
         int id = static_cast<int>(msg.getFloat(0));
         Serial.printf("portal %d actived by debug console\n", id);
         installation.getPortal(id)->setActivated(true);
+        sendOSCFeedback = true;
     });
 
 
@@ -218,16 +238,18 @@ void handleOsc(OSCMessage &msg) {
     msg.dispatch("/aben/portal/online", [](OSCMessage &msg) {
         auto id = msg.getInt(0);
         installation.getPortal(id)->onlineStateReceived();
-        Serial.printf("portal %d is online!\n", id);
+        Serial.printf("portal %d: online\n", id);
     });
 
     msg.dispatch("/aben/portal/activated", [](OSCMessage &msg) {
         auto id = msg.getInt(0);
         installation.getPortal(id)->setActivated(true);
-        Serial.printf("portal %d activated!\n", id);
+        Serial.printf("portal %d: activated\n", id);
     });
 
-    sendRefresh();
+    if (sendOSCFeedback) {
+        sendRefresh();
+    }
 }
 
 void sendRefresh() {

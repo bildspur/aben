@@ -7,7 +7,7 @@
 
 #include <cstdint>
 
-#define ABEN_SETTINGS_VERSION 1001
+#define ABEN_SETTINGS_VERSION 1002
 
 #define APP_FRAME_RATE 60L
 
