@@ -165,6 +165,11 @@ void handleOsc(OSCMessage &msg) {
         sendOSCFeedback = true;
     });
 
+    msg.dispatch("/aben/interaction/on", [](OSCMessage &msg) {
+        installation.getSettings().setInteractionOn(!installation.getSettings().isInteractionOn());
+        sendOSCFeedback = true;
+    });
+
     // time star
     msg.dispatch("/aben/timestar/brightness/min", [](OSCMessage &msg) {
         installation.getSettings().setTimeStarMinBrightness(msg.getFloat(0));
@@ -271,6 +276,7 @@ void sendRefresh() {
 
     osc.send("/aben/gamma/on", installation.getSettings().isGammaCorrection());
     osc.send("/aben/scenemanager/on", sceneController.isRunning());
+    osc.send("/aben/interaction/on", installation.getSettings().isInteractionOn());
 
     osc.send("/aben/version", installation.getSettings().getVersion());
 

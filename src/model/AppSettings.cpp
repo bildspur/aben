@@ -107,3 +107,11 @@ unsigned long AppSettings::getPortalActivationTime() const {
 void AppSettings::setPortalActivationTime(unsigned long doorActivationTime) {
     AppSettings::portalActivationTime = doorActivationTime;
 }
+
+bool AppSettings::isInteractionOn() const {
+    return interactionOn;
+}
+
+void AppSettings::setInteractionOn(bool interactionOn) {
+    AppSettings::interactionOn = interactionOn;
+}

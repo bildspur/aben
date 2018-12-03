@@ -43,6 +43,8 @@ private:
     // installation
     unsigned long portalActivationTime = 10000L;
 
+    bool interactionOn = true;
+
 
 public:
     int getVersion() const;
@@ -97,7 +99,9 @@ public:
 
     void setPortalActivationTime(unsigned long doorActivationTime);
 
+    bool isInteractionOn() const;
 
+    void setInteractionOn(bool interactionOn);
 };
 
 

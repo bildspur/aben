@@ -38,7 +38,7 @@ void PortalScene::loop() {
 }
 
 float PortalScene::getPortalBrightness(PortalPtr portal, unsigned long timeStamp, float blinkTime) {
-    if (!portal->isActivated())
+    if (!portal->isActivated() || !installation->getSettings().isInteractionOn())
         return LED_MAX_BRIGHTNESS;
 
     // portal is activated

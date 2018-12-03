@@ -24,7 +24,8 @@ void AbenSceneController::selectRelevantScene() {
     bool allActivated = areAllPortalsActivated();
 
     // switch to show scene
-    if (allActivated && getActiveScene() != showScene) {
+    if (allActivated && getActiveScene() != showScene
+        && installation->getSettings().isInteractionOn()) {
         changeScene(showScene);
 
         // turn all doors off
