@@ -35,7 +35,7 @@ void AbenSceneController::selectRelevantScene() {
         Serial.println("switched to show scene!");
     }
 
-    if ((!allActivated || showScene->isFinished()) && getActiveScene() != portalScene) {
+    if (getActiveScene() == showScene && showScene->isFinished()) {
         changeScene(portalScene);
         Serial.println("switched to portal scene!");
     }
