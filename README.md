@@ -15,5 +15,5 @@ Walking through the gates is perceived as the first step towards a common goal. 
 #### Motherboard
 ![Aben Motherboard](documentation/Aben_Motherboard_schem.png)
 
-#### Portal Board
+#### Portal Board
 ![Portal Abend](documentation/Aben_Portal_schem.png)
