@@ -10,12 +10,14 @@
 #include <WiFi.h>
 
 #elif defined(ESP8266)
+
 #include <ESP8266WiFi.h>
+
 #endif // ESP32
 
 #include "../BaseController.h"
 
-#define STA_MAX_DELAYS 100
+#define STA_MAX_DELAYS 20
 
 class NetworkController : public BaseController {
 private:
