@@ -80,6 +80,7 @@ BaseControllerPtr controllers[] = {
 
 // vars
 bool sendOSCFeedback = false;
+bool updateColor = false;
 
 // methods
 void handleOsc(OSCMessage &msg);
@@ -125,16 +126,37 @@ void loop() {
 
 void handleOsc(OSCMessage &msg) {
     sendOSCFeedback = false;
+    updateColor = false;
 
     // color
     msg.dispatch("/aben/color/hue", [](OSCMessage &msg) {
         installation.getSettings().setDefaultHue(msg.getFloat(0));
         sendOSCFeedback = true;
+        updateColor = true;
     });
 
     msg.dispatch("/aben/color/saturation", [](OSCMessage &msg) {
         installation.getSettings().setDefaultSaturation(msg.getFloat(0));
         sendOSCFeedback = true;
+        updateColor = true;
+    });
+
+    msg.dispatch("/aben/installation/red", [](OSCMessage &msg) {
+        for (int i = 0; i < installation.getSize(); i++) {
+            installation.getPortal(i)->getLed()->setRGB(RGBColor(1.0f, 0.0f, 0.0f));
+        }
+    });
+
+    msg.dispatch("/aben/installation/green", [](OSCMessage &msg) {
+        for (int i = 0; i < installation.getSize(); i++) {
+            installation.getPortal(i)->getLed()->setRGB(RGBColor(0.0f, 1.0f, 0.0f));
+        }
+    });
+
+    msg.dispatch("/aben/installation/blue", [](OSCMessage &msg) {
+        for (int i = 0; i < installation.getSize(); i++) {
+            installation.getPortal(i)->getLed()->setRGB(RGBColor(0.0f, 0.0f, 1.0f));
+        }
     });
 
     // installation
@@ -266,6 +288,17 @@ void handleOsc(OSCMessage &msg) {
 
     if (sendOSCFeedback) {
         sendRefresh();
+    }
+
+    if (updateColor) {
+        // update hsv color
+        for (int i = 0; i < installation.getSize(); i++) {
+            installation.getPortal(i)->getLed()->setHSV(
+                    HSVColor(installation.getSettings().getDefaultHue(),
+                             installation.getSettings().getDefaultSaturation(),
+                             installation.getSettings().getMaxBrightness())
+            );
+        }
     }
 }
 

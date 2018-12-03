@@ -19,8 +19,8 @@ void LightRenderer::timedLoop() {
     TimeBasedController::timedLoop();
 
     for (auto i = 0; i < installation->getSize(); i++) {
-        auto leaf = installation->getPortal(i);
-        render(leaf);
+        auto portal = installation->getPortal(i);
+        render(portal);
     }
 }
 

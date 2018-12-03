@@ -50,6 +50,8 @@ public:
     void timedLoop() override;
 
     void render(PortalPtr portal) override;
+
+    void clearDMXBuffer();
 };
 
 

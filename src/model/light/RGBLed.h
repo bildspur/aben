@@ -42,9 +42,13 @@ public:
 
     float getBlue();
 
-    void setChannel(unsigned int channel, float value, bool easing = true);
+    void setRGBChannel(unsigned int channel, float value, bool easing = true);
 
-    float getChannel(unsigned int channel);
+    float getRGBChannel(unsigned int channel);
+
+    float getBGRChannel(unsigned int channel);
+
+    float getRChannel(unsigned int channel);
 
     unsigned int getChannelCount();
 

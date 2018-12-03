@@ -78,7 +78,7 @@ HSVColor RGBLed::getHSV() {
     return ColorSpace::rgbToHSV(getRGB());
 }
 
-void RGBLed::setChannel(unsigned int channel, float value, bool easing) {
+void RGBLed::setRGBChannel(unsigned int channel, float value, bool easing) {
     switch (channel) {
         case 0:
             setRed(value, easing);
@@ -96,7 +96,7 @@ void RGBLed::setChannel(unsigned int channel, float value, bool easing) {
     }
 }
 
-float RGBLed::getChannel(unsigned int channel) {
+float RGBLed::getRGBChannel(unsigned int channel) {
     switch (channel) {
         case 0:
             return getRed();
@@ -114,4 +114,20 @@ float RGBLed::getChannel(unsigned int channel) {
 
 unsigned int RGBLed::getChannelCount() {
     return 3;
+}
+
+float RGBLed::getBGRChannel(unsigned int channel) {
+    switch (channel) {
+        case 0:
+            return getBlue();
+
+        case 1:
+            return getGreen();
+
+        case 2:
+            return getRed();
+
+        default:
+            return NAN;
+    }
 }
