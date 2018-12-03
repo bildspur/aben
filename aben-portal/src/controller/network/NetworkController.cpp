@@ -9,6 +9,7 @@
 #elif defined(ESP8266)
 
 #include <ESP8266mDNS.h>
+#include <util/StatusLed.h>
 
 #endif // ESP32
 
@@ -59,8 +60,10 @@ void NetworkController::loop() {
 void NetworkController::initSTA() {
     Serial.println("init STA mode...");
 
+    StatusLed::turnOn();
     WiFi.mode(WIFI_STA);
     WiFi.begin(ssid, password);
+    StatusLed::turnOff();
 }
 
 void NetworkController::setupSTA() {
@@ -68,6 +71,7 @@ void NetworkController::setupSTA() {
 
     // wait till wifi is connected
     while (WiFi.status() != WL_CONNECTED) {
+        StatusLed::turnOn();
         waitedDelays++;
 
         // reset wifi
@@ -78,10 +82,15 @@ void NetworkController::setupSTA() {
             waitedDelays = 0;
         }
 
-        delay(100);
+        StatusLed::turnOff();
+        delay(300);
+        StatusLed::turnOn();
+        delay(300);
+        StatusLed::turnOff();
     }
 
     Serial.println("connected!");
+    StatusLed::turnOn();
 }
 
 void NetworkController::setupAP() {

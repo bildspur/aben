@@ -2,6 +2,7 @@
 // Created by Florian Bruggisser on 02.12.18.
 //
 
+#include <util/PinReader.h>
 #include "RemoteMotionDetector.h"
 
 
