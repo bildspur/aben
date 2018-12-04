@@ -10,7 +10,7 @@
 RemoteMotionDetector::RemoteMotionDetector(App *app, OscController *osc, uint8_t triggerPin, uint8_t echoPin) :
         TimeBasedController(app->getSettings().getAppFrameRate(), FRAMES_PER_SECOND) {
     this->app = app;
-    this->sensor = new HCSR04MotionSensor(triggerPin, echoPin);
+    this->sensor = new HCSR04MotionSensor(triggerPin, echoPin, app->getSettings().getMinThreshold());
     this->osc = osc;
 }
 
@@ -26,7 +26,10 @@ void RemoteMotionDetector::setup() {
 void RemoteMotionDetector::timedLoop() {
     TimeBasedController::loop();
 
+    // set settings
+    sensor->setMinThreshold(app->getSettings().getMinThreshold());
     sensor->measure();
+
     auto motionDetected = sensor->isMotionDetected(true);
 
     if (motionDetected && !pinState) {

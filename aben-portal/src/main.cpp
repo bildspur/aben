@@ -110,6 +110,7 @@ void loop() {
 void handleOsc(OSCMessage &msg) {
     // set threshold
     msg.dispatch("/aben/portal/threshold", [](OSCMessage &msg) {
+        Serial.printf("Received new threshold: %f", msg.getFloat(0));
         app.getSettings().setMinThreshold(msg.getFloat(0));
     });
 

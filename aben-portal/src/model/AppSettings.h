@@ -7,7 +7,7 @@
 
 #include <cstdint>
 
-#define ABEN_SETTINGS_VERSION 1002
+#define ABEN_SETTINGS_VERSION 1005
 
 #define APP_FRAME_RATE 60L
 
@@ -18,7 +18,7 @@ private:
     // global render settings
     unsigned long appFrameRate = APP_FRAME_RATE;
 
-    float minThreshold = 30.0f;
+    float minThreshold = 60.0f;
 
     int portalId = -1;
 

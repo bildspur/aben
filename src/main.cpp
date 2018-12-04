@@ -263,6 +263,10 @@ void handleOsc(OSCMessage &msg) {
     // portal settings
     msg.dispatch("/aben/portal/threshold", [](OSCMessage &msg) {
         installation.getSettings().setPortalMinTreshold(msg.getFloat(0));
+
+        // send portal values
+        osc.send("/aben/portal/threshold", installation.getSettings().getPortalMinTreshold());
+
         sendOSCFeedback = true;
     });
 

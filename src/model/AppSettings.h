@@ -5,7 +5,7 @@
 #ifndef TIL_APPSETTINGS_H
 #define TIL_APPSETTINGS_H
 
-#define ABEN_SETTINGS_VERSION 1004
+#define ABEN_SETTINGS_VERSION 1005
 
 #define APP_FRAME_RATE 60L
 
@@ -33,7 +33,7 @@ private:
 
     float timeStarMaxBrightness = 1.0f;
 
-    float portalMinTreshold = 30.0;
+    float portalMinTreshold = 60.0;
 
     // colors
     float defaultHue = 200.0;
