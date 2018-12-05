@@ -13,7 +13,7 @@
 #include "util/MathUtils.h"
 
 // global
-#define FIX_PORTAL_ID 0
+#define FIX_PORTAL_ID 4
 
 // status
 #define STATUS_LED_PIN 2
