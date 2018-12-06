@@ -13,6 +13,7 @@
 #include "../BaseController.h"
 
 #define STA_MAX_DELAYS 100
+#define MAX_ALLOWED_DEVICES 8
 
 class NetworkController : public BaseController {
 private:
@@ -23,15 +24,20 @@ private:
     WiFiMode_t wifiMode;
 
     void initSTA();
+
     void setupSTA();
+
     void setupAP();
+
     void setupMDNS();
+
     String getIPAddress();
 
 public:
     NetworkController(const char *deviceName, const char *ssid, const char *password, WiFiMode_t wifiMode = WIFI_AP);
 
     void setup() override;
+
     void loop() override;
 
     void printNetworkInformation();
