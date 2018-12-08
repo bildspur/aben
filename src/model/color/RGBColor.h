@@ -14,6 +14,12 @@ struct RGBColor {
     explicit RGBColor();
 
     RGBColor(float red, float green, float blue);
+
+    static RGBColor BLACK();
+
+    static RGBColor WHITE();
+
+    static RGBColor RED();
 };
 
 #endif //ABEN_RGBCOLOR_H

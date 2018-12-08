@@ -13,3 +13,15 @@ RGBColor::RGBColor(float red, float green, float blue) {
     this->g = green;
     this->b = blue;
 }
+
+RGBColor RGBColor::BLACK() {
+    return {0.0f, 0.0f, 0.0f};
+}
+
+RGBColor RGBColor::WHITE() {
+    return {1.0f, 1.0f, 1.0f};
+}
+
+RGBColor RGBColor::RED() {
+    return {1.0f, 0.0f, 0.0f};
+}

@@ -7,6 +7,7 @@
 
 ShowScene::ShowScene(Installation *installation) : BaseScene(
         "ShowScene", installation) {
+    this->animation = new Animation<PORTAL_SIZE>(keyPoints, ANIMATION_SPEED);
 }
 
 void ShowScene::setup() {
@@ -27,12 +28,8 @@ void ShowScene::loop() {
         // update hsv color
         portal->getLed()->setHSV(HSVColor(0.0f, 1.0f, clampedBrightness));
     }
-
-    if (showTimer.elapsed())
-        finished = true;
 }
 
 void ShowScene::reset() {
     BaseScene::reset();
-    showTimer.reset();
 }

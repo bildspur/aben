@@ -7,11 +7,32 @@
 
 
 #include <controller/scene/star/TimeStar.h>
+#include <controller/scene/show/animation/Animation.h>
 #include "../BaseScene.h"
+
+#define PORTAL_SIZE 5
+#define ANIMATION_SPEED 1000
 
 class ShowScene : public BaseScene {
 private:
-    Timer showTimer = Timer(10000);
+    typedef Animation<PORTAL_SIZE> *AnimationPtr;
+
+    /*
+    KeyPointPtr *keyPoints = new KeyPointPtr[4]{
+        new KeyPoint<PORTAL_SIZE>(1.0f, RGBColor::BLACK()),
+                new KeyPoint<PORTAL_SIZE>(10.0f, RGBColor::RED()),
+                new KeyPoint<PORTAL_SIZE>(5.0f, RGBColor::WHITE()),
+                new KeyPoint<PORTAL_SIZE>(8.0f, RGBColor::BLACK()),
+    };
+    */
+
+    KeyPoint<PORTAL_SIZE> keyPoints[3]{
+            KeyPoint<PORTAL_SIZE>(1.0f, RGBColor::BLACK()),
+            KeyPoint<PORTAL_SIZE>(5.0f, RGBColor::WHITE()),
+            KeyPoint<PORTAL_SIZE>(8.0f, RGBColor::BLACK()),
+    };
+
+    AnimationPtr animation;
 
 public:
     explicit ShowScene(Installation *installation);
