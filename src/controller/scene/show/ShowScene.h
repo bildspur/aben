@@ -17,15 +17,6 @@ class ShowScene : public BaseScene {
 private:
     typedef Animation<PORTAL_SIZE> *AnimationPtr;
 
-    /*
-    KeyPointPtr *keyPoints = new KeyPointPtr[4]{
-        new KeyPoint<PORTAL_SIZE>(1.0f, RGBColor::BLACK()),
-                new KeyPoint<PORTAL_SIZE>(10.0f, RGBColor::RED()),
-                new KeyPoint<PORTAL_SIZE>(5.0f, RGBColor::WHITE()),
-                new KeyPoint<PORTAL_SIZE>(8.0f, RGBColor::BLACK()),
-    };
-    */
-
     KeyPoint<PORTAL_SIZE> keyPoints[3]{
             KeyPoint<PORTAL_SIZE>(1.0f, RGBColor::BLACK()),
             KeyPoint<PORTAL_SIZE>(5.0f, RGBColor::WHITE()),

@@ -27,7 +27,7 @@ private:
     unsigned long summedKeyPointTime = 0;
 
     // values
-    float values[SIZE];
+    RGBColor values[SIZE];
 
     unsigned int keyIndex;
 
@@ -41,6 +41,8 @@ public:
     void reset();
 
     void update();
+
+    const RGBColor *getValues() const;
 };
 
 template<int SIZE>
@@ -57,8 +59,8 @@ void Animation<SIZE>::reset() {
 
 template<int SIZE>
 void Animation<SIZE>::switchKeyIndex() {
-    startKey = keyPoints[keyIndex];
-    endKey = keyPoints[keyIndex + 1];
+    startKey = &keyPoints[keyIndex];
+    endKey = &keyPoints[keyIndex + 1];
 
     keyIndex++;
 }
@@ -74,10 +76,11 @@ template<int SIZE>
 Animation<SIZE>::Animation(KeyPoint<SIZE> *keyPoints, unsigned int speed) {
     this->keyPoints = keyPoints;
     this->speed = speed;
+}
 
-    // clear values
-    for (auto i = 0; i < SIZE; i++)
-        values[i] = 0;
+template<int SIZE>
+const RGBColor *Animation<SIZE>::getValues() const {
+    return values;
 }
 
 #endif //ABEN_ANIMATION_H
