@@ -12,16 +12,19 @@
 template<int SIZE>
 class Animation {
 private:
+    typedef KeyPoint<SIZE> *KeyPointPtr;
 
     KeyPoint<SIZE> *keyPoints;
 
     // time
     unsigned long startTime = 0;
 
-    KeyPoint<SIZE> *startKey;
-    KeyPoint<SIZE> *endKey;
+    KeyPointPtr startKey;
+    KeyPointPtr endKey;
 
     unsigned int speed;
+
+    unsigned long summedKeyPointTime = 0;
 
     // values
     float values[SIZE];
@@ -62,13 +65,19 @@ void Animation<SIZE>::switchKeyIndex() {
 
 template<int SIZE>
 void Animation<SIZE>::update() {
+    // calculate current normalized value
 
+    // lerp different values
 }
 
 template<int SIZE>
 Animation<SIZE>::Animation(KeyPoint<SIZE> *keyPoints, unsigned int speed) {
     this->keyPoints = keyPoints;
     this->speed = speed;
+
+    // clear values
+    for (auto i = 0; i < SIZE; i++)
+        values[i] = 0;
 }
 
 #endif //ABEN_ANIMATION_H

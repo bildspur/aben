@@ -15,6 +15,8 @@ struct RGBColor {
 
     RGBColor(float red, float green, float blue);
 
+    static RGBColor lerp(RGBColor a, RGBColor b, float t);
+
     static RGBColor BLACK();
 
     static RGBColor WHITE();

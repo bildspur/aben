@@ -44,3 +44,7 @@ float MathUtils::absSine(float x, float phaseShift) {
     // calculate sine
     return static_cast<float>(0.5 * (1 + sin(2 * PI * x + phaseShift)));
 }
+
+float MathUtils::lerp(float a, float b, float t) {
+    return (1 - t) * a + t * b;
+}
