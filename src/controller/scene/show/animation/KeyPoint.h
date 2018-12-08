@@ -6,6 +6,8 @@
 #define ABEN_SHOWKEYPOINT_H
 
 #include <model/color/RGBColor.h>
+#include <model/color/HSVColor.h>
+#include <model/color/ColorSpace.h>
 
 template<int SIZE>
 class KeyPoint {
@@ -18,6 +20,10 @@ public:
     explicit KeyPoint(float timeStamp, RGBColor colors[SIZE]);
 
     explicit KeyPoint(float timeStamp, RGBColor color);
+
+    explicit KeyPoint(float timeStamp, HSVColor colors[SIZE]);
+
+    explicit KeyPoint(float timeStamp, HSVColor color);
 
     float getTimeStamp() const;
 
@@ -47,6 +53,20 @@ KeyPoint<SIZE>::KeyPoint(float timeStamp, RGBColor color) {
 
     for (auto i = 0; i < SIZE; i++)
         this->colors[i] = color;
+}
+
+template<int SIZE>
+KeyPoint<SIZE>::KeyPoint(float timeStamp, HSVColor *colors) {
+    this->timeStamp = timeStamp;
+    this->colors = new RGBColor[SIZE];
+
+    for (auto i = 0; i < SIZE; i++)
+        this->colors[i] = ColorSpace::hsvToRGB(colors[i]);
+}
+
+template<int SIZE>
+KeyPoint<SIZE>::KeyPoint(float timeStamp, HSVColor color) : KeyPoint(timeStamp, ColorSpace::hsvToRGB(color)) {
+
 }
 
 

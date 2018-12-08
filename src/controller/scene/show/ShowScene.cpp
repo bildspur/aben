@@ -23,7 +23,8 @@ void ShowScene::loop() {
     for (auto i = 0; i < installation->getSize(); i++) {
         auto portal = installation->getPortal(i);
 
-        // update hsv color
+        // update color
+        // todo: limit brightness of show!
         portal->getLed()->setRGB(values[i]);
     }
 }
