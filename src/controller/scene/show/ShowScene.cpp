@@ -27,6 +27,9 @@ void ShowScene::loop() {
         // todo: limit brightness of show!
         portal->getLed()->setRGB(values[i]);
     }
+
+    if (!animation->isRunning())
+        finished = true;
 }
 
 void ShowScene::reset() {

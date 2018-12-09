@@ -49,6 +49,8 @@ public:
     const RGBColor *getValues() const;
 
     unsigned long toMillis(float time);
+
+    bool isRunning() const;
 };
 
 template<int SIZE>
@@ -56,6 +58,8 @@ void Animation<SIZE>::start() {
     reset();
     startTime = millis();
     running = true;
+
+    Serial.println("show started!");
 }
 
 template<int SIZE>
@@ -64,12 +68,15 @@ void Animation<SIZE>::reset() {
     summedKeyPointTime = 0;
     switchKeyIndex();
     running = false;
+
+    Serial.println("show resetted!");
 }
 
 template<int SIZE>
 void Animation<SIZE>::switchKeyIndex() {
     if (keyIndex + 1 >= keyPointSize) {
         running = false;
+        Serial.println("show ended!");
         return;
     }
 
@@ -79,6 +86,8 @@ void Animation<SIZE>::switchKeyIndex() {
 
     // add to summed time
     summedKeyPointTime += toMillis(startKey->getTimeStamp());
+
+    Serial.printf("Changed to start keypoint %d, Summed time: %d", keyIndex, summedKeyPointTime);
 
     keyIndex++;
 }
@@ -120,6 +129,11 @@ Animation<SIZE>::Animation(KeyPoint<SIZE> *keyPoints, unsigned int keyPointSize,
 template<int SIZE>
 unsigned long Animation<SIZE>::toMillis(float time) {
     return static_cast<unsigned long>(lround(time * speed));
+}
+
+template<int SIZE>
+bool Animation<SIZE>::isRunning() const {
+    return running;
 }
 
 #endif //ABEN_ANIMATION_H
