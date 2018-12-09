@@ -12,7 +12,7 @@
 
 #define PORTAL_SIZE 5
 
-#define KEYPOINT_SIZE 9
+#define KEYPOINT_SIZE 10
 
 class ShowScene : public BaseScene {
 private:
@@ -27,6 +27,8 @@ private:
             KeyPoint<PORTAL_SIZE>(0.1f, RGBColor::WHITE()),
             KeyPoint<PORTAL_SIZE>(0.1f, RGBColor::BLACK()),
             KeyPoint<PORTAL_SIZE>(0.1f, RGBColor::WHITE()),
+            KeyPoint<PORTAL_SIZE>(0.5f, new RGBColor[PORTAL_SIZE]{RGBColor::WHITE(), RGBColor::RED(), RGBColor::BLACK(),
+                                                                  RGBColor::WHITE(), RGBColor::BLACK()}),
             KeyPoint<PORTAL_SIZE>(5.0f, RGBColor::BLACK()),
     };
 

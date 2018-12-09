@@ -40,6 +40,8 @@ private:
 
     float defaultSaturation = 0.8f;
 
+    bool rainbowMode = false;
+
     // installation
     unsigned long portalActivationTime = 10000L;
 
@@ -108,6 +110,10 @@ public:
     unsigned long getShowSpeed() const;
 
     void setShowSpeed(unsigned long showSpeed);
+
+    bool isRainbowMode() const;
+
+    void setRainbowMode(bool rainbowMode);
 };
 
 

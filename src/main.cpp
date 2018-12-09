@@ -129,6 +129,11 @@ void handleOsc(OSCMessage &msg) {
     updateColor = false;
 
     // color
+    msg.dispatch("/aben/rainbow/on", [](OSCMessage &msg) {
+        installation.getSettings().setRainbowMode(!installation.getSettings().isRainbowMode());
+        sendOSCFeedback = true;
+    });
+
     msg.dispatch("/aben/color/hue", [](OSCMessage &msg) {
         installation.getSettings().setDefaultHue(msg.getFloat(0));
         sendOSCFeedback = true;
@@ -336,6 +341,7 @@ void sendRefresh() {
     // colors
     osc.send("/aben/color/hue", installation.getSettings().getDefaultHue());
     osc.send("/aben/color/saturation", installation.getSettings().getDefaultSaturation());
+    osc.send("/aben/rainbow/on", installation.getSettings().isRainbowMode());
 
     // time star
     osc.send("/aben/timestar/brightness/min", installation.getSettings().getTimeStarMinBrightness());

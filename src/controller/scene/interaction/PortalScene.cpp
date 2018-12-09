@@ -11,12 +11,18 @@ PortalScene::PortalScene(Installation *installation) : BaseScene(
 
 void PortalScene::setup() {
     BaseScene::setup();
+    rainbowTimer.reset();
 }
 
 void PortalScene::loop() {
     BaseScene::loop();
 
     auto timeStamp = millis();
+
+    // update hue over 6 minutes
+    if (installation->getSettings().isRainbowMode() && rainbowTimer.elapsed()) {
+        installation->getSettings().setDefaultHue(((int) installation->getSettings().getDefaultHue() + 1) % 360);
+    }
 
     for (auto i = 0; i < installation->getSize(); i++) {
         auto portal = installation->getPortal(i);

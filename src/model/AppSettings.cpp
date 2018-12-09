@@ -123,3 +123,11 @@ unsigned long AppSettings::getShowSpeed() const {
 void AppSettings::setShowSpeed(unsigned long showSpeed) {
     AppSettings::showSpeed = showSpeed;
 }
+
+bool AppSettings::isRainbowMode() const {
+    return rainbowMode;
+}
+
+void AppSettings::setRainbowMode(bool rainbowMode) {
+    AppSettings::rainbowMode = rainbowMode;
+}
