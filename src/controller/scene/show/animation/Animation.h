@@ -87,7 +87,7 @@ void Animation<SIZE>::switchKeyIndex() {
     // add to summed time
     summedKeyPointTime += toMillis(startKey->getTimeStamp());
 
-    Serial.printf("Changed to start keypoint %d, Summed time: %d", keyIndex, summedKeyPointTime);
+    Serial.printf("Changed to start keypoint %d, Summed time: %d\n", keyIndex, summedKeyPointTime);
 
     keyIndex++;
 }
@@ -97,7 +97,7 @@ void Animation<SIZE>::update() {
     // calculate current normalized value of current time-span
     auto timeSinceStart = millis() - startTime;
     auto currentKeyTime = timeSinceStart - summedKeyPointTime;
-    auto t = float(currentKeyTime) / toMillis(startKey->getTimeStamp());
+    auto t = float(currentKeyTime) / toMillis(endKey->getTimeStamp());
 
     // switch if necessary (key time up)
     if (t > 1.0f) {
