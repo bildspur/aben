@@ -21,6 +21,8 @@ struct RGBColor {
 
     static RGBColor WHITE();
 
+    static RGBColor SATURATION(float saturation);
+
     static RGBColor RED();
 };
 

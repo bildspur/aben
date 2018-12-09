@@ -34,3 +34,7 @@ RGBColor RGBColor::lerp(RGBColor a, RGBColor b, float t) {
             MathUtils::lerp(a.b, b.b, t)
     };
 }
+
+RGBColor RGBColor::SATURATION(float saturation) {
+    return {saturation, saturation, saturation};
+}
