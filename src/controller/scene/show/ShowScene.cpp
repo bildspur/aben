@@ -7,7 +7,7 @@
 
 ShowScene::ShowScene(Installation *installation) : BaseScene(
         "ShowScene", installation) {
-    this->animation = new Animation<PORTAL_SIZE>(keyPoints, KEYPOINT_SIZE, ANIMATION_SPEED);
+    this->animation = new Animation<PORTAL_SIZE>(keyPoints, KEYPOINT_SIZE, installation->getSettings().getShowSpeed());
 }
 
 void ShowScene::setup() {
@@ -17,6 +17,7 @@ void ShowScene::setup() {
 void ShowScene::loop() {
     BaseScene::loop();
 
+    animation->setSpeed(installation->getSettings().getShowSpeed());
     animation->update();
     auto values = animation->getValues();
 
@@ -24,7 +25,6 @@ void ShowScene::loop() {
         auto portal = installation->getPortal(i);
 
         // update color
-        // todo: limit brightness of show!
         portal->getLed()->setRGB(values[i]);
     }
 

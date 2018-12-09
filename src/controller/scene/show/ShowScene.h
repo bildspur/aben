@@ -11,9 +11,8 @@
 #include "../BaseScene.h"
 
 #define PORTAL_SIZE 5
-#define ANIMATION_SPEED 1000
 
-#define KEYPOINT_SIZE 4
+#define KEYPOINT_SIZE 9
 
 class ShowScene : public BaseScene {
 private:
@@ -23,7 +22,12 @@ private:
             KeyPoint<PORTAL_SIZE>(0.0f, RGBColor::BLACK()),
             KeyPoint<PORTAL_SIZE>(5.0f, RGBColor::WHITE()),
             KeyPoint<PORTAL_SIZE>(5.0f, RGBColor::RED()),
-            KeyPoint<PORTAL_SIZE>(8.0f, RGBColor::BLACK()),
+            KeyPoint<PORTAL_SIZE>(5.0f, RGBColor::WHITE()),
+            KeyPoint<PORTAL_SIZE>(0.1f, RGBColor::BLACK()),
+            KeyPoint<PORTAL_SIZE>(0.1f, RGBColor::WHITE()),
+            KeyPoint<PORTAL_SIZE>(0.1f, RGBColor::BLACK()),
+            KeyPoint<PORTAL_SIZE>(0.1f, RGBColor::WHITE()),
+            KeyPoint<PORTAL_SIZE>(5.0f, RGBColor::BLACK()),
     };
 
     AnimationPtr animation;

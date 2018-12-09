@@ -115,3 +115,11 @@ bool AppSettings::isInteractionOn() const {
 void AppSettings::setInteractionOn(bool interactionOn) {
     AppSettings::interactionOn = interactionOn;
 }
+
+unsigned long AppSettings::getShowSpeed() const {
+    return showSpeed;
+}
+
+void AppSettings::setShowSpeed(unsigned long showSpeed) {
+    AppSettings::showSpeed = showSpeed;
+}

@@ -51,6 +51,10 @@ public:
     unsigned long toMillis(float time);
 
     bool isRunning() const;
+
+    unsigned int getSpeed() const;
+
+    void setSpeed(unsigned int speed);
 };
 
 template<int SIZE>
@@ -134,6 +138,16 @@ unsigned long Animation<SIZE>::toMillis(float time) {
 template<int SIZE>
 bool Animation<SIZE>::isRunning() const {
     return running;
+}
+
+template<int SIZE>
+unsigned int Animation<SIZE>::getSpeed() const {
+    return speed;
+}
+
+template<int SIZE>
+void Animation<SIZE>::setSpeed(unsigned int speed) {
+    Animation::speed = speed;
 }
 
 #endif //ABEN_ANIMATION_H

@@ -172,6 +172,11 @@ void handleOsc(OSCMessage &msg) {
         }
     });
 
+    msg.dispatch("/aben/show/speed", [](OSCMessage &msg) {
+        installation.getSettings().setShowSpeed(static_cast<unsigned long>(msg.getFloat(0)));
+        sendOSCFeedback = true;
+    });
+
     // global
     msg.dispatch("/aben/brightness/min", [](OSCMessage &msg) {
         installation.getSettings().setMinBrightness(msg.getFloat(0));
@@ -326,6 +331,7 @@ void sendRefresh() {
     // installation
     osc.send("/aben/activationtime",
              static_cast<float>(MathUtils::millisToSeconds(installation.getSettings().getPortalActivationTime())));
+    osc.send("/aben/show/speed", (float) installation.getSettings().getShowSpeed());
 
     // colors
     osc.send("/aben/color/hue", installation.getSettings().getDefaultHue());

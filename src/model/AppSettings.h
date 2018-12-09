@@ -45,6 +45,8 @@ private:
 
     bool interactionOn = true;
 
+    unsigned long showSpeed = 1000L;
+
 
 public:
     int getVersion() const;
@@ -102,6 +104,10 @@ public:
     bool isInteractionOn() const;
 
     void setInteractionOn(bool interactionOn);
+
+    unsigned long getShowSpeed() const;
+
+    void setShowSpeed(unsigned long showSpeed);
 };
 
 
