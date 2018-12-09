@@ -13,11 +13,13 @@
 #define PORTAL_SIZE 5
 #define ANIMATION_SPEED 1000
 
+#define KEYPOINT_SIZE 3
+
 class ShowScene : public BaseScene {
 private:
     typedef Animation<PORTAL_SIZE> *AnimationPtr;
 
-    KeyPoint<PORTAL_SIZE> keyPoints[3]{
+    KeyPoint<PORTAL_SIZE> keyPoints[KEYPOINT_SIZE]{
             KeyPoint<PORTAL_SIZE>(1.0f, RGBColor::BLACK()),
             KeyPoint<PORTAL_SIZE>(5.0f, RGBColor::WHITE()),
             KeyPoint<PORTAL_SIZE>(8.0f, RGBColor::BLACK()),

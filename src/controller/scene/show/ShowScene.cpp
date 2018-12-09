@@ -7,7 +7,7 @@
 
 ShowScene::ShowScene(Installation *installation) : BaseScene(
         "ShowScene", installation) {
-    this->animation = new Animation<PORTAL_SIZE>(keyPoints, ANIMATION_SPEED);
+    this->animation = new Animation<PORTAL_SIZE>(keyPoints, KEYPOINT_SIZE, ANIMATION_SPEED);
 }
 
 void ShowScene::setup() {
