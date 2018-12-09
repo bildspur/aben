@@ -166,6 +166,12 @@ void handleOsc(OSCMessage &msg) {
         sendOSCFeedback = true;
     });
 
+    msg.dispatch("/aben/show/start", [](OSCMessage &msg) {
+        for (int i = 0; i < installation.getSize(); i++) {
+            installation.getPortal(i)->setActivated(true);
+        }
+    });
+
     // global
     msg.dispatch("/aben/brightness/min", [](OSCMessage &msg) {
         installation.getSettings().setMinBrightness(msg.getFloat(0));

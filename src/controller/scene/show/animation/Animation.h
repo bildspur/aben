@@ -47,6 +47,8 @@ public:
     void update();
 
     const RGBColor *getValues() const;
+
+    unsigned long toMillis(float time);
 };
 
 template<int SIZE>
@@ -59,25 +61,48 @@ void Animation<SIZE>::start() {
 template<int SIZE>
 void Animation<SIZE>::reset() {
     keyIndex = 0;
+    summedKeyPointTime = 0;
     switchKeyIndex();
     running = false;
 }
 
 template<int SIZE>
 void Animation<SIZE>::switchKeyIndex() {
-    //if(keyIndex > keyPoints)
+    if (keyIndex + 1 >= keyPointSize) {
+        running = false;
+        return;
+    }
 
+    // check start from black
     startKey = &keyPoints[keyIndex];
     endKey = &keyPoints[keyIndex + 1];
+
+    // add to summed time
+    summedKeyPointTime += toMillis(startKey->getTimeStamp());
 
     keyIndex++;
 }
 
 template<int SIZE>
 void Animation<SIZE>::update() {
-    // calculate current normalized value
+    // calculate current normalized value of current time-span
+    auto timeSinceStart = millis() - startTime;
+    auto currentKeyTime = timeSinceStart - summedKeyPointTime;
+    auto t = float(currentKeyTime) / toMillis(startKey->getTimeStamp());
+
+    // switch if necessary (key time up)
+    if (t > 1.0f) {
+        switchKeyIndex();
+        t = 0.0f;
+    }
 
     // lerp different values
+    auto startColors = startKey->getColors();
+    auto endColors = endKey->getColors();
+
+    for (auto i = 0; i < SIZE; i++) {
+        values[i] = RGBColor::lerp(startColors[i], endColors[i], t);
+    }
 }
 
 template<int SIZE>
@@ -90,6 +115,11 @@ Animation<SIZE>::Animation(KeyPoint<SIZE> *keyPoints, unsigned int keyPointSize,
     this->keyPoints = keyPoints;
     this->speed = speed;
     this->keyPointSize = keyPointSize;
+}
+
+template<int SIZE>
+unsigned long Animation<SIZE>::toMillis(float time) {
+    return static_cast<unsigned long>(lround(time * speed));
 }
 
 #endif //ABEN_ANIMATION_H
