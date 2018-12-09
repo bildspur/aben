@@ -17,7 +17,7 @@ void SerialLightRenderer::setup() {
 }
 
 void SerialLightRenderer::timedLoop() {
-    LightRenderer::loop();
+    LightRenderer::timedLoop();
 
     String msg = "SLR;";
 
@@ -32,7 +32,7 @@ void SerialLightRenderer::timedLoop() {
     }
 
     msg += "\n";
-    Serial.println(msg);
+    Serial.print(msg);
     Serial.flush();
 
     if (debugTimer.elapsed()) {

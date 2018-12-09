@@ -20,7 +20,7 @@ Portal[] portals = new Portal[5];
 
 void setup()
 {
-  frameRate(60);
+  frameRate(120);
   size(800, 600, P3D);
   surface.setTitle("åben Debug Monitor");
 

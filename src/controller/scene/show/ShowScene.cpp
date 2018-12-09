@@ -7,7 +7,8 @@
 
 ShowScene::ShowScene(Installation *installation) : BaseScene(
         "ShowScene", installation) {
-    this->animation = new Animation<PORTAL_SIZE>(keyPoints, KEYPOINT_SIZE, installation->getSettings().getShowSpeed());
+    setupKeyPoints();
+    this->animation = new Animation<PORTAL_SIZE>(keyPoints, installation->getSettings().getShowSpeed());
 }
 
 void ShowScene::setup() {
@@ -37,4 +38,17 @@ void ShowScene::reset() {
 
     animation->reset();
     animation->start();
+}
+
+void ShowScene::setupKeyPoints() {
+    keyPoints.clear();
+
+    for (int i = 0; i < 20; i++) {
+        auto on = MathUtils::isRandomCalled(0.8);
+
+        if (i % 2 == 0)
+            keyPoints.emplace_back(0.2f, RGBColor::WHITE());
+        else
+            keyPoints.emplace_back(0.2f, RGBColor::BLACK());
+    }
 }

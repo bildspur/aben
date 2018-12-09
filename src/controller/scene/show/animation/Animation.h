@@ -5,18 +5,17 @@
 #ifndef ABEN_ANIMATION_H
 #define ABEN_ANIMATION_H
 
-
 #include "Arduino.h"
 #include "KeyPoint.h"
+#include <vector>
+
 
 template<int SIZE>
 class Animation {
 private:
     typedef KeyPoint<SIZE> *KeyPointPtr;
 
-    KeyPoint<SIZE> *keyPoints;
-
-    unsigned int keyPointSize = 0;
+    std::vector<KeyPoint<SIZE>> keyPoints;
 
     // time
     unsigned long startTime = 0;
@@ -38,7 +37,7 @@ private:
     bool running = false;
 
 public:
-    explicit Animation(KeyPoint<SIZE> keyPoints[], unsigned int keyPointSize, unsigned int speed = 1000);
+    explicit Animation(std::vector<KeyPoint<SIZE>> &keyPoints, unsigned int speed = 1000);
 
     void start();
 
@@ -78,7 +77,7 @@ void Animation<SIZE>::reset() {
 
 template<int SIZE>
 void Animation<SIZE>::switchKeyIndex() {
-    if (keyIndex + 1 >= keyPointSize) {
+    if (keyIndex + 1 >= keyPoints.size()) {
         running = false;
         Serial.println("show ended!");
         return;
@@ -124,13 +123,6 @@ const RGBColor *Animation<SIZE>::getValues() const {
 }
 
 template<int SIZE>
-Animation<SIZE>::Animation(KeyPoint<SIZE> *keyPoints, unsigned int keyPointSize, unsigned int speed) {
-    this->keyPoints = keyPoints;
-    this->speed = speed;
-    this->keyPointSize = keyPointSize;
-}
-
-template<int SIZE>
 unsigned long Animation<SIZE>::toMillis(float time) {
     return static_cast<unsigned long>(lround(time * speed));
 }
@@ -148,6 +140,12 @@ unsigned int Animation<SIZE>::getSpeed() const {
 template<int SIZE>
 void Animation<SIZE>::setSpeed(unsigned int speed) {
     Animation::speed = speed;
+}
+
+template<int SIZE>
+Animation<SIZE>::Animation(std::vector<KeyPoint<SIZE>> &keyPoints, unsigned int speed) {
+    this->keyPoints = keyPoints;
+    this->speed = speed;
 }
 
 #endif //ABEN_ANIMATION_H
