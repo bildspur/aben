@@ -48,15 +48,13 @@ public:
 
     float getBGRChannel(unsigned int channel);
 
-    float getRChannel(unsigned int channel);
-
     unsigned int getChannelCount();
 
-    void setRGB(RGBColor color);
+    void setRGB(RGBColor color, bool easing = true);
 
     RGBColor getRGB();
 
-    void setHSV(HSVColor color);
+    void setHSV(HSVColor color, bool easing = true);
 
     HSVColor getHSV();
 };

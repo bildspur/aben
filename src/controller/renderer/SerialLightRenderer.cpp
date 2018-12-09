@@ -33,6 +33,7 @@ void SerialLightRenderer::timedLoop() {
 
     msg += "\n";
     Serial.println(msg);
+    Serial.flush();
 
     if (debugTimer.elapsed()) {
         auto led = installation->getPortal(0)->getLed();

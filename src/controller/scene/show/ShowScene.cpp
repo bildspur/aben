@@ -25,7 +25,7 @@ void ShowScene::loop() {
         auto portal = installation->getPortal(i);
 
         // update color
-        portal->getLed()->setRGB(values[i]);
+        portal->getLed()->setRGB(values[i], false);
     }
 
     if (!animation->isRunning())

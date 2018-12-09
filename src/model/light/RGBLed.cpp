@@ -60,18 +60,18 @@ float RGBLed::getBlue() {
     return b.getBrightness();
 }
 
-void RGBLed::setRGB(RGBColor color) {
-    setRed(color.r);
-    setGreen(color.g);
-    setBlue(color.b);
+void RGBLed::setRGB(RGBColor color, bool easing) {
+    setRed(color.r, easing);
+    setGreen(color.g, easing);
+    setBlue(color.b, easing);
 }
 
 RGBColor RGBLed::getRGB() {
     return {getRed(), getGreen(), getBlue()};
 }
 
-void RGBLed::setHSV(HSVColor color) {
-    setRGB(ColorSpace::hsvToRGB(color));
+void RGBLed::setHSV(HSVColor color, bool easing) {
+    setRGB(ColorSpace::hsvToRGB(color), easing);
 }
 
 HSVColor RGBLed::getHSV() {
