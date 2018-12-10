@@ -116,6 +116,7 @@ void ShowScene::setupNatureShow() {
 
     // start rain
     keyPoints.emplace_back(6.0f, ColorSpace::hsvToRGB(rainSkyBlue.shift(0.0f, 0.0f, -0.2f)));
+    keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(rainSkyBlue));
     for (int i = 0; i < rainTime; i++) {
         auto mappedProbability = MathUtils::map(i, 0, rainTime, rainProbabilityLow, rainProbabilityHigh);
         auto keyPointSet = KeyPointSet<PORTAL_SIZE>(rainFlashTime,
@@ -173,7 +174,7 @@ void ShowScene::setupNatureShow() {
 
         keyPoints.push_back(keyPointSet);
     }
-    keyPoints.emplace_back(2.0f, ColorSpace::hsvToRGB(rainSkyBlue.shift(0.0f, 0.0f, 0.2f)));
+    keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(rainSkyBlue.shift(0.0f, 0.0f, 0.2f)));
 
     // daylight
     addShiftedTween(5.0f, ColorSpace::hsvToRGB(sunYellow.shift(-0.10f, 0.0f, -0.2f)));
