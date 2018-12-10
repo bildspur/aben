@@ -152,22 +152,13 @@ Animation<SIZE>::Animation(std::vector<KeyPointSet<SIZE>> &keyPoints, unsigned i
     this->keyPoints = keyPoints;
     this->speed = speed;
 
-    Serial.println("Pre PreInterpolation:");
-    printKeyPointSets();
-
     preInterpolateKeyPointSet();
-
-    Serial.println("---");
-    Serial.println("After PreInterpolation:");
-    printKeyPointSets();
 }
 
 template<int SIZE>
 void Animation<SIZE>::preInterpolateKeyPointSet() {
     for (int i = 0; i < keyPoints.size(); i++) {
         KeyPointSet<SIZE> keyPointSet = keyPoints[i];
-
-        Serial.printf("checking kps %d...\n", i);
 
         for (int kpi = 0; kpi < SIZE; kpi++) {
             auto keyPoint = keyPointSet.getKeyPoint(kpi);
@@ -176,12 +167,8 @@ void Animation<SIZE>::preInterpolateKeyPointSet() {
             if (keyPoint->getType() != KeyPointType::CONTINUOUS)
                 continue;
 
-            Serial.printf("kp %d is CONTINUOUS...\n", i);
-
             // get last key point
             auto startKeyPoint = ((KeyPointSet<SIZE>) keyPoints[i - 1]).getKeyPoint(kpi);
-
-            Serial.printf("finding end keypoint...\n", i);
 
             // find end keypoint
             KeyPoint *endKeyPoint = nullptr;
@@ -203,8 +190,6 @@ void Animation<SIZE>::preInterpolateKeyPointSet() {
                 }
             }
 
-            Serial.printf("endKeypoint is in set %d, total tweentime: %f\n", setId, totalTweenTime);
-
             // calculate time and update all in betweens
             float currentTime = 0.0f;
             for (int si = i; si < keyPoints.size(); si++) {
@@ -215,6 +200,8 @@ void Animation<SIZE>::preInterpolateKeyPointSet() {
                 if (nkey->getType() != CONTINUOUS) {
                     break;
                 }
+
+                currentTime += nkeySet.getTimeStamp();
 
                 // calculate and set normalized time
                 auto nt = currentTime / totalTweenTime;
@@ -233,7 +220,7 @@ void Animation<SIZE>::printKeyPointSets() {
         Serial.printf("KPS %d (%LU ms): ", i, toMillis(keyPointSet.getTimeStamp()));
         for (int j = 0; j < SIZE; j++) {
             auto keyPoint = keyPointSet.getKeyPoint(j);
-            Serial.printf("KP(%d, [%s], %s) ", j, keyPoint->getColor().toString().c_str(),
+            Serial.printf("[KP(%d, rgb(%s), %s] ", j, keyPoint->getColor().toString().c_str(),
                           keyPoint->getType() == LINEAR ? "LIN" : "CONT");
         }
         Serial.println();
