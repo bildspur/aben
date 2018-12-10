@@ -224,7 +224,7 @@ void Animation<SIZE>::printKeyPointSets() {
         Serial.printf("KPS %d (%LU ms): ", i, toMillis(keyPointSet.getTimeStamp()));
         for (int j = 0; j < SIZE; j++) {
             auto keyPoint = keyPointSet.getKeyPoint(j);
-            Serial.printf("KP(%d, %s, %s)", j, keyPoint->getColor().toString(),
+            Serial.printf("KP(%d, [%s], %s) ", j, keyPoint->getColor().toString().c_str(),
                           keyPoint->getType() == LINEAR ? "LIN" : "CONT");
         }
         Serial.println();
