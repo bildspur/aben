@@ -147,3 +147,11 @@ float AppSettings::getRainbowEnd() const {
 void AppSettings::setRainbowEnd(float rainbowEnd) {
     AppSettings::rainbowEnd = rainbowEnd;
 }
+
+unsigned long AppSettings::getRainbowTime() const {
+    return rainbowTime;
+}
+
+void AppSettings::setRainbowTime(unsigned long rainbowTime) {
+    AppSettings::rainbowTime = rainbowTime;
+}

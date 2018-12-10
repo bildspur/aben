@@ -42,6 +42,8 @@ private:
 
     bool rainbowMode = true;
 
+    unsigned long rainbowTime = 10 * 1000;
+
     float rainbowStart = 180.0f;
 
     float rainbowEnd = 30.0f;
@@ -126,6 +128,10 @@ public:
     float getRainbowEnd() const;
 
     void setRainbowEnd(float rainbowEnd);
+
+    unsigned long getRainbowTime() const;
+
+    void setRainbowTime(unsigned long rainbowTime);
 };
 
 

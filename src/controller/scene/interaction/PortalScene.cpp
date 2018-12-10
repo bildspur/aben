@@ -11,6 +11,8 @@ PortalScene::PortalScene(Installation *installation) : BaseScene(
 
 void PortalScene::setup() {
     BaseScene::setup();
+
+    rainbowTimer.setWaitTime(installation->getSettings().getRainbowTime());
     rainbowTimer.reset();
 }
 

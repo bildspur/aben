@@ -13,7 +13,7 @@ class PortalScene : public BaseScene {
 private:
     float getPortalBrightness(PortalPtr portal, unsigned long timeStamp, float blinkTime);
 
-    Timer rainbowTimer = Timer(10 * 1000);
+    Timer rainbowTimer = Timer(0);
 
 public:
     explicit PortalScene(Installation *installation);
