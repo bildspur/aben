@@ -111,9 +111,9 @@ void updateLights()
     {
       String[] rawValues = data[i+1].split(" ");
 
-      float r = (int)round(map(Float.parseFloat(rawValues[0]), 0f, 1f, 0f, 255f));
-      float g = (int)round(map(Float.parseFloat(rawValues[1]), 0f, 1f, 0f, 255f));
-      float b = (int)round(map(Float.parseFloat(rawValues[2]), 0f, 1f, 0f, 255f));
+      float r = gamma8[(int)round(map(Float.parseFloat(rawValues[0]), 0f, 1f, 0f, 255f))];
+      float g = gamma8[(int)round(map(Float.parseFloat(rawValues[1]), 0f, 1f, 0f, 255f))];
+      float b = gamma8[(int)round(map(Float.parseFloat(rawValues[2]), 0f, 1f, 0f, 255f))];
 
       portals[i].rgb = color(r, g, b);
     }
@@ -147,7 +147,7 @@ void renderLights()
 
   for (Portal portal : portals)
   {
-    stroke(255);
+    stroke(75);
     fill(portal.rgb);
 
     pushMatrix();

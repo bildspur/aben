@@ -23,15 +23,15 @@ private:
     bool gammaCorrection = true;
 
     // time star scene settings
-    unsigned long timeStarMinDuration = 3000L;
+    unsigned long timeStarMinDuration = 1500L; // used for portal scene as timer
 
     unsigned long timeStarMaxDuration = 5000L;
 
     float timeStarRandomOnFactor = 0.99f;
 
-    float timeStarMinBrightness = 0.0f;
+    float timeStarMinBrightness = 0.4f;
 
-    float timeStarMaxBrightness = 1.0f;
+    float timeStarMaxBrightness = 0.8f;
 
     float portalMinTreshold = 60.0;
 
