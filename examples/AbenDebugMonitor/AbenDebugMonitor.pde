@@ -3,6 +3,12 @@ import ch.bildspur.postfx.builder.*;
 import ch.bildspur.postfx.pass.*;
 import ch.bildspur.postfx.*;
 
+import oscP5.*;
+import netP5.*;
+
+OscP5 oscP5;
+NetAddress mcuAddress;
+
 PostFX fx;
 
 int padding = 50;
@@ -57,6 +63,13 @@ void initPortals()
 
 void draw()
 {
+  if (oscP5 == null)
+  {
+    // osc
+    oscP5 = new OscP5(this, 9000);
+    mcuAddress = new NetAddress("aben-master.local", 8000);
+  }
+
   checkDevices();
 
   background(0);
@@ -183,9 +196,26 @@ void keyPressed()
 
     println("Seed: " + seed);
   }
+
+  if (key == 's')
+  {
+    OscMessage msg = new OscMessage("/aben/show/start");
+    msg.add(1.0f);
+    oscP5.send(msg, mcuAddress);
+  }
+
+  if (key == 'r')
+  {
+    OscMessage msg = new OscMessage("/aben/rainbow/on");
+    msg.add(1.0f);
+    oscP5.send(msg, mcuAddress);
+  }
 }
 
 void checkDevices()
 {
   isMcuAvailable = new File(mcuPath).exists();
+}
+
+void oscEvent(OscMessage theOscMessage) {
 }
