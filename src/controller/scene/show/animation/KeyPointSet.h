@@ -62,10 +62,10 @@ KeyPointSet<SIZE>::KeyPointSet(float timeStamp, RGBColor color) {
 template<int SIZE>
 KeyPointSet<SIZE>::KeyPointSet(float timeStamp, HSVColor *colors) {
     this->timeStamp = timeStamp;
-    this->keyPoints = new RGBColor[SIZE];
+    this->keyPoints = new KeyPoint[SIZE];
 
     for (auto i = 0; i < SIZE; i++)
-        this->keyPoints[i] = ColorSpace::hsvToRGB(colors[i]);
+        this->keyPoints[i] = KeyPoint(ColorSpace::hsvToRGB(colors[i]));
 }
 
 template<int SIZE>

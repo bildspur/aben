@@ -93,9 +93,6 @@ void Animation<SIZE>::switchKeyIndex() {
 
     // add to summed time
     summedKeyPointTime += toMillis(startKey->getTimeStamp());
-
-    Serial.printf("Changed to start keypoint %d, Summed time: %d\n", keyIndex, summedKeyPointTime);
-
     keyIndex++;
 }
 

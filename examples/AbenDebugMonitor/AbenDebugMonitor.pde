@@ -67,7 +67,7 @@ void draw()
   {
     // osc
     oscP5 = new OscP5(this, 9000);
-    mcuAddress = new NetAddress("aben-master.local", 8000);
+    mcuAddress = new NetAddress("192.168.4.1", 8000);
   }
 
   checkDevices();
