@@ -43,6 +43,7 @@ void ShowScene::reset() {
 
 void ShowScene::setupKeyPoints() {
     keyPoints.clear();
+    keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(0.0f, RGBColor::BLACK()));
 
     /*
     for (int i = 0; i < 20; i++) {
@@ -58,12 +59,17 @@ void ShowScene::setupKeyPoints() {
     keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(0.0f, RGBColor::BLACK()));
 
     // start
+    keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(0.5f, 0, RGBColor::BLACK()));
+    keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(0.5f, 1, RGBColor::BLACK()));
+    keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(0.5f, 2, RGBColor::BLACK()));
+    keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(0.5f, 3, RGBColor::BLACK()));
+
+    // end
     keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(0.5f, 0, RGBColor::WHITE()));
     keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(0.5f, 1, RGBColor::WHITE()));
     keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(0.5f, 2, RGBColor::WHITE()));
     keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(0.5f, 3, RGBColor::WHITE()));
 
-    // end
-    keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(5.0f, RGBColor::WHITE()));
+    keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(1.0f, RGBColor::BLACK()));
     keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(1.0f, RGBColor::BLACK()));
 }
