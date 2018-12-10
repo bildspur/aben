@@ -173,7 +173,6 @@ void Animation<SIZE>::preInterpolateKeyPointSet() {
             // find end keypoint
             KeyPoint *endKeyPoint = nullptr;
             float totalTweenTime = 0.0f;
-            int setId = -1;
 
             for (int si = i + 1; si < keyPoints.size(); si++) {
                 auto nkeySet = ((KeyPointSet<SIZE>) keyPoints[si]);
@@ -185,7 +184,6 @@ void Animation<SIZE>::preInterpolateKeyPointSet() {
                 if (nkey->getType() != CONTINUOUS) {
                     // found end key
                     endKeyPoint = nkey;
-                    setId = si;
                     break;
                 }
             }
