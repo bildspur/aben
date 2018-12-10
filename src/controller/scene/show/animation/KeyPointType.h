@@ -7,7 +7,7 @@
 
 enum KeyPointType {
     LINEAR,
-    CONTINUE
+    CONTINUOUS
 };
 
 #endif //ABEN_KEYPOINTTYPE_H

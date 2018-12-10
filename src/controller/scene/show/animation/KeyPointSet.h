@@ -89,7 +89,7 @@ KeyPointSet<SIZE>::KeyPointSet(float timeStamp, int index, RGBColor color) {
     this->keyPoints = new KeyPoint[SIZE];
 
     for (auto i = 0; i < SIZE; i++)
-        this->keyPoints[i] = KeyPoint(RGBColor::BLACK(), KeyPointType::CONTINUE);
+        this->keyPoints[i] = KeyPoint(RGBColor::BLACK(), KeyPointType::CONTINUOUS);
 
     this->keyPoints[index] = KeyPoint(color);
 }

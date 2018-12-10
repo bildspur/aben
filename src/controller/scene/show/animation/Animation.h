@@ -155,13 +155,11 @@ Animation<SIZE>::Animation(std::vector<KeyPointSet<SIZE>> &keyPoints, unsigned i
     Serial.println("Pre PreInterpolation:");
     printKeyPointSets();
 
-    //preInterpolateKeyPointSet();
+    preInterpolateKeyPointSet();
 
-    /*
     Serial.println("---");
     Serial.println("After PreInterpolation:");
     printKeyPointSets();
-     */
 }
 
 template<int SIZE>
@@ -169,48 +167,59 @@ void Animation<SIZE>::preInterpolateKeyPointSet() {
     for (int i = 0; i < keyPoints.size(); i++) {
         KeyPointSet<SIZE> keyPointSet = keyPoints[i];
 
+        Serial.printf("checking kps %d...\n", i);
+
         for (int kpi = 0; kpi < SIZE; kpi++) {
             auto keyPoint = keyPointSet.getKeyPoint(kpi);
 
             // guard out if not relevant
-            if (keyPoint->getType() != KeyPointType::CONTINUE)
+            if (keyPoint->getType() != KeyPointType::CONTINUOUS)
                 continue;
+
+            Serial.printf("kp %d is CONTINUOUS...\n", i);
 
             // get last key point
             auto startKeyPoint = ((KeyPointSet<SIZE>) keyPoints[i - 1]).getKeyPoint(kpi);
 
+            Serial.printf("finding end keypoint...\n", i);
+
             // find end keypoint
             KeyPoint *endKeyPoint = nullptr;
             float totalTweenTime = 0.0f;
+            int setId = -1;
 
             for (int si = i + 1; si < keyPoints.size(); si++) {
-                auto nkeySet = ((KeyPointSet<SIZE>) keyPoints[i]);
+                auto nkeySet = ((KeyPointSet<SIZE>) keyPoints[si]);
                 auto nkey = nkeySet.getKeyPoint(kpi);
 
                 totalTweenTime += nkeySet.getTimeStamp();
 
                 // check if finished
-                if (nkey->getType() != CONTINUE) {
+                if (nkey->getType() != CONTINUOUS) {
                     // found end key
                     endKeyPoint = nkey;
+                    setId = si;
                     break;
                 }
             }
 
+            Serial.printf("endKeypoint is in set %d, total tweentime: %f\n", setId, totalTweenTime);
+
             // calculate time and update all in betweens
             float currentTime = 0.0f;
             for (int si = i; si < keyPoints.size(); si++) {
-                auto nkeySet = ((KeyPointSet<SIZE>) keyPoints[i]);
+                auto nkeySet = ((KeyPointSet<SIZE>) keyPoints[si]);
                 auto nkey = nkeySet.getKeyPoint(kpi);
 
                 // check if finished
-                if (nkey->getType() != CONTINUE) {
+                if (nkey->getType() != CONTINUOUS) {
                     break;
                 }
 
                 // calculate and set normalized time
                 auto nt = currentTime / totalTweenTime;
                 nkey->setColor(RGBColor::lerp(startKeyPoint->getColor(), endKeyPoint->getColor(), nt));
+                nkey->setType(LINEAR);
             }
         }
     }
