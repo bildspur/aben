@@ -110,7 +110,6 @@ void ShowScene::setupNatureShow() {
     // clouds
     addShiftedTween(1.0f, ColorSpace::hsvToRGB(sunYellow.shift(0.0f, -0.3f, -0.2f)));
     keyPoints.emplace_back(2.0f, ColorSpace::hsvToRGB(sunYellow.shift(0.0f, 0.0f, -0.2f)));
-    addShiftedTween(0.5f, ColorSpace::hsvToRGB(sunYellow.shift(0.0f, -0.3f, -0.4f)));
     addShiftedTween(2.0f, ColorSpace::hsvToRGB(sunYellow.shift(0.0f, 0.0f, -0.2f)));
     keyPoints.emplace_back(2.0f, ColorSpace::hsvToRGB(sunYellow.shift(0.0f, 0.0f, -0.5f)));
 
