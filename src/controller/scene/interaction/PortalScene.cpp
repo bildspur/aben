@@ -21,7 +21,14 @@ void PortalScene::loop() {
 
     // update hue over 6 minutes
     if (installation->getSettings().isRainbowMode() && rainbowTimer.elapsed()) {
-        installation->getSettings().setDefaultHue(((int) installation->getSettings().getDefaultHue() + 1) % 360);
+        auto defaultHue = installation->getSettings().getDefaultHue();
+        installation->getSettings().setDefaultHue(((int) defaultHue + 1) % 360);
+
+        // keep it in the range
+        if (defaultHue < installation->getSettings().getRainbowStart() &&
+            defaultHue > installation->getSettings().getRainbowEnd()) {
+            installation->getSettings().setDefaultHue(installation->getSettings().getRainbowStart());
+        }
     }
 
     for (auto i = 0; i < installation->getSize(); i++) {

@@ -78,20 +78,37 @@ void ShowScene::setupNatureShow() {
     // define times
 
     // shwow colors
-    auto nightBlue = ColorSpace::hsvToRGB(HSVColor(240.0f, 1.0f, 0.25f));
+    auto nightBlue = HSVColor(240.0f, 1.0f, 0.25f);
+    auto sunriseOrange = HSVColor(48.0f, 0.93f, 0.65f);
 
     // define show
     keyPoints.clear();
     keyPoints.emplace_back(0.0f, black);
 
     // night scene
-    keyPoints.emplace_back(5.0f, nightBlue);
-    addShiftedTween(5.0f, nightBlue.shift(0.0f, 0.0f, 0.1f));
-    addShiftedTween(5.0f, nightBlue.shift(0.0f, 0.0f, 0.1f));
+    keyPoints.emplace_back(1.0f, ColorSpace::hsvToRGB(nightBlue));
+    addShiftedTween(5.0f, ColorSpace::hsvToRGB(nightBlue.shift(0.0f, 0.0f, 0.2f)));
+    addShiftedTween(5.0f, ColorSpace::hsvToRGB(nightBlue));
+    keyPoints.emplace_back(4.0f, ColorSpace::hsvToRGB(nightBlue.shift(0.0f, 0.0f, 0.4f)));
 
-    // start sunrise
+    // sunrise
+    addShiftedTween(10.0f, ColorSpace::hsvToRGB(sunriseOrange));
+    keyPoints.emplace_back(4.0f, ColorSpace::hsvToRGB(sunriseOrange));
 
-    keyPoints.emplace_back(1.0f, black);
+    // daylight
+
+    // clouds
+
+    // rain
+
+    // daylight
+
+    // sunset
+
+    // night
+    keyPoints.emplace_back(1.0f, ColorSpace::hsvToRGB(nightBlue));
+
+    // end
     keyPoints.emplace_back(1.0f, black);
 }
 

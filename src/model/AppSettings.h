@@ -42,6 +42,10 @@ private:
 
     bool rainbowMode = true;
 
+    float rainbowStart = 180.0f;
+
+    float rainbowEnd = 30.0f;
+
     // installation
     unsigned long portalActivationTime = 15000L;
 
@@ -114,6 +118,14 @@ public:
     bool isRainbowMode() const;
 
     void setRainbowMode(bool rainbowMode);
+
+    float getRainbowStart() const;
+
+    void setRainbowStart(float rainbowStart);
+
+    float getRainbowEnd() const;
+
+    void setRainbowEnd(float rainbowEnd);
 };
 
 

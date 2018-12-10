@@ -131,3 +131,19 @@ bool AppSettings::isRainbowMode() const {
 void AppSettings::setRainbowMode(bool rainbowMode) {
     AppSettings::rainbowMode = rainbowMode;
 }
+
+float AppSettings::getRainbowStart() const {
+    return rainbowStart;
+}
+
+void AppSettings::setRainbowStart(float rainbowStart) {
+    AppSettings::rainbowStart = rainbowStart;
+}
+
+float AppSettings::getRainbowEnd() const {
+    return rainbowEnd;
+}
+
+void AppSettings::setRainbowEnd(float rainbowEnd) {
+    AppSettings::rainbowEnd = rainbowEnd;
+}

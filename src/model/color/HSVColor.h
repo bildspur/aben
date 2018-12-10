@@ -14,6 +14,8 @@ struct HSVColor {
     explicit HSVColor();
 
     HSVColor(float hue, float saturation, float value);
+
+    HSVColor shift(float dh, float ds, float dv);
 };
 
 
