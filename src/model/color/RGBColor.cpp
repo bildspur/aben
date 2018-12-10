@@ -38,3 +38,7 @@ RGBColor RGBColor::lerp(RGBColor a, RGBColor b, float t) {
 RGBColor RGBColor::SATURATION(float saturation) {
     return {saturation, saturation, saturation};
 }
+
+String RGBColor::toString() {
+    return String(r) + ", " + String(g) + ", " + String(b);
+}

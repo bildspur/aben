@@ -11,7 +11,6 @@ BaseScene::BaseScene(const char *name, Installation *installation) {
 
 void BaseScene::setup() {
     BaseController::setup();
-    reset();
 }
 
 void BaseScene::loop() {

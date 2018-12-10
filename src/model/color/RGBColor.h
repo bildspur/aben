@@ -5,6 +5,7 @@
 #ifndef ABEN_RGBCOLOR_H
 #define ABEN_RGBCOLOR_H
 
+#include "Arduino.h"
 
 struct RGBColor {
     float r; // a fraction between 0 and 1
@@ -14,6 +15,8 @@ struct RGBColor {
     explicit RGBColor();
 
     RGBColor(float red, float green, float blue);
+
+    String toString();
 
     static RGBColor lerp(RGBColor a, RGBColor b, float t);
 

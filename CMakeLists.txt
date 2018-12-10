@@ -51,4 +51,4 @@ add_custom_target(
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-add_executable(${PROJECT_NAME} ${SRC_LIST} src/controller/scene/show/animation/KeyPoint.cpp src/controller/scene/show/animation/KeyPoint.h)
+add_executable(${PROJECT_NAME} ${SRC_LIST} src/controller/scene/show/animation/KeyPoint.cpp src/controller/scene/show/animation/KeyPoint.h src/controller/scene/show/animation/KeyPointType.h)

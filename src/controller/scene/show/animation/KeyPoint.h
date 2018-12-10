@@ -7,19 +7,9 @@
 
 
 #include <model/color/RGBColor.h>
+#include "KeyPointType.h"
 
 class KeyPoint {
-    enum KeyPointType {
-        LINEAR,
-        FIX,
-        CONTINUE
-    };
-
-private:
-    RGBColor color;
-
-    KeyPointType type;
-
 public:
     explicit KeyPoint();
 
@@ -28,6 +18,15 @@ public:
     RGBColor getColor() const;
 
     KeyPointType getType() const;
+
+    void setColor(const RGBColor &color);
+
+    void setType(KeyPointType type);
+
+private:
+    RGBColor color;
+
+    KeyPointType type;
 };
 
 

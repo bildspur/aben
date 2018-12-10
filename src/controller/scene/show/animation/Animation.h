@@ -36,6 +36,10 @@ private:
 
     bool running = false;
 
+    void preInterpolateKeyPointSet();
+
+    void printKeyPointSets();
+
 public:
     explicit Animation(std::vector<KeyPointSet<SIZE>> &keyPoints, unsigned int speed = 1000);
 
@@ -147,6 +151,84 @@ template<int SIZE>
 Animation<SIZE>::Animation(std::vector<KeyPointSet<SIZE>> &keyPoints, unsigned int speed) {
     this->keyPoints = keyPoints;
     this->speed = speed;
+
+    Serial.println("Pre PreInterpolation:");
+    printKeyPointSets();
+
+    //preInterpolateKeyPointSet();
+
+    /*
+    Serial.println("---");
+    Serial.println("After PreInterpolation:");
+    printKeyPointSets();
+     */
+}
+
+template<int SIZE>
+void Animation<SIZE>::preInterpolateKeyPointSet() {
+    for (int i = 0; i < keyPoints.size(); i++) {
+        KeyPointSet<SIZE> keyPointSet = keyPoints[i];
+
+        for (int kpi = 0; kpi < SIZE; kpi++) {
+            auto keyPoint = keyPointSet.getKeyPoint(kpi);
+
+            // guard out if not relevant
+            if (keyPoint->getType() != KeyPointType::CONTINUE)
+                continue;
+
+            // get last key point
+            auto startKeyPoint = ((KeyPointSet<SIZE>) keyPoints[i - 1]).getKeyPoint(kpi);
+
+            // find end keypoint
+            KeyPoint *endKeyPoint = nullptr;
+            float totalTweenTime = 0.0f;
+
+            for (int si = i + 1; si < keyPoints.size(); si++) {
+                auto nkeySet = ((KeyPointSet<SIZE>) keyPoints[i]);
+                auto nkey = nkeySet.getKeyPoint(kpi);
+
+                totalTweenTime += nkeySet.getTimeStamp();
+
+                // check if finished
+                if (nkey->getType() != CONTINUE) {
+                    // found end key
+                    endKeyPoint = nkey;
+                    break;
+                }
+            }
+
+            // calculate time and update all in betweens
+            float currentTime = 0.0f;
+            for (int si = i; si < keyPoints.size(); si++) {
+                auto nkeySet = ((KeyPointSet<SIZE>) keyPoints[i]);
+                auto nkey = nkeySet.getKeyPoint(kpi);
+
+                // check if finished
+                if (nkey->getType() != CONTINUE) {
+                    break;
+                }
+
+                // calculate and set normalized time
+                auto nt = currentTime / totalTweenTime;
+                nkey->setColor(RGBColor::lerp(startKeyPoint->getColor(), endKeyPoint->getColor(), nt));
+            }
+        }
+    }
+}
+
+template<int SIZE>
+void Animation<SIZE>::printKeyPointSets() {
+    for (int i = 0; i < keyPoints.size(); i++) {
+        KeyPointSet<SIZE> keyPointSet = keyPoints[i];
+
+        Serial.printf("KPS %d (%LU ms): ", i, toMillis(keyPointSet.getTimeStamp()));
+        for (int j = 0; j < SIZE; j++) {
+            auto keyPoint = keyPointSet.getKeyPoint(j);
+            Serial.printf("KP(%d, %s, %s)", j, keyPoint->getColor().toString(),
+                          keyPoint->getType() == LINEAR ? "LIN" : "CONT");
+        }
+        Serial.println();
+    }
 }
 
 #endif //ABEN_ANIMATION_H

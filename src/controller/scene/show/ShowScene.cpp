@@ -7,12 +7,13 @@
 
 ShowScene::ShowScene(Installation *installation) : BaseScene(
         "ShowScene", installation) {
-    setupKeyPoints();
-    this->animation = new Animation<PORTAL_SIZE>(keyPoints, installation->getSettings().getShowSpeed());
 }
 
 void ShowScene::setup() {
     BaseScene::setup();
+
+    setupKeyPoints();
+    this->animation = new Animation<PORTAL_SIZE>(keyPoints, installation->getSettings().getShowSpeed());
 }
 
 void ShowScene::loop() {
@@ -43,6 +44,7 @@ void ShowScene::reset() {
 void ShowScene::setupKeyPoints() {
     keyPoints.clear();
 
+    /*
     for (int i = 0; i < 20; i++) {
         auto on = MathUtils::isRandomCalled(0.8);
 
@@ -51,4 +53,17 @@ void ShowScene::setupKeyPoints() {
         else
             keyPoints.emplace_back(0.2f, RGBColor::BLACK());
     }
+     */
+
+    keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(0.0f, RGBColor::BLACK()));
+
+    // start
+    keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(0.5f, 0, RGBColor::WHITE()));
+    keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(0.5f, 1, RGBColor::WHITE()));
+    keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(0.5f, 2, RGBColor::WHITE()));
+    keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(0.5f, 3, RGBColor::WHITE()));
+
+    // end
+    keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(5.0f, RGBColor::WHITE()));
+    keyPoints.push_back(KeyPointSet<PORTAL_SIZE>(1.0f, RGBColor::BLACK()));
 }

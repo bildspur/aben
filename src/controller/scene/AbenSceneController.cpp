@@ -13,6 +13,9 @@ AbenSceneController::AbenSceneController(Installation *installation, BaseScene *
 
 void AbenSceneController::setup() {
     SceneController::setup();
+
+    portalScene->setup();
+    showScene->setup();
 }
 
 void AbenSceneController::timedLoop() {

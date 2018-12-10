@@ -8,6 +8,7 @@
 #include <model/color/RGBColor.h>
 #include <model/color/HSVColor.h>
 #include <model/color/ColorSpace.h>
+#include <HardwareSerial.h>
 #include "KeyPoint.h"
 
 template<int SIZE>
@@ -22,6 +23,8 @@ public:
 
     explicit KeyPointSet(float timeStamp, RGBColor color);
 
+    explicit KeyPointSet(float timeStamp, int index, RGBColor color);
+
     explicit KeyPointSet(float timeStamp, HSVColor colors[SIZE]);
 
     explicit KeyPointSet(float timeStamp, HSVColor color);
@@ -29,6 +32,8 @@ public:
     float getTimeStamp() const;
 
     KeyPoint *getKeyPoints() const;
+
+    KeyPoint *getKeyPoint(int index);
 };
 
 template<int SIZE>
@@ -71,6 +76,22 @@ KeyPointSet<SIZE>::KeyPointSet(float timeStamp, HSVColor color) : KeyPointSet(ti
 template<int SIZE>
 KeyPoint *KeyPointSet<SIZE>::getKeyPoints() const {
     return keyPoints;
+}
+
+template<int SIZE>
+KeyPoint *KeyPointSet<SIZE>::getKeyPoint(int index) {
+    return &keyPoints[index];
+}
+
+template<int SIZE>
+KeyPointSet<SIZE>::KeyPointSet(float timeStamp, int index, RGBColor color) {
+    this->timeStamp = timeStamp;
+    this->keyPoints = new KeyPoint[SIZE];
+
+    for (auto i = 0; i < SIZE; i++)
+        this->keyPoints[i] = KeyPoint(RGBColor::BLACK(), KeyPointType::CONTINUE);
+
+    this->keyPoints[index] = KeyPoint(color);
 }
 
 

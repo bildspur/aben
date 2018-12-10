@@ -4,7 +4,7 @@
 
 #include "KeyPoint.h"
 
-KeyPoint::KeyPoint(RGBColor color, KeyPoint::KeyPointType type) {
+KeyPoint::KeyPoint(RGBColor color, KeyPointType type) {
     this->color = color;
     this->type = type;
 }
@@ -13,10 +13,18 @@ RGBColor KeyPoint::getColor() const {
     return color;
 }
 
-KeyPoint::KeyPointType KeyPoint::getType() const {
+KeyPointType KeyPoint::getType() const {
     return type;
 }
 
 KeyPoint::KeyPoint() : KeyPoint(RGBColor::BLACK(), LINEAR) {
 
+}
+
+void KeyPoint::setColor(const RGBColor &color) {
+    KeyPoint::color = color;
+}
+
+void KeyPoint::setType(KeyPointType type) {
+    KeyPoint::type = type;
 }
