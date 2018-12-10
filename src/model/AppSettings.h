@@ -40,10 +40,10 @@ private:
 
     float defaultSaturation = 0.8f;
 
-    bool rainbowMode = false;
+    bool rainbowMode = true;
 
     // installation
-    unsigned long portalActivationTime = 10000L;
+    unsigned long portalActivationTime = 15000L;
 
     bool interactionOn = true;
 

@@ -22,6 +22,8 @@ public:
 
     static bool isRandomCalled(float factor);
 
+    static float randomFloat(float minValue, float maxValue, float precision = 1000.0f);
+
     static float mapFromLEDBrightness(float value, float minValue, float maxValue);
 
     static unsigned long secondsToMillis(unsigned long seconds);

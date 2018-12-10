@@ -18,6 +18,8 @@ struct RGBColor {
 
     String toString();
 
+    RGBColor shift(float dr, float dg, float db);
+
     static RGBColor lerp(RGBColor a, RGBColor b, float t);
 
     static RGBColor BLACK();

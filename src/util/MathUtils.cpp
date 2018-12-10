@@ -1,3 +1,5 @@
+#include <cmath>
+
 //
 // Created by Florian on 06.12.17.
 //
@@ -47,4 +49,8 @@ float MathUtils::absSine(float x, float phaseShift) {
 
 float MathUtils::lerp(float a, float b, float t) {
     return (1 - t) * a + t * b;
+}
+
+float MathUtils::randomFloat(float minValue, float maxValue, float precision) {
+    return random(std::lround(minValue * precision), std::lround(maxValue * precision)) / precision;
 }

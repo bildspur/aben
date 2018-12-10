@@ -16,9 +16,15 @@ class ShowScene : public BaseScene {
 private:
     typedef Animation<PORTAL_SIZE> *AnimationPtr;
 
-    std::vector <KeyPointSet<PORTAL_SIZE>> keyPoints;
+    std::vector<KeyPointSet<PORTAL_SIZE>> keyPoints;
 
     AnimationPtr animation;
+
+    void setupKeyPoints();
+
+    void setupNatureShow();
+
+    void addShiftedTween(float time, RGBColor color);
 
 public:
     explicit ShowScene(Installation *installation);
@@ -28,8 +34,6 @@ public:
     void loop() override;
 
     void reset() override;
-
-    void setupKeyPoints();
 };
 
 #endif //TIL_SHOWSCENE_H

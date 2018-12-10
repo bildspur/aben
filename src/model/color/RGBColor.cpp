@@ -42,3 +42,11 @@ RGBColor RGBColor::SATURATION(float saturation) {
 String RGBColor::toString() {
     return String(r) + ", " + String(g) + ", " + String(b);
 }
+
+RGBColor RGBColor::shift(float dr, float dg, float db) {
+    return {
+            MathUtils::limit(r + dr, 0.0f, 1.0f),
+            MathUtils::limit(g + dg, 0.0f, 1.0f),
+            MathUtils::limit(b + db, 0.0f, 1.0f)
+    };
+}
