@@ -16,7 +16,7 @@ class ShowScene : public BaseScene {
 private:
     typedef Animation<PORTAL_SIZE> *AnimationPtr;
 
-    std::vector <KeyPoint<PORTAL_SIZE>> keyPoints;
+    std::vector <KeyPointSet<PORTAL_SIZE>> keyPoints;
 
     AnimationPtr animation;
 

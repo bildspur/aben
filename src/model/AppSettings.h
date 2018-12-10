@@ -35,7 +35,7 @@ private:
 
     float portalMinTreshold = 60.0;
 
-    // colors
+    // keyPoints
     float defaultHue = 200.0;
 
     float defaultSaturation = 0.8f;

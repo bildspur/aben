@@ -338,7 +338,7 @@ void sendRefresh() {
              static_cast<float>(MathUtils::millisToSeconds(installation.getSettings().getPortalActivationTime())));
     osc.send("/aben/show/speed", (float) installation.getSettings().getShowSpeed());
 
-    // colors
+    // keyPoints
     osc.send("/aben/color/hue", installation.getSettings().getDefaultHue());
     osc.send("/aben/color/saturation", installation.getSettings().getDefaultSaturation());
     osc.send("/aben/rainbow/on", installation.getSettings().isRainbowMode());

@@ -6,22 +6,22 @@
 #define ABEN_ANIMATION_H
 
 #include "Arduino.h"
-#include "KeyPoint.h"
+#include "KeyPointSet.h"
 #include <vector>
 
 
 template<int SIZE>
 class Animation {
 private:
-    typedef KeyPoint<SIZE> *KeyPointPtr;
+    typedef KeyPointSet<SIZE> *KeyPointSetPtr;
 
-    std::vector<KeyPoint<SIZE>> keyPoints;
+    std::vector<KeyPointSet<SIZE>> keyPoints;
 
     // time
     unsigned long startTime = 0;
 
-    KeyPointPtr startKey;
-    KeyPointPtr endKey;
+    KeyPointSetPtr startKey;
+    KeyPointSetPtr endKey;
 
     unsigned int speed;
 
@@ -37,7 +37,7 @@ private:
     bool running = false;
 
 public:
-    explicit Animation(std::vector<KeyPoint<SIZE>> &keyPoints, unsigned int speed = 1000);
+    explicit Animation(std::vector<KeyPointSet<SIZE>> &keyPoints, unsigned int speed = 1000);
 
     void start();
 
@@ -109,11 +109,12 @@ void Animation<SIZE>::update() {
     }
 
     // lerp different values
-    auto startColors = startKey->getColors();
-    auto endColors = endKey->getColors();
+    auto startColors = startKey->getKeyPoints();
+    auto endColors = endKey->getKeyPoints();
 
     for (auto i = 0; i < SIZE; i++) {
-        values[i] = RGBColor::lerp(startColors[i], endColors[i], t);
+        // todo: implement more type interpolations
+        values[i] = RGBColor::lerp(startColors[i].getColor(), endColors[i].getColor(), t);
     }
 }
 
@@ -143,7 +144,7 @@ void Animation<SIZE>::setSpeed(unsigned int speed) {
 }
 
 template<int SIZE>
-Animation<SIZE>::Animation(std::vector<KeyPoint<SIZE>> &keyPoints, unsigned int speed) {
+Animation<SIZE>::Animation(std::vector<KeyPointSet<SIZE>> &keyPoints, unsigned int speed) {
     this->keyPoints = keyPoints;
     this->speed = speed;
 }
