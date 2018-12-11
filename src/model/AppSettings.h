@@ -42,7 +42,7 @@ private:
 
     bool rainbowMode = true;
 
-    unsigned long rainbowTime = 10 * 1000;
+    unsigned long rainbowTime = 20 * 1000;
 
     float rainbowStart = 180.0f;
 
