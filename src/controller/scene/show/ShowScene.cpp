@@ -1,3 +1,5 @@
+#include <cmath>
+
 //
 // Created by Florian Bruggisser on 25.10.18.
 //
@@ -84,7 +86,6 @@ void ShowScene::setupNatureShow() {
     auto sunsetRed = HSVColor(14.0f, 0.96f, 0.80f);
 
     // define vars
-    auto rainTime = 60;
     auto rainFlashTime = 0.1f;
     auto rainProbabilityLow = 0.99f;
     auto rainProbabilityHigh = 0.7f;
@@ -116,35 +117,13 @@ void ShowScene::setupNatureShow() {
     // start rain
     keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(rainSkyBlue.shift(0.0f, 0.0f, -0.2f)));
     keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(rainSkyBlue));
-    for (int i = 0; i < rainTime; i++) {
-        auto mappedProbability = MathUtils::map(i, 0, rainTime, rainProbabilityLow, rainProbabilityHigh);
-        auto keyPointSet = KeyPointSet<PORTAL_SIZE>(rainFlashTime, rainSkyBlue);
-
-        // set chance of rain
-        for (int r = 0; r < PORTAL_SIZE; r++) {
-            if (MathUtils::isRandomCalled(mappedProbability)) {
-                keyPointSet.setKeyPoint(r, KeyPoint(ColorSpace::hsvToRGB(rainBlue)));
-            }
-        }
-
-        keyPoints.push_back(keyPointSet);
-    }
+    addRandomFlashTween(10.0, rainFlashTime, rainProbabilityLow, rainProbabilityHigh,
+                        ColorSpace::hsvToRGB(rainSkyBlue), ColorSpace::hsvToRGB((rainBlue)));
 
     // end rain
-    keyPoints.emplace_back(0.1f, ColorSpace::hsvToRGB(rainSkyBlue));
-    for (int i = 0; i < rainTime; i++) {
-        auto mappedProbability = MathUtils::map(i, 0, rainTime, rainProbabilityHigh, rainProbabilityLow);
-        auto keyPointSet = KeyPointSet<PORTAL_SIZE>(rainFlashTime, rainSkyBlue);
-
-        // set chance of rain
-        for (int r = 0; r < PORTAL_SIZE; r++) {
-            if (MathUtils::isRandomCalled(mappedProbability)) {
-                keyPointSet.setKeyPoint(r, KeyPoint(ColorSpace::hsvToRGB(rainBlue)));
-            }
-        }
-
-        keyPoints.push_back(keyPointSet);
-    }
+    keyPoints.emplace_back(rainFlashTime, ColorSpace::hsvToRGB(rainSkyBlue));
+    addRandomFlashTween(10.0, rainFlashTime, rainProbabilityHigh, rainProbabilityLow,
+                        ColorSpace::hsvToRGB(rainSkyBlue), ColorSpace::hsvToRGB((rainBlue)));
     keyPoints.emplace_back(2.0f, ColorSpace::hsvToRGB(rainSkyBlue.shift(0.0f, 0.0f, 0.2f)));
 
     // daylight
@@ -168,5 +147,24 @@ void ShowScene::addShiftedTween(float time, RGBColor color) {
     // end
     for (int i = 0; i < PORTAL_SIZE; i++) {
         keyPoints.emplace_back(time / PORTAL_SIZE, i, color);
+    }
+}
+
+void ShowScene::addRandomFlashTween(float time, float flashTime, float startProbability, float endProbability,
+                                    RGBColor baseColor, RGBColor flashColor) {
+    auto discreteTime = time / flashTime;
+
+    for (int i = 0; i < discreteTime; i++) {
+        auto mappedProbability = MathUtils::map(i, 0, discreteTime, startProbability, endProbability);
+        auto keyPointSet = KeyPointSet<PORTAL_SIZE>(flashTime, baseColor);
+
+        // flash if probability matches
+        for (int r = 0; r < PORTAL_SIZE; r++) {
+            if (MathUtils::isRandomCalled(mappedProbability)) {
+                keyPointSet.setKeyPoint(r, KeyPoint(flashColor));
+            }
+        }
+
+        keyPoints.push_back(keyPointSet);
     }
 }

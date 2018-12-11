@@ -24,6 +24,11 @@ private:
 
     void setupNatureShow();
 
+    // show methods
+    void addRandomFlashTween(float time, float flashTime,
+                             float startProbability, float endProbability,
+                             RGBColor baseColor, RGBColor flashColor);
+
     void addShiftedTween(float time, RGBColor color);
 
 public:
