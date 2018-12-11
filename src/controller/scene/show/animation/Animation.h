@@ -7,6 +7,10 @@
 
 #include "Arduino.h"
 #include "KeyPointSet.h"
+
+#undef min
+#undef max
+
 #include <vector>
 
 

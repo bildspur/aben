@@ -24,6 +24,11 @@ public:
 
     static float randomFloat(float minValue, float maxValue, float precision = 1000.0f);
 
+    template<typename T>
+    static void randomShuffle(int iterations, T array[], int length);
+
+    static int *getRandomIndexes(int start, int end, int iterations);
+
     static float mapFromLEDBrightness(float value, float minValue, float maxValue);
 
     static unsigned long secondsToMillis(unsigned long seconds);
@@ -31,7 +36,6 @@ public:
     static unsigned long millisToSeconds(unsigned long millis);
 
     static float lerp(float x, float y, float mix);
-
 };
 
 

@@ -94,6 +94,14 @@ void ShowScene::setupNatureShow() {
     keyPoints.clear();
     keyPoints.emplace_back(0.0f, black);
 
+    auto indexes = MathUtils::getRandomIndexes(0, PORTAL_SIZE, 100);
+
+    for (int i = 0; i < PORTAL_SIZE; i++) {
+        Serial.printf("[%d] = %d", i, indexes[i]);
+    }
+
+    delete indexes;
+
     // night scene
     keyPoints.emplace_back(1.0f, ColorSpace::hsvToRGB(nightBlue));
     addShiftedTween(5.0f, ColorSpace::hsvToRGB(nightBlue.shift(0.0f, 0.0f, 0.2f)));
@@ -167,4 +175,8 @@ void ShowScene::addRandomFlashTween(float time, float flashTime, float startProb
 
         keyPoints.push_back(keyPointSet);
     }
+}
+
+void ShowScene::addTween(float time, RGBColor startColor, RGBColor endColor, float phaseShift, bool randomizePhase) {
+
 }

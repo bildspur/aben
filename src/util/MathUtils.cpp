@@ -54,3 +54,26 @@ float MathUtils::lerp(float a, float b, float t) {
 float MathUtils::randomFloat(float minValue, float maxValue, float precision) {
     return random(std::lround(minValue * precision), std::lround(maxValue * precision)) / precision;
 }
+
+template<typename T>
+void MathUtils::randomShuffle(int iterations, T *array, int length) {
+    for (int i = 0; i < iterations; i++) {
+        // swap
+        auto firstIndex = random(0, length - 1);
+        auto secondIndex = random(0, length - 1);
+
+        auto tmp = array[firstIndex];
+        array[firstIndex] = secondIndex;
+        array[secondIndex] = firstIndex;
+    }
+}
+
+int *MathUtils::getRandomIndexes(int start, int end, int iterations) {
+    int length = end - start;
+    int *indexes = new int[length];
+    for (int i = 0; i < length; i++) {
+        indexes[i] = i + start;
+    }
+    //randomShuffle<int>(iterations, indexes, length);
+    return indexes;
+}
