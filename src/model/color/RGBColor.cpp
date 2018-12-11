@@ -45,8 +45,20 @@ String RGBColor::toString() {
 
 RGBColor RGBColor::shift(float dr, float dg, float db) {
     return {
-            MathUtils::limit(r + dr, 0.0f, 1.0f),
-            MathUtils::limit(g + dg, 0.0f, 1.0f),
-            MathUtils::limit(b + db, 0.0f, 1.0f)
+            MathUtils::limit(getR() + dr, 0.0f, 1.0f),
+            MathUtils::limit(getG() + dg, 0.0f, 1.0f),
+            MathUtils::limit(getB() + db, 0.0f, 1.0f)
     };
+}
+
+float RGBColor::getR() const {
+    return r;
+}
+
+float RGBColor::getG() const {
+    return g;
+}
+
+float RGBColor::getB() const {
+    return b;
 }

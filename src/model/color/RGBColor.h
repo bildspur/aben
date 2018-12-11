@@ -30,6 +30,12 @@ public:
     static RGBColor SATURATION(float saturation);
 
     static RGBColor RED();
+
+    float getR() const;
+
+    float getG() const;
+
+    float getB() const;
 };
 
 #endif //ABEN_RGBCOLOR_H
