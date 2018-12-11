@@ -34,6 +34,8 @@ public:
     KeyPoint *getKeyPoints() const;
 
     KeyPoint *getKeyPoint(int index);
+
+    void setKeyPoint(int index, KeyPoint keyPoint);
 };
 
 template<int SIZE>
@@ -92,6 +94,11 @@ KeyPointSet<SIZE>::KeyPointSet(float timeStamp, int index, RGBColor color) {
         this->keyPoints[i] = KeyPoint(RGBColor::BLACK(), KeyPointType::CONTINUOUS);
 
     this->keyPoints[index] = KeyPoint(color);
+}
+
+template<int SIZE>
+void KeyPointSet<SIZE>::setKeyPoint(int index, KeyPoint keyPoint) {
+    this->keyPoints[index] = keyPoint;
 }
 
 

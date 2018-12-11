@@ -21,7 +21,7 @@ KeyPoint::KeyPoint() : KeyPoint(RGBColor::BLACK(), LINEAR) {
 
 }
 
-void KeyPoint::setColor(const RGBColor &color) {
+void KeyPoint::setColor(RGBColor color) {
     KeyPoint::color = color;
 }
 

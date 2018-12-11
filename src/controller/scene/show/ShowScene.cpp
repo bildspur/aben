@@ -114,30 +114,16 @@ void ShowScene::setupNatureShow() {
     keyPoints.emplace_back(2.0f, ColorSpace::hsvToRGB(sunYellow.shift(0.0f, 0.0f, -0.5f)));
 
     // start rain
-    keyPoints.emplace_back(6.0f, ColorSpace::hsvToRGB(rainSkyBlue.shift(0.0f, 0.0f, -0.2f)));
+    keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(rainSkyBlue.shift(0.0f, 0.0f, -0.2f)));
     keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(rainSkyBlue));
     for (int i = 0; i < rainTime; i++) {
         auto mappedProbability = MathUtils::map(i, 0, rainTime, rainProbabilityLow, rainProbabilityHigh);
-        auto keyPointSet = KeyPointSet<PORTAL_SIZE>(rainFlashTime,
-                                                    new HSVColor[PORTAL_SIZE]{
-                                                            MathUtils::isRandomCalled(mappedProbability) ? rainBlue
-                                                                                                         : rainSkyBlue,
-                                                            MathUtils::isRandomCalled(mappedProbability) ? rainBlue
-                                                                                                         : rainSkyBlue,
-                                                            MathUtils::isRandomCalled(mappedProbability) ? rainBlue
-                                                                                                         : rainSkyBlue,
-                                                            MathUtils::isRandomCalled(mappedProbability) ? rainBlue
-                                                                                                         : rainSkyBlue,
-                                                            MathUtils::isRandomCalled(mappedProbability) ? rainBlue
-                                                                                                         : rainSkyBlue
-                                                    }
-
-        );
+        auto keyPointSet = KeyPointSet<PORTAL_SIZE>(rainFlashTime, rainSkyBlue);
 
         // set chance of rain
         for (int r = 0; r < PORTAL_SIZE; r++) {
             if (MathUtils::isRandomCalled(mappedProbability)) {
-                //keyPointSet.getKeyPoint(i)->setColor(ColorSpace::hsvToRGB(rainBlue));
+                keyPointSet.setKeyPoint(r, KeyPoint(ColorSpace::hsvToRGB(rainBlue)));
             }
         }
 
@@ -145,35 +131,21 @@ void ShowScene::setupNatureShow() {
     }
 
     // end rain
-    keyPoints.emplace_back(2.0f, ColorSpace::hsvToRGB(rainSkyBlue));
+    keyPoints.emplace_back(0.1f, ColorSpace::hsvToRGB(rainSkyBlue));
     for (int i = 0; i < rainTime; i++) {
         auto mappedProbability = MathUtils::map(i, 0, rainTime, rainProbabilityHigh, rainProbabilityLow);
-        auto keyPointSet = KeyPointSet<PORTAL_SIZE>(rainFlashTime,
-                                                    new HSVColor[PORTAL_SIZE]{
-                                                            MathUtils::isRandomCalled(mappedProbability) ? rainBlue
-                                                                                                         : rainSkyBlue,
-                                                            MathUtils::isRandomCalled(mappedProbability) ? rainBlue
-                                                                                                         : rainSkyBlue,
-                                                            MathUtils::isRandomCalled(mappedProbability) ? rainBlue
-                                                                                                         : rainSkyBlue,
-                                                            MathUtils::isRandomCalled(mappedProbability) ? rainBlue
-                                                                                                         : rainSkyBlue,
-                                                            MathUtils::isRandomCalled(mappedProbability) ? rainBlue
-                                                                                                         : rainSkyBlue
-                                                    }
-
-        );
+        auto keyPointSet = KeyPointSet<PORTAL_SIZE>(rainFlashTime, rainSkyBlue);
 
         // set chance of rain
         for (int r = 0; r < PORTAL_SIZE; r++) {
             if (MathUtils::isRandomCalled(mappedProbability)) {
-                //keyPointSet.getKeyPoint(i)->setColor(ColorSpace::hsvToRGB(rainBlue));
+                keyPointSet.setKeyPoint(r, KeyPoint(ColorSpace::hsvToRGB(rainBlue)));
             }
         }
 
         keyPoints.push_back(keyPointSet);
     }
-    keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(rainSkyBlue.shift(0.0f, 0.0f, 0.2f)));
+    keyPoints.emplace_back(2.0f, ColorSpace::hsvToRGB(rainSkyBlue.shift(0.0f, 0.0f, 0.2f)));
 
     // daylight
     addShiftedTween(5.0f, ColorSpace::hsvToRGB(sunYellow.shift(-0.10f, 0.0f, -0.2f)));

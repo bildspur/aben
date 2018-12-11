@@ -19,7 +19,7 @@ public:
 
     KeyPointType getType() const;
 
-    void setColor(const RGBColor &color);
+    void setColor(RGBColor color);
 
     void setType(KeyPointType type);
 
