@@ -108,7 +108,7 @@ void Animation<SIZE>::update() {
     auto t = float(currentKeyTime) / toMillis(endKey->getTimeStamp());
 
     // switch if necessary (key time up)
-    if (t > 1.0f) {
+    if (t > 1.0f || endKey->getTimeStamp() == 0.0f) {
         switchKeyIndex();
         t = 0.0f;
     }
