@@ -17,6 +17,12 @@ public:
     HSVColor(float hue, float saturation, float value);
 
     HSVColor shift(float dh, float ds, float dv);
+
+    float getH() const;
+
+    float getS() const;
+
+    float getV() const;
 };
 
 
