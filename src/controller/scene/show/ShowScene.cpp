@@ -94,10 +94,10 @@ void ShowScene::setupNatureShow() {
     keyPoints.clear();
     keyPoints.emplace_back(0.0f, black);
 
-    auto indexes = MathUtils::getRandomIndexes(0, PORTAL_SIZE, 100);
+    auto indexes = MathUtils::getRandomIndexes(0, PORTAL_SIZE, PORTAL_SIZE);
 
     for (int i = 0; i < PORTAL_SIZE; i++) {
-        Serial.printf("[%d] = %d", i, indexes[i]);
+        Serial.printf("%d = [%d]\n", i, indexes[i]);
     }
 
     delete indexes;

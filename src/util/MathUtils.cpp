@@ -59,12 +59,12 @@ template<typename T>
 void MathUtils::randomShuffle(int iterations, T *array, int length) {
     for (int i = 0; i < iterations; i++) {
         // swap
-        auto firstIndex = random(0, length - 1);
-        auto secondIndex = random(0, length - 1);
+        auto firstIndex = random(0, length);
+        auto secondIndex = random(0, length);
 
         auto tmp = array[firstIndex];
-        array[firstIndex] = secondIndex;
-        array[secondIndex] = firstIndex;
+        array[firstIndex] = array[secondIndex];
+        array[secondIndex] = tmp;
     }
 }
 
@@ -74,6 +74,6 @@ int *MathUtils::getRandomIndexes(int start, int end, int iterations) {
     for (int i = 0; i < length; i++) {
         indexes[i] = i + start;
     }
-    //randomShuffle<int>(iterations, indexes, length);
+    randomShuffle<int>(iterations, indexes, length);
     return indexes;
 }
