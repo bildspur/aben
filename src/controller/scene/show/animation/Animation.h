@@ -154,6 +154,7 @@ Animation<SIZE>::Animation(std::vector<KeyPointSet<SIZE>> &keyPoints, unsigned i
     this->speed = speed;
 
     preInterpolateKeyPointSet();
+    printKeyPointSets();
 }
 
 template<int SIZE>
@@ -173,7 +174,7 @@ void Animation<SIZE>::preInterpolateKeyPointSet() {
 
             // find end keypoint
             KeyPoint *endKeyPoint = nullptr;
-            float totalTweenTime = 0.0f;
+            float totalTweenTime = keyPointSet.getTimeStamp();
 
             for (int si = i + 1; si < keyPoints.size(); si++) {
                 auto nkeySet = ((KeyPointSet<SIZE>) keyPoints[si]);
@@ -204,6 +205,8 @@ void Animation<SIZE>::preInterpolateKeyPointSet() {
 
                 // calculate and set normalized time
                 auto nt = currentTime / totalTweenTime;
+                Serial.printf("Tween [KS: %d / %d]: ct: [%f], ttt: [%f], nt: [%f]\n",
+                              si, kpi, currentTime, totalTweenTime, nt);
                 nkey->setColor(RGBColor::lerp(startKeyPoint->getColor(), endKeyPoint->getColor(), nt));
                 nkey->setType(LINEAR);
             }
