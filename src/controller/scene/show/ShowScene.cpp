@@ -103,7 +103,6 @@ void ShowScene::setupNatureShow() {
     keyPoints.emplace_back(2.0f, nightBlueBright);
 
     // sunrise
-    /*
     addShiftedTween(3.0f, ColorSpace::hsvToRGB(sunriseOrange.shift(0.0f, 0.0f, -0.2f)));
     keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(sunriseOrange));
 
@@ -141,7 +140,6 @@ void ShowScene::setupNatureShow() {
     addShiftedTween(5.0f, ColorSpace::hsvToRGB(nightBlue.shift(0.0f, 0.0f, 0.5f)));
     keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(nightBlue));
     keyPoints.emplace_back(2.0f, ColorSpace::hsvToRGB(nightBlue));
-     */
 
     // end
     keyPoints.emplace_back(1.0f, black);
