@@ -6,7 +6,8 @@
 #define ABEN_HSVCOLOR_H
 
 
-struct HSVColor {
+class HSVColor {
+public:
     float h; // angle in degrees
     float s; // a fraction between 0 and 1
     float v; // a fraction between 0 and 1

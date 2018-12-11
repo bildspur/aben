@@ -7,7 +7,8 @@
 
 #include "Arduino.h"
 
-struct RGBColor {
+class RGBColor {
+public:
     float r; // a fraction between 0 and 1
     float g; // a fraction between 0 and 1
     float b; // a fraction between 0 and 1
