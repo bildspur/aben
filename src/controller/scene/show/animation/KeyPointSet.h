@@ -19,6 +19,8 @@ private:
     KeyPoint *keyPoints;
 
 public:
+    explicit KeyPointSet(float timeStamp);
+
     explicit KeyPointSet(float timeStamp, RGBColor colors[SIZE]);
 
     explicit KeyPointSet(float timeStamp, RGBColor color);
@@ -99,6 +101,15 @@ KeyPointSet<SIZE>::KeyPointSet(float timeStamp, int index, RGBColor color) {
 template<int SIZE>
 void KeyPointSet<SIZE>::setKeyPoint(int index, KeyPoint keyPoint) {
     this->keyPoints[index] = keyPoint;
+}
+
+template<int SIZE>
+KeyPointSet<SIZE>::KeyPointSet(float timeStamp) {
+    this->timeStamp = timeStamp;
+    this->keyPoints = new KeyPoint[SIZE];
+
+    for (auto i = 0; i < SIZE; i++)
+        this->keyPoints[i] = KeyPoint(RGBColor::BLACK(), KeyPointType::CONTINUOUS);
 }
 
 

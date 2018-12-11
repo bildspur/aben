@@ -94,21 +94,14 @@ void ShowScene::setupNatureShow() {
     keyPoints.clear();
     keyPoints.emplace_back(0.0f, black);
 
-    auto indexes = MathUtils::getRandomIndexes(0, PORTAL_SIZE, PORTAL_SIZE);
-
-    for (int i = 0; i < PORTAL_SIZE; i++) {
-        Serial.printf("%d = [%d]\n", i, indexes[i]);
-    }
-
-    delete indexes;
-
     // night scene
     keyPoints.emplace_back(1.0f, ColorSpace::hsvToRGB(nightBlue));
-    addShiftedTween(5.0f, ColorSpace::hsvToRGB(nightBlue.shift(0.0f, 0.0f, 0.2f)));
-    addShiftedTween(3.0f, ColorSpace::hsvToRGB(nightBlue));
-    addShiftedTween(4.0f, ColorSpace::hsvToRGB(nightBlue.shift(0.0f, 0.0f, 0.4f)));
+    addShiftTween(8.0f,
+                  ColorSpace::hsvToRGB(nightBlue),
+                  ColorSpace::hsvToRGB(nightBlue.shift(0.0f, 0.0f, 0.4f)), 0.3f, false);
 
     // sunrise
+    /*
     addShiftedTween(3.0f, ColorSpace::hsvToRGB(sunriseOrange.shift(0.0f, 0.0f, -0.2f)));
     keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(sunriseOrange));
 
@@ -146,6 +139,7 @@ void ShowScene::setupNatureShow() {
     addShiftedTween(5.0f, ColorSpace::hsvToRGB(nightBlue.shift(0.0f, 0.0f, 0.5f)));
     keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(nightBlue));
     keyPoints.emplace_back(2.0f, ColorSpace::hsvToRGB(nightBlue));
+     */
 
     // end
     keyPoints.emplace_back(1.0f, black);
@@ -177,6 +171,23 @@ void ShowScene::addRandomFlashTween(float time, float flashTime, float startProb
     }
 }
 
-void ShowScene::addTween(float time, RGBColor startColor, RGBColor endColor, float phaseShift, bool randomizePhase) {
+void ShowScene::addShiftTween(float time, RGBColor startColor, RGBColor endColor,
+                              float phaseShift, bool randomizePhase) {
+    auto indexes = randomizePhase ? MathUtils::getRandomIndexes(0, PORTAL_SIZE, PORTAL_SIZE)
+                                  : MathUtils::getIndexes(0, PORTAL_SIZE);
 
+    float deltaTime = time - (2.0f * phaseShift);
+
+    for (int i = 0; i < PORTAL_SIZE; i++) {
+        keyPoints.emplace_back(phaseShift, indexes[i], startColor);
+    }
+
+    // wait for delta time
+    keyPoints.emplace_back(_max(0.0f, deltaTime));
+
+    for (int i = 0; i < PORTAL_SIZE; i++) {
+        keyPoints.emplace_back(phaseShift, indexes[i], endColor);
+    }
+
+    delete indexes;
 }

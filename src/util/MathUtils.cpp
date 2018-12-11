@@ -70,10 +70,16 @@ void MathUtils::randomShuffle(int iterations, T *array, int length) {
 
 int *MathUtils::getRandomIndexes(int start, int end, int iterations) {
     int length = end - start;
+    auto indexes = getIndexes(start, end);
+    randomShuffle<int>(iterations, indexes, length);
+    return indexes;
+}
+
+int *MathUtils::getIndexes(int start, int end) {
+    int length = end - start;
     int *indexes = new int[length];
     for (int i = 0; i < length; i++) {
         indexes[i] = i + start;
     }
-    randomShuffle<int>(iterations, indexes, length);
     return indexes;
 }

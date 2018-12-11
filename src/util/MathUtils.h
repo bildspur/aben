@@ -29,6 +29,8 @@ public:
 
     static int *getRandomIndexes(int start, int end, int iterations);
 
+    static int *getIndexes(int start, int end);
+
     static float mapFromLEDBrightness(float value, float minValue, float maxValue);
 
     static unsigned long secondsToMillis(unsigned long seconds);
