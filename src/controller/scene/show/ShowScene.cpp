@@ -78,7 +78,7 @@ void ShowScene::setupNatureShow() {
     auto white = RGBColor::SATURATION(1.0f);
 
     // show colors
-    auto nightBlue = HSVColor(240.0f, 1.0f, 0.25f);
+    auto nightBlue = HSVColor(240.0f, 1.0f, 0.30f);
     auto nightBlueBright = nightBlue.shift(0.0f, 0.0f, 0.3f);
 
     auto sunriseOrange = HSVColor(48.0f, 0.93f, 0.65f);
