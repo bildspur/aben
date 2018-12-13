@@ -155,3 +155,43 @@ unsigned long AppSettings::getRainbowTime() const {
 void AppSettings::setRainbowTime(unsigned long rainbowTime) {
     AppSettings::rainbowTime = rainbowTime;
 }
+
+bool AppSettings::isAutoSave() const {
+    return autoSave;
+}
+
+void AppSettings::setAutoSave(bool autoSave) {
+    AppSettings::autoSave = autoSave;
+}
+
+unsigned long AppSettings::getActivatedDoorStats() const {
+    return activatedDoorStats;
+}
+
+void AppSettings::setActivatedDoorStats(unsigned long activatedDoorStats) {
+    AppSettings::activatedDoorStats = activatedDoorStats;
+}
+
+unsigned long AppSettings::getActivatedShowStats() const {
+    return activatedShowStats;
+}
+
+void AppSettings::setActivatedShowStats(unsigned long activatedShowStats) {
+    AppSettings::activatedShowStats = activatedShowStats;
+}
+
+void AppSettings::incActivatedShowStats() {
+    activatedShowStats++;
+}
+
+void AppSettings::incActivatedDoorStats() {
+    activatedDoorStats++;
+}
+
+unsigned long AppSettings::getAutoSaveTime() const {
+    return autoSaveTime;
+}
+
+void AppSettings::setAutoSaveTime(unsigned long autoSaveTime) {
+    AppSettings::autoSaveTime = autoSaveTime;
+}

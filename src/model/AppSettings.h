@@ -22,6 +22,15 @@ private:
 
     bool gammaCorrection = true;
 
+    bool autoSave = true;
+
+    unsigned long autoSaveTime = 30 * 60 * 1000;
+
+    // stats
+    unsigned long activatedDoorStats = 0;
+
+    unsigned long activatedShowStats = 0;
+
     // time star scene settings
     unsigned long timeStarMinDuration = 1500L; // used for portal scene as timer
 
@@ -132,6 +141,26 @@ public:
     unsigned long getRainbowTime() const;
 
     void setRainbowTime(unsigned long rainbowTime);
+
+    bool isAutoSave() const;
+
+    void setAutoSave(bool autoSave);
+
+    unsigned long getActivatedDoorStats() const;
+
+    void setActivatedDoorStats(unsigned long activatedDoorStats);
+
+    unsigned long getActivatedShowStats() const;
+
+    void setActivatedShowStats(unsigned long activatedShowStats);
+
+    void incActivatedShowStats();
+
+    void incActivatedDoorStats();
+
+    unsigned long getAutoSaveTime() const;
+
+    void setAutoSaveTime(unsigned long autoSaveTime);
 };
 
 

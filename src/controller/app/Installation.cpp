@@ -11,6 +11,8 @@ Installation::Installation(uint16_t size, PortalPtr *portals) :
     this->size = size;
     this->portals = portals;
     this->settings = AppSettings();
+
+    this->autoSaveTimer = new Timer(settings.getAutoSaveTime());
 }
 
 uint16_t Installation::getSize() {
@@ -104,5 +106,10 @@ void Installation::timedLoop() {
     for (auto i = 0; i < getSize(); i++) {
         getPortal(i)->update();
         getPortal(i)->updateActivation(settings.getPortalActivationTime());
+    }
+
+    // autosave
+    if (settings.isAutoSave() && autoSaveTimer->elapsed()) {
+        saveToEEPROM();
     }
 }

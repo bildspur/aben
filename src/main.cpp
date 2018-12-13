@@ -208,6 +208,20 @@ void handleOsc(OSCMessage &msg) {
         sendOSCFeedback = true;
     });
 
+    // stats
+    msg.dispatch("/aben/autosave/on", [](OSCMessage &msg) {
+        installation.getSettings().setAutoSave(!installation.getSettings().isAutoSave());
+        sendOSCFeedback = true;
+    });
+
+    msg.dispatch("/aben/stats/reset", [](OSCMessage &msg) {
+        installation.getSettings().setActivatedDoorStats(0);
+        installation.getSettings().setActivatedShowStats(0);
+
+        sendOSCFeedback = true;
+    });
+
+
     // time star
     msg.dispatch("/aben/timestar/brightness/min", [](OSCMessage &msg) {
         installation.getSettings().setTimeStarMinBrightness(msg.getFloat(0));
@@ -332,6 +346,13 @@ void sendRefresh() {
     osc.send("/aben/interaction/on", installation.getSettings().isInteractionOn());
 
     osc.send("/aben/version", installation.getSettings().getVersion());
+
+    // stats
+    osc.send("/aben/stats/doors", static_cast<float>(installation.getSettings().getActivatedDoorStats()));
+    osc.send("/aben/stats/shows", static_cast<float>(installation.getSettings().getActivatedShowStats()));
+
+    // autosave
+    osc.send("/aben/autosave/on", installation.getSettings().isAutoSave());
 
     // installation
     osc.send("/aben/activationtime",

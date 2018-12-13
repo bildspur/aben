@@ -21,6 +21,8 @@ private:
 
     AppSettings settings;
 
+    Timer *autoSaveTimer;
+
 public:
     Installation(uint16_t size, PortalPtr *portals);
 
