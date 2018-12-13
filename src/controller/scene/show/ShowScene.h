@@ -20,8 +20,6 @@ private:
 
     AnimationPtr animation;
 
-    void setupKeyPoints();
-
     void setupNatureShow();
 
     // show methods

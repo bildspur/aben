@@ -44,32 +44,6 @@ void ShowScene::reset() {
     animation->start();
 }
 
-void ShowScene::setupKeyPoints() {
-    // define colors
-    auto black = RGBColor::BLACK();
-    auto dark = RGBColor::SATURATION(0.3f);
-    auto bright = RGBColor::SATURATION(0.85f);
-    auto white = RGBColor::SATURATION(1.0f);
-
-    auto firstAccent = ColorSpace::hsvToRGB(HSVColor(200.0f, 1.0f, 1.0f));
-    auto secondAccent = ColorSpace::hsvToRGB(HSVColor(200.0f, 1.0f, 1.0f));
-
-    // define times
-
-
-    keyPoints.clear();
-    keyPoints.emplace_back(0.0f, black);
-    keyPoints.emplace_back(2.0f, dark);
-
-    // flash
-    for (int i = 0; i < 20; i++) {
-        keyPoints.emplace_back(0.1f, i % 2 == 0 ? bright : white);
-    }
-
-    keyPoints.emplace_back(1.0f, dark);
-    keyPoints.emplace_back(1.0f, black);
-}
-
 void ShowScene::setupNatureShow() {
     // define default colors
     auto black = RGBColor::BLACK();
@@ -97,7 +71,7 @@ void ShowScene::setupNatureShow() {
     keyPoints.emplace_back(0.0f, black);
 
     // night scene
-    addShiftTween(8.0f,
+    addShiftTween(6.0f,
                   ColorSpace::hsvToRGB(nightBlue),
                   ColorSpace::hsvToRGB(nightBlueBright), 0.8f, false);
     keyPoints.emplace_back(2.0f, nightBlueBright);
@@ -119,12 +93,12 @@ void ShowScene::setupNatureShow() {
     // start rain
     keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(rainSkyBlue.shift(0.0f, 0.0f, -0.2f)));
     keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(rainSkyBlue));
-    addRandomFlashTween(10.0, rainFlashTime, rainProbabilityLow, rainProbabilityHigh,
+    addRandomFlashTween(8.0, rainFlashTime, rainProbabilityLow, rainProbabilityHigh,
                         ColorSpace::hsvToRGB(rainSkyBlue), ColorSpace::hsvToRGB((rainBlue)));
 
     // end rain
     keyPoints.emplace_back(rainFlashTime, ColorSpace::hsvToRGB(rainSkyBlue));
-    addRandomFlashTween(10.0, rainFlashTime, rainProbabilityHigh, rainProbabilityLow,
+    addRandomFlashTween(8.0, rainFlashTime, rainProbabilityHigh, rainProbabilityLow,
                         ColorSpace::hsvToRGB(rainSkyBlue), ColorSpace::hsvToRGB((rainBlue)));
     keyPoints.emplace_back(2.0f, ColorSpace::hsvToRGB(rainSkyBlue.shift(0.0f, 0.0f, 0.2f)));
 
@@ -136,10 +110,9 @@ void ShowScene::setupNatureShow() {
     keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(sunsetRed));
 
     // night
-    keyPoints.emplace_back(5.0f, ColorSpace::hsvToRGB(nightBlue.shift(0.0f, 0.0f, 0.8f)));
-    addShiftedTween(5.0f, ColorSpace::hsvToRGB(nightBlue.shift(0.0f, 0.0f, 0.5f)));
+    keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(nightBlue.shift(0.0f, 0.0f, 0.3f)));
+    addShiftedTween(3.0f, ColorSpace::hsvToRGB(nightBlue.shift(0.0f, 0.0f, 0.2f)));
     keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(nightBlue));
-    keyPoints.emplace_back(2.0f, ColorSpace::hsvToRGB(nightBlue));
 
     // end
     keyPoints.emplace_back(1.0f, black);
