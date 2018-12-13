@@ -27,7 +27,7 @@ private:
     unsigned long autoSaveTime = 30 * 60 * 1000;
 
     // stats
-    unsigned long activatedDoorStats = 0;
+    unsigned long activatedPortalStats = 0;
 
     unsigned long activatedShowStats = 0;
 
@@ -146,9 +146,9 @@ public:
 
     void setAutoSave(bool autoSave);
 
-    unsigned long getActivatedDoorStats() const;
+    unsigned long getActivatedPortalStats() const;
 
-    void setActivatedDoorStats(unsigned long activatedDoorStats);
+    void setActivatedPortalStats(unsigned long activatedDoorStats);
 
     unsigned long getActivatedShowStats() const;
 
@@ -156,7 +156,7 @@ public:
 
     void incActivatedShowStats();
 
-    void incActivatedDoorStats();
+    void incActivatedPortalStats();
 
     unsigned long getAutoSaveTime() const;
 

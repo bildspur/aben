@@ -164,12 +164,12 @@ void AppSettings::setAutoSave(bool autoSave) {
     AppSettings::autoSave = autoSave;
 }
 
-unsigned long AppSettings::getActivatedDoorStats() const {
-    return activatedDoorStats;
+unsigned long AppSettings::getActivatedPortalStats() const {
+    return activatedPortalStats;
 }
 
-void AppSettings::setActivatedDoorStats(unsigned long activatedDoorStats) {
-    AppSettings::activatedDoorStats = activatedDoorStats;
+void AppSettings::setActivatedPortalStats(unsigned long activatedDoorStats) {
+    AppSettings::activatedPortalStats = activatedDoorStats;
 }
 
 unsigned long AppSettings::getActivatedShowStats() const {
@@ -184,8 +184,8 @@ void AppSettings::incActivatedShowStats() {
     activatedShowStats++;
 }
 
-void AppSettings::incActivatedDoorStats() {
-    activatedDoorStats++;
+void AppSettings::incActivatedPortalStats() {
+    activatedPortalStats++;
 }
 
 unsigned long AppSettings::getAutoSaveTime() const {

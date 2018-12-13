@@ -36,6 +36,8 @@ void AbenSceneController::selectRelevantScene() {
             installation->getPortal(i)->setActivated(false);
         }
 
+        installation->getSettings().incActivatedShowStats();
+
         Serial.println("switched to show scene!");
     }
 
