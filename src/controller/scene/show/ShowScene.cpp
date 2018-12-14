@@ -52,8 +52,9 @@ void ShowScene::setupNatureShow() {
     auto white = RGBColor::SATURATION(1.0f);
 
     // show colors
-    auto nightBlue = HSVColor(240.0f, 1.0f, 0.30f);
+    auto nightBlue = HSVColor(240.0f, 1.0f, 0.50f);
     auto nightBlueBright = nightBlue.shift(0.0f, 0.0f, 0.3f);
+    auto nightBlueDark = nightBlue.shift(0.0f, 0.0f, -0.1f);
 
     auto sunriseOrange = HSVColor(48.0f, 0.93f, 0.65f);
     auto sunYellow = HSVColor(56.0f, 0.57f, 0.80f);
@@ -68,30 +69,30 @@ void ShowScene::setupNatureShow() {
 
     // define show
     keyPoints.clear();
-    keyPoints.emplace_back(0.0f, black);
+    keyPoints.emplace_back(0.0f, nightBlueDark);
 
     // night scene
-    addShiftTween(6.0f,
+    addShiftTween(3.0f,
                   ColorSpace::hsvToRGB(nightBlue),
                   ColorSpace::hsvToRGB(nightBlueBright), 0.8f, false);
-    keyPoints.emplace_back(2.0f, nightBlueBright);
+    keyPoints.emplace_back(1.0f, nightBlueBright);
 
     // sunrise
-    addShiftedTween(3.0f, ColorSpace::hsvToRGB(sunriseOrange.shift(0.0f, 0.0f, -0.2f)));
+    addShiftedTween(3.0f, ColorSpace::hsvToRGB(sunriseOrange.shift(10.0f, 0.0f, 0.0f)));
     keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(sunriseOrange));
 
     // daylight
     keyPoints.emplace_back(5.0f, ColorSpace::hsvToRGB(sunYellow));
-    addShiftedTween(3.0f, ColorSpace::hsvToRGB(sunYellow.shift(0.0f, 0.0f, -0.2f)));
+    addShiftedTween(1.0f, ColorSpace::hsvToRGB(sunYellow.shift(6.0f, 0.0f, 0.0f)));
 
     // clouds
     addShiftedTween(1.0f, ColorSpace::hsvToRGB(sunYellow.shift(0.0f, -0.3f, -0.2f)));
-    keyPoints.emplace_back(2.0f, ColorSpace::hsvToRGB(sunYellow.shift(0.0f, 0.0f, -0.2f)));
-    addShiftedTween(2.0f, ColorSpace::hsvToRGB(sunYellow.shift(0.0f, 0.0f, -0.2f)));
-    keyPoints.emplace_back(2.0f, ColorSpace::hsvToRGB(sunYellow.shift(0.0f, 0.0f, -0.5f)));
+    keyPoints.emplace_back(1.0f, ColorSpace::hsvToRGB(sunYellow.shift(0.0f, 0.0f, -0.2f)));
+    addShiftedTween(1.0f, ColorSpace::hsvToRGB(sunYellow.shift(5.0f, 0.0f, 0.0f)));
+    keyPoints.emplace_back(1.0f, ColorSpace::hsvToRGB(sunYellow.shift(-10.0f, 0.0f, 0.0f)));
 
     // start rain
-    keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(rainSkyBlue.shift(0.0f, 0.0f, -0.2f)));
+    keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(rainSkyBlue.shift(5.0f, 0.0f, 0.0f)));
     keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(rainSkyBlue));
     addRandomFlashTween(8.0, rainFlashTime, rainProbabilityLow, rainProbabilityHigh,
                         ColorSpace::hsvToRGB(rainSkyBlue), ColorSpace::hsvToRGB((rainBlue)));
@@ -103,16 +104,16 @@ void ShowScene::setupNatureShow() {
     keyPoints.emplace_back(2.0f, ColorSpace::hsvToRGB(rainSkyBlue.shift(0.0f, 0.0f, 0.2f)));
 
     // daylight
-    addShiftedTween(5.0f, ColorSpace::hsvToRGB(sunYellow.shift(-0.10f, 0.0f, -0.2f)));
+    addShiftedTween(5.0f, ColorSpace::hsvToRGB(sunYellow.shift(-3.00f, 0.0f, -0.05f)));
 
     // sunset
-    addShiftedTween(5.0f, ColorSpace::hsvToRGB(sunsetRed.shift(0.0f, 0.0f, -0.2f)));
-    keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(sunsetRed));
+    addShiftedTween(3.0f, ColorSpace::hsvToRGB(sunsetRed.shift(5.0f, 0.0f, -0.05f)));
+    keyPoints.emplace_back(2.0f, ColorSpace::hsvToRGB(sunsetRed));
 
     // night
-    keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(nightBlue.shift(0.0f, 0.0f, 0.3f)));
-    addShiftedTween(3.0f, ColorSpace::hsvToRGB(nightBlue.shift(0.0f, 0.0f, 0.2f)));
-    keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(nightBlue));
+    keyPoints.emplace_back(2.0f, ColorSpace::hsvToRGB(nightBlueBright));
+    addShiftedTween(2.0f, ColorSpace::hsvToRGB(nightBlue));
+    keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(nightBlueDark));
 
     // end
     keyPoints.emplace_back(1.0f, black);
