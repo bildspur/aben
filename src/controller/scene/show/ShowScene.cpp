@@ -17,6 +17,10 @@ void ShowScene::setup() {
     //setupKeyPoints();
     setupNatureShow();
     this->animation = new Animation<PORTAL_SIZE>(keyPoints, installation->getSettings().getShowSpeed());
+
+    // show info
+    float showTimeMs = animation->getShowTime() * animation->getSpeed() / 1000.0f;
+    Serial.printf("Animation Time (s): %s\n", String(showTimeMs, 2).c_str());
 }
 
 void ShowScene::loop() {
@@ -52,11 +56,13 @@ void ShowScene::setupNatureShow() {
     auto white = RGBColor::SATURATION(1.0f);
 
     // show colors
-    auto nightBlue = HSVColor(240.0f, 1.0f, 0.50f);
+    auto nightBlue = HSVColor(250.0f, 1.0f, 0.50f);
     auto nightBlueBright = nightBlue.shift(0.0f, 0.0f, 0.3f);
     auto nightBlueDark = nightBlue.shift(0.0f, 0.0f, -0.1f);
 
     auto sunriseOrange = HSVColor(48.0f, 0.93f, 0.65f);
+    auto sunriseOrangeDark = sunriseOrange.shift(-10, 0, 0);
+
     auto sunYellow = HSVColor(56.0f, 0.57f, 0.80f);
     auto rainBlue = HSVColor(212.0f, 0.83f, 1.0f);
     auto rainSkyBlue = HSVColor(240.0f, 0.85f, 0.77f);
@@ -72,14 +78,18 @@ void ShowScene::setupNatureShow() {
     keyPoints.emplace_back(0.0f, nightBlueDark);
 
     // night scene
+    keyPoints.emplace_back(2.0f);
     addShiftTween(3.0f,
                   ColorSpace::hsvToRGB(nightBlue),
                   ColorSpace::hsvToRGB(nightBlueBright), 0.8f, false);
     keyPoints.emplace_back(1.0f, nightBlueBright);
 
     // sunrise
-    addShiftedTween(3.0f, ColorSpace::hsvToRGB(sunriseOrange.shift(10.0f, 0.0f, 0.0f)));
-    keyPoints.emplace_back(3.0f, ColorSpace::hsvToRGB(sunriseOrange));
+    keyPoints.emplace_back(2.0f);
+    addShiftTween(3.0f,
+                  ColorSpace::hsvToRGB(sunriseOrangeDark),
+                  ColorSpace::hsvToRGB(sunriseOrange), 0.8f, true);
+    keyPoints.emplace_back(1.0f, ColorSpace::hsvToRGB(sunriseOrange));
 
     // daylight
     keyPoints.emplace_back(5.0f, ColorSpace::hsvToRGB(sunYellow));

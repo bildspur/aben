@@ -16,7 +16,7 @@ HSVColor::HSVColor(float hue, float saturation, float value) {
 }
 
 HSVColor HSVColor::shift(float dh, float ds, float dv) {
-    return {MathUtils::limit(getH() + dh, 0.0f, 1.0f),
+    return {MathUtils::limit(getH() + dh, 0.0f, 360.0f),
             MathUtils::limit(getS() + ds, 0.0f, 1.0f),
             MathUtils::limit(getV() + dv, 0.0f, 1.0f)};
 }

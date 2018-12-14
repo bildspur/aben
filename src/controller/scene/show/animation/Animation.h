@@ -62,6 +62,8 @@ public:
     unsigned int getSpeed() const;
 
     void setSpeed(unsigned int speed);
+
+    float getShowTime();
 };
 
 template<int SIZE>
@@ -225,6 +227,18 @@ void Animation<SIZE>::printKeyPointSets() {
         }
         Serial.println();
     }
+}
+
+template<int SIZE>
+float Animation<SIZE>::getShowTime() {
+    float showTime = 0.0f;
+
+    for (int i = 0; i < keyPoints.size(); i++) {
+        KeyPointSet<SIZE> keyPointSet = keyPoints[i];
+        showTime += keyPointSet.getTimeStamp();
+    }
+
+    return showTime;
 }
 
 #endif //ABEN_ANIMATION_H
