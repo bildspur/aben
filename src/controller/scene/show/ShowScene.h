@@ -30,8 +30,6 @@ private:
     void addShiftTween(float time, RGBColor startColor, RGBColor endColor,
                        float phaseShift = 0.0f, bool randomizePhase = false);
 
-    void addShiftedTween(float time, RGBColor color);
-
 public:
     explicit ShowScene(Installation *installation);
 

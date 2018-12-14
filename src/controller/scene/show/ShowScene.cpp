@@ -130,18 +130,10 @@ void ShowScene::setupNatureShow() {
     keyPoints.emplace_back(1.5f, ColorSpace::hsvToRGB(sunsetRed));
 
     // night
-    keyPoints.emplace_back(1.0f, ColorSpace::hsvToRGB(nightBlueBright));
-    keyPoints.emplace_back(1.0f, ColorSpace::hsvToRGB(nightBlueDark));
+    keyPoints.emplace_back(2.0f, ColorSpace::hsvToRGB(nightBlue));
 
     // end
     keyPoints.emplace_back(1.0f, black);
-}
-
-void ShowScene::addShiftedTween(float time, RGBColor color) {
-    // end
-    for (int i = 0; i < PORTAL_SIZE; i++) {
-        keyPoints.emplace_back(time / PORTAL_SIZE, i, color);
-    }
 }
 
 void ShowScene::addRandomFlashTween(float time, float flashTime, float startProbability, float endProbability,
