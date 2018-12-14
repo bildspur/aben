@@ -223,6 +223,12 @@ void handleOsc(OSCMessage &msg) {
         installation.getSettings().setActivatedPortalStats(0);
         installation.getSettings().setActivatedShowStats(0);
 
+        installation.getSettings().setStatsPortal0(0);
+        installation.getSettings().setStatsPortal1(0);
+        installation.getSettings().setStatsPortal2(0);
+        installation.getSettings().setStatsPortal3(0);
+        installation.getSettings().setStatsPortal4(0);
+
         sendOSCFeedback = true;
     });
 
@@ -322,7 +328,7 @@ void handleOsc(OSCMessage &msg) {
     msg.dispatch("/aben/portal/activated", [](OSCMessage &msg) {
         auto id = msg.getInt(0);
         installation.getPortal(id)->setActivated(true);
-        installation.getSettings().incActivatedPortalStats();
+        installation.getSettings().incActivatedPortalStats(static_cast<unsigned int>(id));
         Serial.printf("portal %d: activated\n", id);
     });
 
@@ -356,6 +362,12 @@ void sendRefresh() {
     // stats
     osc.send("/aben/stats/portals", static_cast<float>(installation.getSettings().getActivatedPortalStats()));
     osc.send("/aben/stats/shows", static_cast<float>(installation.getSettings().getActivatedShowStats()));
+
+    osc.send("/aben/stats/portal/0", static_cast<float>(installation.getSettings().getStatsPortal0()));
+    osc.send("/aben/stats/portal/1", static_cast<float>(installation.getSettings().getStatsPortal1()));
+    osc.send("/aben/stats/portal/2", static_cast<float>(installation.getSettings().getStatsPortal2()));
+    osc.send("/aben/stats/portal/3", static_cast<float>(installation.getSettings().getStatsPortal3()));
+    osc.send("/aben/stats/portal/4", static_cast<float>(installation.getSettings().getStatsPortal4()));
 
     // autosave
     osc.send("/aben/autosave/on", installation.getSettings().isAutoSave());

@@ -184,10 +184,6 @@ void AppSettings::incActivatedShowStats() {
     activatedShowStats++;
 }
 
-void AppSettings::incActivatedPortalStats() {
-    activatedPortalStats++;
-}
-
 unsigned long AppSettings::getAutoSaveTime() const {
     return autoSaveTime;
 }
@@ -202,4 +198,63 @@ unsigned int AppSettings::getMinPortalToActivate() const {
 
 void AppSettings::setMinPortalToActivate(unsigned int minPortalToActivate) {
     AppSettings::minPortalToActivate = minPortalToActivate;
+}
+
+unsigned int AppSettings::getStatsPortal0() const {
+    return statsPortal0;
+}
+
+void AppSettings::setStatsPortal0(unsigned int statsPortal0) {
+    AppSettings::statsPortal0 = statsPortal0;
+}
+
+unsigned int AppSettings::getStatsPortal1() const {
+    return statsPortal1;
+}
+
+void AppSettings::setStatsPortal1(unsigned int statsPortal1) {
+    AppSettings::statsPortal1 = statsPortal1;
+}
+
+unsigned int AppSettings::getStatsPortal2() const {
+    return statsPortal2;
+}
+
+void AppSettings::setStatsPortal2(unsigned int statsPortal2) {
+    AppSettings::statsPortal2 = statsPortal2;
+}
+
+unsigned int AppSettings::getStatsPortal3() const {
+    return statsPortal3;
+}
+
+void AppSettings::setStatsPortal3(unsigned int statsPortal3) {
+    AppSettings::statsPortal3 = statsPortal3;
+}
+
+unsigned int AppSettings::getStatsPortal4() const {
+    return statsPortal4;
+}
+
+void AppSettings::setStatsPortal4(unsigned int statsPortal4) {
+    AppSettings::statsPortal4 = statsPortal4;
+}
+
+void AppSettings::incActivatedPortalStats(unsigned int index) {
+    activatedPortalStats++;
+
+    if (index == 0)
+        statsPortal0++;
+
+    if (index == 1)
+        statsPortal1++;
+
+    if (index == 2)
+        statsPortal2++;
+
+    if (index == 3)
+        statsPortal3++;
+
+    if (index == 4)
+        statsPortal4++;
 }

@@ -5,7 +5,7 @@
 #ifndef TIL_APPSETTINGS_H
 #define TIL_APPSETTINGS_H
 
-#define ABEN_SETTINGS_VERSION 1011
+#define ABEN_SETTINGS_VERSION 1012
 
 #define APP_FRAME_RATE 60L
 
@@ -27,9 +27,19 @@ private:
     unsigned long autoSaveTime = 30 * 60 * 1000;
 
     // stats
-    unsigned long activatedPortalStats = 0;
+    unsigned int activatedPortalStats = 0;
 
-    unsigned long activatedShowStats = 0;
+    unsigned int activatedShowStats = 0;
+
+    unsigned int statsPortal0 = 0;
+
+    unsigned int statsPortal1 = 0;
+
+    unsigned int statsPortal2 = 0;
+
+    unsigned int statsPortal3 = 0;
+
+    unsigned int statsPortal4 = 0;
 
     // time star scene settings
     unsigned long timeStarMinDuration = 1500L; // used for portal scene as timer
@@ -158,7 +168,7 @@ public:
 
     void incActivatedShowStats();
 
-    void incActivatedPortalStats();
+    void incActivatedPortalStats(unsigned int index);
 
     unsigned long getAutoSaveTime() const;
 
@@ -167,6 +177,26 @@ public:
     unsigned int getMinPortalToActivate() const;
 
     void setMinPortalToActivate(unsigned int minPortalToActivate);
+
+    unsigned int getStatsPortal0() const;
+
+    void setStatsPortal0(unsigned int statsPortal0);
+
+    unsigned int getStatsPortal1() const;
+
+    void setStatsPortal1(unsigned int statsPortal1);
+
+    unsigned int getStatsPortal2() const;
+
+    void setStatsPortal2(unsigned int statsPortal2);
+
+    unsigned int getStatsPortal3() const;
+
+    void setStatsPortal3(unsigned int statsPortal3);
+
+    unsigned int getStatsPortal4() const;
+
+    void setStatsPortal4(unsigned int statsPortal4);
 };
 
 
