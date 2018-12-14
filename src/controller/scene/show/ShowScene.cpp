@@ -56,9 +56,10 @@ void ShowScene::setupNatureShow() {
     auto white = RGBColor::SATURATION(1.0f);
 
     // show colors
-    auto nightBlue = HSVColor(250.0f, 1.0f, 0.50f);
-    auto nightBlueBright = nightBlue.shift(0.0f, 0.0f, 0.3f);
-    auto nightBlueDark = nightBlue.shift(0.0f, 0.0f, -0.1f);
+    auto startColor = HSVColor(140.0f, 0.0f, 1.0f);
+    auto nightBlue = HSVColor(240.0f, 1.0f, 0.50f);
+    auto nightBlueBright = nightBlue.shift(5.0f, 0.0f, 0.3f);
+    auto nightBlueDark = nightBlue.shift(-10.0f, 0.0f, -0.1f);
 
     auto sunriseOrange = HSVColor(48.0f, 0.93f, 0.65f);
     auto sunriseOrangeDark = sunriseOrange.shift(-10, 0, 0);
@@ -69,7 +70,7 @@ void ShowScene::setupNatureShow() {
 
     auto rainBlue = HSVColor(212.0f, 0.83f, 1.0f);
 
-    auto rainSkyBlue = HSVColor(240.0f, 0.85f, 0.77f);
+    auto rainSkyBlue = HSVColor(220.0f, 0.85f, 0.77f);
     auto rainSkyBlueGreen = rainSkyBlue.shift(-20.0f, 0.0f, 0.0f);
 
     auto sunsetRed = HSVColor(14.0f, 0.96f, 0.80f);
@@ -82,11 +83,11 @@ void ShowScene::setupNatureShow() {
 
     // define show
     keyPoints.clear();
-    keyPoints.emplace_back(0.0f, nightBlueDark);
+    keyPoints.emplace_back(0.0f, startColor);
 
     // night scene
-    keyPoints.emplace_back(2.0f);
-    addShiftTween(2.0f,
+    keyPoints.emplace_back(1.0f);
+    addShiftTween(1.0f,
                   ColorSpace::hsvToRGB(nightBlue),
                   ColorSpace::hsvToRGB(nightBlueBright), 0.4f, true);
     keyPoints.emplace_back(0.5f, nightBlueBright);
