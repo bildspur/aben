@@ -51,22 +51,17 @@ void ShowScene::reset() {
 void ShowScene::setupNatureShow() {
     // define default colors
     auto black = RGBColor::BLACK();
-    auto dark = RGBColor::SATURATION(0.3f);
-    auto bright = RGBColor::SATURATION(0.85f);
-    auto white = RGBColor::SATURATION(1.0f);
 
     // show colors
     auto startColor = HSVColor(140.0f, 0.0f, 1.0f);
     auto nightBlue = HSVColor(240.0f, 1.0f, 0.50f);
     auto nightBlueBright = nightBlue.shift(5.0f, 0.0f, 0.3f);
-    auto nightBlueDark = nightBlue.shift(-10.0f, 0.0f, -0.1f);
 
     auto sunriseOrange = HSVColor(48.0f, 0.93f, 0.65f);
     auto sunriseOrangeDark = sunriseOrange.shift(-10, 0, 0);
 
     auto sunYellow = HSVColor(56.0f, 0.57f, 0.80f);
     auto sunYellowBright = sunYellow.shift(6.0f, 0.0f, 0.0f);
-    auto sunYellowDark = sunYellow.shift(-3.00f, 0.0f, -0.05f);
 
     auto rainBlue = HSVColor(212.0f, 0.83f, 1.0f);
 
