@@ -48,10 +48,10 @@ void AbenSceneController::selectRelevantScene() {
 }
 
 bool AbenSceneController::areAllPortalsActivated() {
-    bool allActivated = true;
+    auto activatedCounter = 0;
     for (uint8_t i = 0; i < installation->getSize(); i++) {
-        if (!installation->getPortal(i)->isActivated())
-            allActivated = false;
+        if (installation->getPortal(i)->isActivated())
+            activatedCounter++;
     }
-    return allActivated;
+    return activatedCounter >= installation->getSettings().getMinPortalToActivate();
 }

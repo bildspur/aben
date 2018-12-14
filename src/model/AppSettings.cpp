@@ -195,3 +195,11 @@ unsigned long AppSettings::getAutoSaveTime() const {
 void AppSettings::setAutoSaveTime(unsigned long autoSaveTime) {
     AppSettings::autoSaveTime = autoSaveTime;
 }
+
+unsigned int AppSettings::getMinPortalToActivate() const {
+    return minPortalToActivate;
+}
+
+void AppSettings::setMinPortalToActivate(unsigned int minPortalToActivate) {
+    AppSettings::minPortalToActivate = minPortalToActivate;
+}

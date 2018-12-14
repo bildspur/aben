@@ -182,6 +182,11 @@ void handleOsc(OSCMessage &msg) {
         sendOSCFeedback = true;
     });
 
+    msg.dispatch("/aben/show/minportal", [](OSCMessage &msg) {
+        installation.getSettings().setMinPortalToActivate(static_cast<unsigned int>(msg.getFloat(0)));
+        sendOSCFeedback = true;
+    });
+
     // global
     msg.dispatch("/aben/brightness/min", [](OSCMessage &msg) {
         installation.getSettings().setMinBrightness(msg.getFloat(0));
@@ -359,6 +364,7 @@ void sendRefresh() {
     osc.send("/aben/activationtime",
              static_cast<float>(MathUtils::millisToSeconds(installation.getSettings().getPortalActivationTime())));
     osc.send("/aben/show/speed", (float) installation.getSettings().getShowSpeed());
+    osc.send("/aben/show/minportal", (float) installation.getSettings().getMinPortalToActivate());
 
     // keyPoints
     osc.send("/aben/color/hue", installation.getSettings().getDefaultHue());

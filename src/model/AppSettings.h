@@ -64,6 +64,8 @@ private:
 
     unsigned long showSpeed = 1000L;
 
+    unsigned int minPortalToActivate = 3;
+
 
 public:
     int getVersion() const;
@@ -161,6 +163,10 @@ public:
     unsigned long getAutoSaveTime() const;
 
     void setAutoSaveTime(unsigned long autoSaveTime);
+
+    unsigned int getMinPortalToActivate() const;
+
+    void setMinPortalToActivate(unsigned int minPortalToActivate);
 };
 
 
