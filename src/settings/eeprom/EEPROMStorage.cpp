@@ -43,3 +43,9 @@ void EEPROMStorage::load() {
 void EEPROMStorage::add(EEPROMStorage::DataModelPtr dataModel) {
     dataModels.push_back(dataModel);
 }
+
+void EEPROMStorage::reset() {
+    for (auto dataModel : dataModels) {
+        dataModel->reset();
+    }
+}

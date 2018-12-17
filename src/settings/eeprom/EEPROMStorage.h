@@ -27,6 +27,8 @@ public:
 
     void load();
 
+    void reset();
+
     void add(DataModelPtr dataModel);
 };
 

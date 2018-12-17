@@ -8,7 +8,6 @@
 
 class IDataModel {
 public:
-    virtual void reset() = 0;
 };
 
 

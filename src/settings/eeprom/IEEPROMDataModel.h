@@ -13,6 +13,8 @@ public:
     virtual void loadFromEEPROM(int address) = 0;
 
     virtual int sizeInEEPROM() = 0;
+
+    virtual void reset() = 0;
 };
 
 
