@@ -9,7 +9,7 @@
 #undef max
 
 #include <vector>
-#include <data/osc/binding/OSCRule.h>
+#include <data/osc/rule/OSCRule.h>
 #include "IOSCDataModel.h"
 
 class OSCDataRouter {
