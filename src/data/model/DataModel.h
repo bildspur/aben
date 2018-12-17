@@ -5,8 +5,8 @@
 #ifndef ABEN_DATAMODEL_H
 #define ABEN_DATAMODEL_H
 
-#include <settings/eeprom/IEEPROMDataModel.h>
 #include <EEPROM.h>
+#include <data/eeprom/IEEPROMDataModel.h>
 #include "IDataModel.h"
 
 template<typename T>

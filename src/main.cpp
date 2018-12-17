@@ -6,8 +6,8 @@
 #include <controller/scene/interaction/PortalScene.h>
 #include <controller/scene/AbenSceneController.h>
 #include <controller/scene/show/ShowScene.h>
-#include <settings/model/DataModel.h>
-#include <settings/eeprom/EEPROMStorage.h>
+#include <data/model/DataModel.h>
+#include <data/eeprom/EEPROMStorage.h>
 
 #include "controller/BaseController.h"
 #include "model/Portal.h"

@@ -6,11 +6,10 @@
 #define ABEN_OSCDATAMODEL_H
 
 
-class IOSCDataModel {
-public:
-    virtual float getOSCValue() = 0;
+#include <data/osc/IOSCDataModel.h>
 
-    virtual void setOSCValue(float value) = 0;
+class OSCDataBinding {
+    typedef IOSCDataModel *DataModelPtr;
 };
 
 
