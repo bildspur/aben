@@ -133,13 +133,15 @@ void loop() {
 
 void test() {
     auto ageSandy = DataModel<unsigned int>(23);
-    auto ageFlorian = DataModel<unsigned int>(27);
+    auto ageFlorian = DataModel<unsigned long>(27);
+    auto heightSandy = DataModel<float>(1.67);
 
     auto storage = EEPROMStorage();
     storage.add(&ageSandy);
+    storage.add(&heightSandy);
     storage.add(&ageFlorian);
 
-    Serial.printf("Age (begin): Sandy = %d, Florian %d\n", ageSandy.get(), ageFlorian.get());
+    Serial.printf("begin: Sandy = %d, height = %f, Florian %lu\n", ageSandy.get(), heightSandy.get(), ageFlorian.get());
 
     // store
     storage.save();
@@ -147,13 +149,14 @@ void test() {
     // change
     ageFlorian.set(50);
     ageSandy.set(30);
+    heightSandy.set(1.80);
 
-    Serial.printf("Age (save): Sandy = %d, Florian %d\n", ageSandy.get(), ageFlorian.get());
+    Serial.printf("save: Sandy = %d, height = %f, Florian %lu\n", ageSandy.get(), heightSandy.get(), ageFlorian.get());
 
     // reload
     storage.load();
 
-    Serial.printf("Age (load): Sandy = %d, Florian %d\n", ageSandy.get(), ageFlorian.get());
+    Serial.printf("load: Sandy = %d, height = %f, Florian %lu\n", ageSandy.get(), heightSandy.get(), ageFlorian.get());
 
     delay(5000);
 }
