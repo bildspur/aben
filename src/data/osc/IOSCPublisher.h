@@ -9,6 +9,7 @@
 #include <OSCMessage.h>
 
 class IOSCPublisher {
+public:
     virtual void sendMessage(OSCMessage &msg) = 0;
 };
 

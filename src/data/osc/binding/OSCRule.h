@@ -22,6 +22,8 @@ public:
     explicit OSCRule(const char *address);
 
     explicit OSCRule(String address);
+
+    const char *getAddress() const;
 };
 
 

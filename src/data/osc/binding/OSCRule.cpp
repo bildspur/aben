@@ -11,3 +11,7 @@ OSCRule::OSCRule(const char *address) {
 OSCRule::OSCRule(String address) {
     this->address = address.c_str();
 }
+
+const char *OSCRule::getAddress() const {
+    return address;
+}
