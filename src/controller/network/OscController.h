@@ -16,11 +16,12 @@
 #undef min
 
 #include <functional>
+#include <data/osc/IOSCPublisher.h>
 #include "../BaseController.h"
 
 #define CHAR_BUFFER_SIZE 16
 
-class OscController : public BaseController {
+class OscController : public BaseController, public IOSCPublisher {
 private:
     typedef std::function<void(OSCMessage &msg)> OSCHandlerFunction;
 
@@ -42,7 +43,7 @@ public:
 
     void loop() override;
 
-    void sendMessage(OSCMessage &msg);
+    void sendMessage(OSCMessage &msg) override;
 
     void onMessageReceived(OSCHandlerFunction handler);
 
