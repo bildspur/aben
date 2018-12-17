@@ -6,6 +6,8 @@
 #include <controller/scene/interaction/PortalScene.h>
 #include <controller/scene/AbenSceneController.h>
 #include <controller/scene/show/ShowScene.h>
+#include <settings/model/DataModel.h>
+#include <settings/eeprom/EEPROMStorage.h>
 
 #include "controller/BaseController.h"
 #include "model/Portal.h"
@@ -87,6 +89,8 @@ void handleOsc(OSCMessage &msg);
 
 void sendRefresh();
 
+void test();
+
 void setup() {
     Serial.begin(BAUD_RATE);
 
@@ -114,6 +118,9 @@ void setup() {
     MDNS.addService("_osc", "_udp", OSC_IN_PORT);
 
     Serial.println("setup finished!");
+
+    test();
+
     sendRefresh();
 }
 
@@ -122,6 +129,33 @@ void loop() {
     for (auto &controller : controllers) {
         controller->loop();
     }
+}
+
+void test() {
+    auto ageSandy = DataModel<unsigned int>(23);
+    auto ageFlorian = DataModel<unsigned int>(27);
+
+    auto storage = EEPROMStorage();
+    storage.add(&ageSandy);
+    storage.add(&ageFlorian);
+
+    Serial.printf("Age (begin): Sandy = %d, Florian %d\n", ageSandy.get(), ageFlorian.get());
+
+    // store
+    storage.save();
+
+    // change
+    ageFlorian.set(50);
+    ageSandy.set(30);
+
+    Serial.printf("Age (save): Sandy = %d, Florian %d\n", ageSandy.get(), ageFlorian.get());
+
+    // reload
+    storage.load();
+
+    Serial.printf("Age (load): Sandy = %d, Florian %d\n", ageSandy.get(), ageFlorian.get());
+
+    delay(5000);
 }
 
 void handleOsc(OSCMessage &msg) {
