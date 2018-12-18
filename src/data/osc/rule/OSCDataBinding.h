@@ -8,6 +8,7 @@
 
 #include <data/osc/IOSCDataModel.h>
 #include <WString.h>
+#include <data/osc/rule/converter/IOSCBindingConverter.h>
 #include "OSCRule.h"
 
 class OSCDataBinding : public OSCRule {
@@ -16,10 +17,13 @@ private:
 
     bool publishOnReceive;
 
+    IOSCBindingConverter *converter;
+
 public:
     DataModelPtr model;
 
-    explicit OSCDataBinding(const char *address, DataModelPtr model, bool publishOnReceive = false);
+    explicit OSCDataBinding(const char *address, DataModelPtr model, bool publishOnReceive = false,
+                            IOSCBindingConverter *converter = nullptr);
 
     void receive(IOSCPublisher *publisher, OSCMessage &msg) override;
 

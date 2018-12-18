@@ -51,4 +51,4 @@ add_custom_target(
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-add_executable(${PROJECT_NAME} ${SRC_LIST} src/data/osc/rule/OSCOutputAction.cpp src/data/osc/rule/OSCOutputAction.h)
+add_executable(${PROJECT_NAME} ${SRC_LIST} src/data/osc/rule/OSCOutputAction.cpp src/data/osc/rule/OSCOutputAction.h src/data/osc/rule/converter/IOSCBindingConverter.cpp src/data/osc/rule/converter/IOSCBindingConverter.h src/model/converter/MSBindingConverter.cpp src/model/converter/MSBindingConverter.h)
