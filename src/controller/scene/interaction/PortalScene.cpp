@@ -12,7 +12,7 @@ PortalScene::PortalScene(Installation *installation) : BaseScene(
 void PortalScene::setup() {
     BaseScene::setup();
 
-    rainbowTimer.setWaitTime(installation->getSettings().getRainbowTime());
+    rainbowTimer.setWaitTime(installation->getSettings()->getRainbowTime());
     rainbowTimer.reset();
 }
 
@@ -22,14 +22,14 @@ void PortalScene::loop() {
     auto timeStamp = millis();
 
     // update hue over 6 minutes
-    if (installation->getSettings().isRainbowMode() && rainbowTimer.elapsed()) {
-        auto defaultHue = installation->getSettings().getDefaultHue();
-        installation->getSettings().setDefaultHue(((int) defaultHue + 1) % 360);
+    if (installation->getSettings()->isRainbowMode() && rainbowTimer.elapsed()) {
+        auto defaultHue = installation->getSettings()->getDefaultHue();
+        installation->getSettings()->setDefaultHue(((int) defaultHue + 1) % 360);
 
         // keep it in the range
-        if (defaultHue < installation->getSettings().getRainbowStart() &&
-            defaultHue > installation->getSettings().getRainbowEnd()) {
-            installation->getSettings().setDefaultHue(installation->getSettings().getRainbowStart());
+        if (defaultHue < installation->getSettings()->getRainbowStart() &&
+            defaultHue > installation->getSettings()->getRainbowEnd()) {
+            installation->getSettings()->setDefaultHue(installation->getSettings()->getRainbowStart());
         }
     }
 
@@ -37,15 +37,15 @@ void PortalScene::loop() {
         auto portal = installation->getPortal(i);
 
         auto brightness = getPortalBrightness(portal, timeStamp,
-                                              installation->getSettings().getTimeStarMinDuration());
+                                              installation->getSettings()->getTimeStarMinDuration());
         float clampedBrightness = MathUtils::mapFromLEDBrightness(brightness,
-                                                                  installation->getSettings().getTimeStarMinBrightness(),
-                                                                  installation->getSettings().getTimeStarMaxBrightness());
+                                                                  installation->getSettings()->getTimeStarMinBrightness(),
+                                                                  installation->getSettings()->getTimeStarMaxBrightness());
 
         // update hsv color
         portal->getLed()->setHSV(
-                HSVColor(installation->getSettings().getDefaultHue(),
-                         installation->getSettings().getDefaultSaturation(),
+                HSVColor(installation->getSettings()->getDefaultHue(),
+                         installation->getSettings()->getDefaultSaturation(),
                          clampedBrightness
                 )
         );
@@ -53,7 +53,7 @@ void PortalScene::loop() {
 }
 
 float PortalScene::getPortalBrightness(PortalPtr portal, unsigned long timeStamp, float blinkTime) {
-    if (!portal->isActivated() || !installation->getSettings().isInteractionOn())
+    if (!portal->isActivated() || !installation->getSettings()->isInteractionOn())
         return LED_MAX_BRIGHTNESS;
 
     // portal is activated

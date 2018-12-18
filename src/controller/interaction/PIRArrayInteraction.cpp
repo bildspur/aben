@@ -5,7 +5,7 @@
 #include "PIRArrayInteraction.h"
 
 PIRArrayInteraction::PIRArrayInteraction(Installation *installation, const uint8_t *sensorPins)
-        : TimeBasedController(installation->getSettings().getAppFrameRate(), FRAMES_PER_SECOND) {
+        : TimeBasedController(installation->getSettings()->getAppFrameRate(), FRAMES_PER_SECOND) {
     this->installation = installation;
     this->sensorCount = installation->getSize();
 

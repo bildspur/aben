@@ -5,79 +5,84 @@
 #ifndef TIL_APPSETTINGS_H
 #define TIL_APPSETTINGS_H
 
-#define ABEN_SETTINGS_VERSION 1012
+#include <data/osc/OSCDataRouter.h>
+#include <data/eeprom/EEPROMStorage.h>
+#include <data/model/DataModel.h>
+
+#define ABEN_SETTINGS_VERSION 2012
 
 #define APP_FRAME_RATE 60L
 
-struct AppSettings {
+class AppSettings {
 private:
-    int version = ABEN_SETTINGS_VERSION;
+    DataModel<int> version = DataModel<int>(ABEN_SETTINGS_VERSION);
 
     // global render settings
-    unsigned long appFrameRate = APP_FRAME_RATE;
+    DataModel<unsigned long> appFrameRate = DataModel<unsigned long>(APP_FRAME_RATE);
 
-    float minBrightness = 0.0f;
+    DataModel<float> minBrightness = DataModel<float>(0.0f);
 
-    float maxBrightness = 1.0f;
+    DataModel<float> maxBrightness = DataModel<float>(1.0f);
 
-    bool gammaCorrection = true;
+    DataModel<bool> gammaCorrection = DataModel<bool>(true);
 
-    bool autoSave = true;
+    DataModel<bool> autoSave = DataModel<bool>(true);
 
-    unsigned long autoSaveTime = 30 * 60 * 1000;
+    DataModel<unsigned long> autoSaveTime = DataModel<unsigned long>(30 * 60 * 1000);
 
     // stats
-    unsigned int activatedPortalStats = 0;
+    DataModel<unsigned int> activatedPortalStats = DataModel<unsigned int>(0);
 
-    unsigned int activatedShowStats = 0;
+    DataModel<unsigned int> activatedShowStats = DataModel<unsigned int>(0);
 
-    unsigned int statsPortal0 = 0;
+    DataModel<unsigned int> statsPortal0 = DataModel<unsigned int>(0);
 
-    unsigned int statsPortal1 = 0;
+    DataModel<unsigned int> statsPortal1 = DataModel<unsigned int>(0);
 
-    unsigned int statsPortal2 = 0;
+    DataModel<unsigned int> statsPortal2 = DataModel<unsigned int>(0);
 
-    unsigned int statsPortal3 = 0;
+    DataModel<unsigned int> statsPortal3 = DataModel<unsigned int>(0);
 
-    unsigned int statsPortal4 = 0;
+    DataModel<unsigned int> statsPortal4 = DataModel<unsigned int>(0);
 
     // time star scene settings
-    unsigned long timeStarMinDuration = 1500L; // used for portal scene as timer
+    DataModel<unsigned long> timeStarMinDuration = DataModel<unsigned long>(1500L); // used for portal scene as timer
 
-    unsigned long timeStarMaxDuration = 5000L;
+    DataModel<unsigned long> timeStarMaxDuration = DataModel<unsigned long>(5000L);
 
-    float timeStarRandomOnFactor = 0.99f;
+    DataModel<float> timeStarRandomOnFactor = DataModel<float>(0.99f);
 
-    float timeStarMinBrightness = 0.4f;
+    DataModel<float> timeStarMinBrightness = DataModel<float>(0.4f);
 
-    float timeStarMaxBrightness = 0.8f;
+    DataModel<float> timeStarMaxBrightness = DataModel<float>(0.8f);
 
-    float portalMinTreshold = 60.0;
+    DataModel<float> portalMinTreshold = DataModel<float>(60.0f);
 
     // keyPoints
-    float defaultHue = 200.0;
+    DataModel<float> defaultHue = DataModel<float>(200.0f);
 
-    float defaultSaturation = 0.8f;
+    DataModel<float> defaultSaturation = DataModel<float>(0.8f);
 
-    bool rainbowMode = true;
+    DataModel<bool> rainbowMode = DataModel<bool>(true);
 
-    unsigned long rainbowTime = 20 * 1000;
+    DataModel<unsigned long> rainbowTime = DataModel<unsigned long>(20 * 1000);
 
-    float rainbowStart = 180.0f;
+    DataModel<float> rainbowStart = DataModel<float>(180.0f);
 
-    float rainbowEnd = 30.0f;
+    DataModel<float> rainbowEnd = DataModel<float>(30.0f);
 
     // installation
-    unsigned long portalActivationTime = 15000L;
+    DataModel<unsigned long> portalActivationTime = DataModel<unsigned long>(15000L);
 
-    bool interactionOn = true;
+    DataModel<bool> interactionOn = DataModel<bool>(true);
 
-    unsigned long showSpeed = 1000L;
+    DataModel<unsigned long> showSpeed = DataModel<unsigned long>(1000L);
 
-    unsigned int minPortalToActivate = 3;
-
+    DataModel<unsigned int> minPortalToActivate = DataModel<unsigned int>(3);
 
 public:
+    AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStorage);
+
     int getVersion() const;
 
     unsigned long getAppFrameRate() const;

@@ -31,6 +31,6 @@ void LightRenderer::render(PortalPtr portal) {
 float LightRenderer::mapToGlobalBrightnessRange(float value) {
     return MathUtils::map(value,
                           LED_MIN_BRIGHTNESS, LED_MAX_BRIGHTNESS,
-                          installation->getSettings().getMinBrightness(),
-                          installation->getSettings().getMaxBrightness());
+                          installation->getSettings()->getMinBrightness(),
+                          installation->getSettings()->getMaxBrightness());
 }

@@ -28,7 +28,7 @@ void AbenSceneController::selectRelevantScene() {
 
     // switch to show scene
     if (allActivated && getActiveScene() != showScene
-        && installation->getSettings().isInteractionOn()) {
+        && installation->getSettings()->isInteractionOn()) {
         changeScene(showScene);
 
         // turn all doors off
@@ -36,7 +36,7 @@ void AbenSceneController::selectRelevantScene() {
             installation->getPortal(i)->setActivated(false);
         }
 
-        installation->getSettings().incActivatedShowStats();
+        installation->getSettings()->incActivatedShowStats();
 
         Serial.println("switched to show scene!");
     }
@@ -53,5 +53,5 @@ bool AbenSceneController::areAllPortalsActivated() {
         if (installation->getPortal(i)->isActivated())
             activatedCounter++;
     }
-    return activatedCounter >= installation->getSettings().getMinPortalToActivate();
+    return activatedCounter >= installation->getSettings()->getMinPortalToActivate();
 }

@@ -5,7 +5,7 @@
 #include "SceneController.h"
 
 SceneController::SceneController(Installation *installation, BaseScene *defaultScene) :
-        TimeBasedController(installation->getSettings().getAppFrameRate(), FRAMES_PER_SECOND) {
+        TimeBasedController(installation->getSettings()->getAppFrameRate(), FRAMES_PER_SECOND) {
     this->installation = installation;
     this->activeScene = defaultScene;
 }

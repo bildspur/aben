@@ -16,7 +16,7 @@ void ShowScene::setup() {
 
     //setupKeyPoints();
     setupNatureShow();
-    this->animation = new Animation<PORTAL_SIZE>(keyPoints, installation->getSettings().getShowSpeed());
+    this->animation = new Animation<PORTAL_SIZE>(keyPoints, installation->getSettings()->getShowSpeed());
 
     // show info
     float showTimeMs = animation->getShowTime() * animation->getSpeed() / 1000.0f;
@@ -26,7 +26,7 @@ void ShowScene::setup() {
 void ShowScene::loop() {
     BaseScene::loop();
 
-    animation->setSpeed(installation->getSettings().getShowSpeed());
+    animation->setSpeed(installation->getSettings()->getShowSpeed());
     animation->update();
     auto values = animation->getValues();
 

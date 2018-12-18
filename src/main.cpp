@@ -8,6 +8,7 @@
 #include <controller/scene/show/ShowScene.h>
 #include <data/model/DataModel.h>
 #include <data/eeprom/EEPROMStorage.h>
+#include <data/osc/OSCDataRouter.h>
 
 #include "controller/BaseController.h"
 #include "model/Portal.h"
@@ -51,14 +52,17 @@ typedef BaseController
         BaseControllerPtr;
 typedef Portal *PortalPtr;
 
-// variables
-PortalPtr portals[PORTAL_COUNT];
-auto installation = Installation(PORTAL_COUNT, portals);
-
 // controllers
 auto network = NetworkController(DEVICE_NAME, SSID_NAME, SSID_PASSWORD, WIFI_AP);
 auto ota = OTAController(DEVICE_NAME, OTA_PASSWORD, OTA_PORT);
 auto osc = OscController(OSC_IN_PORT, OSC_OUT_PORT);
+
+// data
+auto oscRouter = OSCDataRouter(&osc);
+
+// variables
+PortalPtr portals[PORTAL_COUNT];
+auto installation = Installation(PORTAL_COUNT, portals, &oscRouter);
 
 // renderer
 LightRenderer *renderer = new DMXLightRenderer(DMX_TX_PIN, DMX_LIGHT_ADDRESS_SIZE, &installation);
@@ -80,16 +84,10 @@ BaseControllerPtr controllers[] = {
         &installation
 };
 
-// vars
-bool sendOSCFeedback = false;
-bool updateColor = false;
-
 // methods
 void handleOsc(OSCMessage &msg);
 
 void sendRefresh();
-
-void test();
 
 void setup() {
     Serial.begin(BAUD_RATE);
@@ -118,9 +116,6 @@ void setup() {
     MDNS.addService("_osc", "_udp", OSC_IN_PORT);
 
     Serial.println("setup finished!");
-
-    test();
-
     sendRefresh();
 }
 
@@ -131,313 +126,10 @@ void loop() {
     }
 }
 
-void test() {
-    auto ageSandy = DataModel<unsigned int>(23);
-    auto ageFlorian = DataModel<unsigned long>(27);
-    auto heightSandy = DataModel<float>(1.67);
-
-    auto storage = EEPROMStorage();
-    storage.add(&ageSandy);
-    storage.add(&heightSandy);
-    storage.add(&ageFlorian);
-
-    Serial.printf("begin: Sandy = %d, height = %f, Florian %lu\n", ageSandy.get(), heightSandy.get(), ageFlorian.get());
-
-    // store
-    storage.save();
-
-    // change
-    ageFlorian.set(50);
-    ageSandy.set(30);
-    heightSandy.set(1.80);
-
-    Serial.printf("save: Sandy = %d, height = %f, Florian %lu\n", ageSandy.get(), heightSandy.get(), ageFlorian.get());
-
-    // reload
-    storage.load();
-
-    Serial.printf("load: Sandy = %d, height = %f, Florian %lu\n", ageSandy.get(), heightSandy.get(), ageFlorian.get());
-
-    delay(5000);
-}
-
 void handleOsc(OSCMessage &msg) {
-    sendOSCFeedback = false;
-    updateColor = false;
-
-    // color
-    msg.dispatch("/aben/rainbow/on", [](OSCMessage &msg) {
-        installation.getSettings().setRainbowMode(!installation.getSettings().isRainbowMode());
-        sendOSCFeedback = true;
-    });
-
-    msg.dispatch("/aben/color/hue", [](OSCMessage &msg) {
-        installation.getSettings().setDefaultHue(msg.getFloat(0));
-        sendOSCFeedback = true;
-        updateColor = true;
-    });
-
-    msg.dispatch("/aben/color/saturation", [](OSCMessage &msg) {
-        installation.getSettings().setDefaultSaturation(msg.getFloat(0));
-        sendOSCFeedback = true;
-        updateColor = true;
-    });
-
-    msg.dispatch("/aben/installation/red", [](OSCMessage &msg) {
-        for (int i = 0; i < installation.getSize(); i++) {
-            installation.getPortal(i)->getLed()->setRGB(RGBColor(1.0f, 0.0f, 0.0f));
-        }
-    });
-
-    msg.dispatch("/aben/installation/green", [](OSCMessage &msg) {
-        for (int i = 0; i < installation.getSize(); i++) {
-            installation.getPortal(i)->getLed()->setRGB(RGBColor(0.0f, 1.0f, 0.0f));
-        }
-    });
-
-    msg.dispatch("/aben/installation/blue", [](OSCMessage &msg) {
-        for (int i = 0; i < installation.getSize(); i++) {
-            installation.getPortal(i)->getLed()->setRGB(RGBColor(0.0f, 0.0f, 1.0f));
-        }
-    });
-
-    // installation
-    msg.dispatch("/aben/activationtime", [](OSCMessage &msg) {
-        installation.getSettings().setPortalActivationTime(
-                MathUtils::secondsToMillis(static_cast<unsigned long>(msg.getFloat(0))));
-        sendOSCFeedback = true;
-    });
-
-    msg.dispatch("/aben/show/start", [](OSCMessage &msg) {
-        for (int i = 0; i < installation.getSize(); i++) {
-            installation.getPortal(i)->setActivated(true);
-        }
-    });
-
-    msg.dispatch("/aben/show/speed", [](OSCMessage &msg) {
-        installation.getSettings().setShowSpeed(static_cast<unsigned long>(msg.getFloat(0)));
-        sendOSCFeedback = true;
-    });
-
-    msg.dispatch("/aben/show/minportal", [](OSCMessage &msg) {
-        installation.getSettings().setMinPortalToActivate(static_cast<unsigned int>(msg.getFloat(0)));
-        sendOSCFeedback = true;
-    });
-
-    // global
-    msg.dispatch("/aben/brightness/min", [](OSCMessage &msg) {
-        installation.getSettings().setMinBrightness(msg.getFloat(0));
-        sendOSCFeedback = true;
-    });
-
-    msg.dispatch("/aben/brightness/max", [](OSCMessage &msg) {
-        installation.getSettings().setMaxBrightness(msg.getFloat(0));
-        sendOSCFeedback = true;
-    });
-
-    msg.dispatch("/aben/gamma/on", [](OSCMessage &msg) {
-        installation.getSettings().setGammaCorrection(!installation.getSettings().isGammaCorrection());
-        sendOSCFeedback = true;
-    });
-
-    msg.dispatch("/aben/scenemanager/on", [](OSCMessage &msg) {
-        sceneController.setRunning(!sceneController.isRunning());
-        sendOSCFeedback = true;
-    });
-
-    msg.dispatch("/aben/interaction/on", [](OSCMessage &msg) {
-        installation.getSettings().setInteractionOn(!installation.getSettings().isInteractionOn());
-        sendOSCFeedback = true;
-    });
-
-    // stats
-    msg.dispatch("/aben/autosave/on", [](OSCMessage &msg) {
-        installation.getSettings().setAutoSave(!installation.getSettings().isAutoSave());
-        sendOSCFeedback = true;
-    });
-
-    msg.dispatch("/aben/stats/reset", [](OSCMessage &msg) {
-        installation.getSettings().setActivatedPortalStats(0);
-        installation.getSettings().setActivatedShowStats(0);
-
-        installation.getSettings().setStatsPortal0(0);
-        installation.getSettings().setStatsPortal1(0);
-        installation.getSettings().setStatsPortal2(0);
-        installation.getSettings().setStatsPortal3(0);
-        installation.getSettings().setStatsPortal4(0);
-
-        sendOSCFeedback = true;
-    });
-
-
-    // time star
-    msg.dispatch("/aben/timestar/brightness/min", [](OSCMessage &msg) {
-        installation.getSettings().setTimeStarMinBrightness(msg.getFloat(0));
-        sendOSCFeedback = true;
-    });
-
-    msg.dispatch("/aben/timestar/brightness/max", [](OSCMessage &msg) {
-        installation.getSettings().setTimeStarMaxBrightness(msg.getFloat(0));
-        sendOSCFeedback = true;
-    });
-
-    msg.dispatch("/aben/timestar/randomFactor", [](OSCMessage &msg) {
-        installation.getSettings().setTimeStarRandomOnFactor(msg.getFloat(0));
-        sendOSCFeedback = true;
-    });
-
-    msg.dispatch("/aben/timestar/duration/min", [](OSCMessage &msg) {
-        installation.getSettings().setTimeStarMinDuration(
-                MathUtils::secondsToMillis(static_cast<unsigned long>(msg.getFloat(0))));
-        sendOSCFeedback = true;
-    });
-
-    msg.dispatch("/aben/timestar/duration/max", [](OSCMessage &msg) {
-        installation.getSettings().setTimeStarMaxDuration(
-                MathUtils::secondsToMillis(static_cast<unsigned long>(msg.getFloat(0))));
-        sendOSCFeedback = true;
-    });
-
-    // controls
-    msg.dispatch("/aben/installation/on", [](OSCMessage &msg) {
-        sceneController.setRunning(false);
-        installation.turnOn();
-        sendOSCFeedback = true;
-    });
-
-    msg.dispatch("/aben/installation/off", [](OSCMessage &msg) {
-        sceneController.setRunning(false);
-        installation.turnOff();
-        sendOSCFeedback = true;
-    });
-
-    msg.dispatch("/aben/refresh", [](OSCMessage &msg) {
-        sendOSCFeedback = true;
-    });
-
-    msg.dispatch("/aben/settings/load", [](OSCMessage &msg) {
-        installation.loadFromEEPROM();
-        osc.send("/aben/status", "Status: loaded");
-        sendOSCFeedback = true;
-    });
-
-    msg.dispatch("/aben/settings/save", [](OSCMessage &msg) {
-        installation.saveToEEPROM();
-        osc.send("/aben/portal/save", 0);
-        osc.send("/aben/status", "Status: saved");
-    });
-
-    msg.dispatch("/aben/settings/default", [](OSCMessage &msg) {
-        installation.loadDefaultSettings();
-
-        // send portal values
-        osc.send("/aben/portal/threshold", installation.getSettings().getPortalMinTreshold());
-
-        // send back update info
-        osc.send("/aben/status", "Status: default");
-        sendOSCFeedback = true;
-    });
-
-    // portal settings
-    msg.dispatch("/aben/portal/threshold", [](OSCMessage &msg) {
-        installation.getSettings().setPortalMinTreshold(msg.getFloat(0));
-
-        // send portal values
-        osc.send("/aben/portal/threshold", installation.getSettings().getPortalMinTreshold());
-
-        sendOSCFeedback = true;
-    });
-
-    msg.dispatch("/aben/portal/debug/activate", [](OSCMessage &msg) {
-        int id = static_cast<int>(msg.getFloat(0));
-        Serial.printf("portal %d actived by debug console\n", id);
-        installation.getPortal(id)->setActivated(true);
-        sendOSCFeedback = true;
-    });
-
-    // portal
-    msg.dispatch("/aben/portal/online", [](OSCMessage &msg) {
-        auto id = msg.getInt(0);
-        installation.getPortal(id)->onlineStateReceived();
-        Serial.printf("portal %d: online\n", id);
-    });
-
-    msg.dispatch("/aben/portal/activated", [](OSCMessage &msg) {
-        auto id = msg.getInt(0);
-        installation.getPortal(id)->setActivated(true);
-        installation.getSettings().incActivatedPortalStats(static_cast<unsigned int>(id));
-        Serial.printf("portal %d: activated\n", id);
-    });
-
-    if (sendOSCFeedback) {
-        sendRefresh();
-    }
-
-    if (updateColor) {
-        // update hsv color
-        for (int i = 0; i < installation.getSize(); i++) {
-            installation.getPortal(i)->getLed()->setHSV(
-                    HSVColor(installation.getSettings().getDefaultHue(),
-                             installation.getSettings().getDefaultSaturation(),
-                             installation.getSettings().getMaxBrightness())
-            );
-        }
-    }
+    oscRouter.onReceive(msg);
 }
 
 void sendRefresh() {
-    // global
-    osc.send("/aben/brightness/min", installation.getSettings().getMinBrightness());
-    osc.send("/aben/brightness/max", installation.getSettings().getMaxBrightness());
-
-    osc.send("/aben/gamma/on", installation.getSettings().isGammaCorrection());
-    osc.send("/aben/scenemanager/on", sceneController.isRunning());
-    osc.send("/aben/interaction/on", installation.getSettings().isInteractionOn());
-
-    osc.send("/aben/version", installation.getSettings().getVersion());
-
-    // stats
-    osc.send("/aben/stats/portals", static_cast<float>(installation.getSettings().getActivatedPortalStats()));
-    osc.send("/aben/stats/shows", static_cast<float>(installation.getSettings().getActivatedShowStats()));
-
-    osc.send("/aben/stats/portal/0", static_cast<float>(installation.getSettings().getStatsPortal0()));
-    osc.send("/aben/stats/portal/1", static_cast<float>(installation.getSettings().getStatsPortal1()));
-    osc.send("/aben/stats/portal/2", static_cast<float>(installation.getSettings().getStatsPortal2()));
-    osc.send("/aben/stats/portal/3", static_cast<float>(installation.getSettings().getStatsPortal3()));
-    osc.send("/aben/stats/portal/4", static_cast<float>(installation.getSettings().getStatsPortal4()));
-
-    // autosave
-    osc.send("/aben/autosave/on", installation.getSettings().isAutoSave());
-
-    // installation
-    osc.send("/aben/activationtime",
-             static_cast<float>(MathUtils::millisToSeconds(installation.getSettings().getPortalActivationTime())));
-    osc.send("/aben/show/speed", (float) installation.getSettings().getShowSpeed());
-    osc.send("/aben/show/minportal", (float) installation.getSettings().getMinPortalToActivate());
-
-    // keyPoints
-    osc.send("/aben/color/hue", installation.getSettings().getDefaultHue());
-    osc.send("/aben/color/saturation", installation.getSettings().getDefaultSaturation());
-    osc.send("/aben/rainbow/on", installation.getSettings().isRainbowMode());
-
-    // time star
-    osc.send("/aben/timestar/brightness/min", installation.getSettings().getTimeStarMinBrightness());
-    osc.send("/aben/timestar/brightness/max", installation.getSettings().getTimeStarMaxBrightness());
-    osc.send("/aben/timestar/randomFactor", installation.getSettings().getTimeStarRandomOnFactor());
-    osc.send("/aben/timestar/duration/min",
-             static_cast<float>(MathUtils::millisToSeconds(installation.getSettings().getTimeStarMinDuration())));
-    osc.send("/aben/timestar/duration/max",
-             static_cast<float>(MathUtils::millisToSeconds(installation.getSettings().getTimeStarMaxDuration())));
-
-    // portal
-    osc.send("/aben/portal/threshold", installation.getSettings().getPortalMinTreshold());
-
-    // send portal updates
-    for (auto i = 0; i < installation.getSize(); i++) {
-        auto portal = installation.getPortal(i);
-        auto portalAddress = String("/aben/portal/") + String(portal->getId()) + String("/").c_str();
-
-        osc.send((String(portalAddress.c_str()) + "online").c_str(), portal->isOnline());
-        osc.send((String(portalAddress.c_str()) + "activated").c_str(), portal->isActivated());
-    }
+    oscRouter.publishAll();
 }

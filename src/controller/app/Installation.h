@@ -4,6 +4,8 @@
 #include <EEPROM.h>
 #include <assert.h>
 #include <controller/TimeBasedController.h>
+#include <data/osc/OSCDataRouter.h>
+#include <data/eeprom/EEPROMStorage.h>
 #include "model/Portal.h"
 #include "EEPROM.h"
 #include "model/AppSettings.h"
@@ -19,12 +21,16 @@ private:
 
     uint16_t size;
 
-    AppSettings settings;
+    AppSettings *settings;
 
     Timer *autoSaveTimer;
 
+    OSCDataRouter *oscDataRouter;
+
+    EEPROMStorage *settingsStorage;
+
 public:
-    Installation(uint16_t size, PortalPtr *portals);
+    Installation(uint16_t size, PortalPtr *portals, OSCDataRouter *oscDataRouter);
 
     void timedLoop() override;
 
@@ -48,7 +54,7 @@ public:
 
     void turnOff();
 
-    AppSettings &getSettings();
+    AppSettings *getSettings();
 };
 
 

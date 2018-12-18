@@ -11,7 +11,7 @@
 #include "../driver/LXESP32DMX/LXESP32DMX.h"
 
 DMXLightRenderer::DMXLightRenderer(uint8_t txPin, uint8_t lightAddressSize, Installation *installation)
-        : LightRenderer(installation, installation->getSettings().getAppFrameRate()) {
+        : LightRenderer(installation, installation->getSettings()->getAppFrameRate()) {
     this->lightChannelSize = lightAddressSize;
     this->txPin = txPin;
 }
@@ -48,7 +48,7 @@ void DMXLightRenderer::render(PortalPtr portal) {
         ));
 
         // apply gamma correction if needed
-        if (installation->getSettings().isGammaCorrection())
+        if (installation->getSettings()->isGammaCorrection())
             dmxValue = gamma8[dmxValue];
 
         // weird controller mapping: K1 => 4, K4 => 1

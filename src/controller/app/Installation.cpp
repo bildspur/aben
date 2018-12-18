@@ -5,14 +5,16 @@
 #include "Installation.h"
 #include "util/MathUtils.h"
 
-Installation::Installation(uint16_t size, PortalPtr *portals) :
+Installation::Installation(uint16_t size, PortalPtr *portals, OSCDataRouter *oscDataRouter) :
         TimeBasedController(APP_FRAME_RATE, FRAMES_PER_SECOND) {
 
     this->size = size;
     this->portals = portals;
-    this->settings = AppSettings();
+    this->oscDataRouter = oscDataRouter;
+    this->settingsStorage = new EEPROMStorage(EEPROM_START_ADDRESS, EEPROM_SIZE);
 
-    this->autoSaveTimer = new Timer(settings.getAutoSaveTime());
+    this->settings = new AppSettings(oscDataRouter, settingsStorage);
+    this->autoSaveTimer = new Timer(settings->getAutoSaveTime());
 }
 
 uint16_t Installation::getSize() {
@@ -41,8 +43,8 @@ void Installation::initPortals() {
 void Installation::turnOn() {
     for (auto i = 0; i < size; i++) {
         portals[i]->getLed()->setHSV(
-                HSVColor(settings.getDefaultHue(),
-                         settings.getDefaultSaturation(),
+                HSVColor(settings->getDefaultHue(),
+                         settings->getDefaultSaturation(),
                          1.0f));
     }
 }
@@ -50,53 +52,29 @@ void Installation::turnOn() {
 void Installation::turnOff() {
     for (auto i = 0; i < size; i++) {
         portals[i]->getLed()->setHSV(
-                HSVColor(settings.getDefaultHue(),
-                         settings.getDefaultSaturation(),
+                HSVColor(settings->getDefaultHue(),
+                         settings->getDefaultSaturation(),
                          0.0f));
     }
 }
 
 void Installation::loadFromEEPROM() {
-    if (!EEPROM.begin(EEPROM_SIZE)) {
-        Serial.println("failed to initialise EEPROM");
-        return;
-    }
-
-    // set start address
-    int address = EEPROM_START_ADDRESS;
-    EEPROM.get(address, settings);
-
-    Serial.printf("Loaded Version: %d\n", settings.getVersion());
+    settingsStorage->load();
+    Serial.printf("Loaded Version: %d\n", settings->getVersion());
 
     // check version and set default if needed
-    if (settings.getVersion() != ABEN_SETTINGS_VERSION) {
+    if (settings->getVersion() != ABEN_SETTINGS_VERSION) {
         Serial.println("applying default app settings!");
-        loadDefaultSettings();
+        settingsStorage->reset();
     }
-
-    EEPROM.end();
 }
 
 void Installation::saveToEEPROM() {
-    if (!EEPROM.begin(EEPROM_SIZE)) {
-        Serial.println("failed to initialise EEPROM");
-        return;
-    }
-
-    // set start address
-    int address = EEPROM_START_ADDRESS;
-    EEPROM.put(address, settings);
-
-    EEPROM.commit();
-    EEPROM.end();
-}
-
-AppSettings &Installation::getSettings() {
-    return settings;
+    settingsStorage->save();
 }
 
 void Installation::loadDefaultSettings() {
-    settings = AppSettings();
+    settingsStorage->reset();
 }
 
 void Installation::timedLoop() {
@@ -105,11 +83,15 @@ void Installation::timedLoop() {
     // update portals
     for (auto i = 0; i < getSize(); i++) {
         getPortal(i)->update();
-        getPortal(i)->updateActivation(settings.getPortalActivationTime());
+        getPortal(i)->updateActivation(settings->getPortalActivationTime());
     }
 
     // autosave
-    if (settings.isAutoSave() && autoSaveTimer->elapsed()) {
+    if (settings->isAutoSave() && autoSaveTimer->elapsed()) {
         saveToEEPROM();
     }
+}
+
+AppSettings *Installation::getSettings() {
+    return settings;
 }
