@@ -141,6 +141,7 @@ void setupOSCActions() {
         for (int i = 0; i < installation.getSize(); i++) {
             installation.getPortal(i)->setActivated(true);
         }
+        sendRefresh();
     }));
 
     oscRouter.addRule(new OSCAction("/aben/stats/reset", [](IOSCPublisher *publisher, OSCMessage &msg) {
@@ -152,27 +153,32 @@ void setupOSCActions() {
         installation.getSettings()->setStatsPortal2(0);
         installation.getSettings()->setStatsPortal3(0);
         installation.getSettings()->setStatsPortal4(0);
+        sendRefresh();
     }));
 
     oscRouter.addRule(new OSCAction("/aben/installation/on", [](IOSCPublisher *publisher, OSCMessage &msg) {
         installation.getSettings()->setSceneControllerOn(true);
         installation.turnOn();
+        sendRefresh();
     }));
 
     oscRouter.addRule(new OSCAction("/aben/installation/off", [](IOSCPublisher *publisher, OSCMessage &msg) {
         installation.getSettings()->setSceneControllerOn(false);
         installation.turnOff();
+        sendRefresh();
     }));
 
     oscRouter.addRule(new OSCAction("/aben/settings/load", [](IOSCPublisher *publisher, OSCMessage &msg) {
         installation.loadFromEEPROM();
         osc.send("/aben/status", "Status: loaded");
+        sendRefresh();
     }));
 
     oscRouter.addRule(new OSCAction("/aben/settings/save", [](IOSCPublisher *publisher, OSCMessage &msg) {
         installation.saveToEEPROM();
         osc.send("/aben/portal/save", 0);
         osc.send("/aben/status", "Status: saved");
+        sendRefresh();
     }));
 
     oscRouter.addRule(new OSCAction("/aben/settings/default", [](IOSCPublisher *publisher, OSCMessage &msg) {
@@ -183,12 +189,14 @@ void setupOSCActions() {
 
         // send back update info
         osc.send("/aben/status", "Status: default");
+        sendRefresh();
     }));
 
     oscRouter.addRule(new OSCAction("/aben/portal/debug/activate", [](IOSCPublisher *publisher, OSCMessage &msg) {
         int id = static_cast<int>(msg.getFloat(0));
         Serial.printf("portal %d actived by debug console\n", id);
         installation.getPortal(id)->setActivated(true);
+        sendRefresh();
     }));
 
     oscRouter.addRule(new OSCAction("/aben/portal/online", [](IOSCPublisher *publisher, OSCMessage &msg) {
