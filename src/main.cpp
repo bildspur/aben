@@ -90,6 +90,8 @@ void handleOsc(OSCMessage &msg);
 
 void sendRefresh();
 
+void setupOSCActions();
+
 void setup() {
     Serial.begin(BAUD_RATE);
 
@@ -116,11 +118,7 @@ void setup() {
     // add osc mdns
     MDNS.addService("_osc", "_udp", OSC_IN_PORT);
 
-    // hook action
-    oscRouter.addRule(new OSCAction("/aben/refresh", [](IOSCPublisher *publisher) {
-        Serial.println("sending refresh...");
-        sendRefresh();
-    }));
+    setupOSCActions();
 
     Serial.println("setup finished!");
     Serial.printf("OSC Rule Count: %d\n", oscRouter.getRules().size());
@@ -132,6 +130,79 @@ void loop() {
     for (auto &controller : controllers) {
         controller->loop();
     }
+}
+
+void setupOSCActions() {
+    oscRouter.addRule(new OSCAction("/aben/refresh", [](IOSCPublisher *publisher, OSCMessage &msg) {
+        sendRefresh();
+    }));
+
+    oscRouter.addRule(new OSCAction("/aben/show/start", [](IOSCPublisher *publisher, OSCMessage &msg) {
+        for (int i = 0; i < installation.getSize(); i++) {
+            installation.getPortal(i)->setActivated(true);
+        }
+    }));
+
+    oscRouter.addRule(new OSCAction("/aben/stats/reset", [](IOSCPublisher *publisher, OSCMessage &msg) {
+        installation.getSettings()->setActivatedPortalStats(0);
+        installation.getSettings()->setActivatedShowStats(0);
+
+        installation.getSettings()->setStatsPortal0(0);
+        installation.getSettings()->setStatsPortal1(0);
+        installation.getSettings()->setStatsPortal2(0);
+        installation.getSettings()->setStatsPortal3(0);
+        installation.getSettings()->setStatsPortal4(0);
+    }));
+
+    oscRouter.addRule(new OSCAction("/aben/installation/on", [](IOSCPublisher *publisher, OSCMessage &msg) {
+        installation.getSettings()->setSceneControllerOn(true);
+        installation.turnOn();
+    }));
+
+    oscRouter.addRule(new OSCAction("/aben/installation/off", [](IOSCPublisher *publisher, OSCMessage &msg) {
+        installation.getSettings()->setSceneControllerOn(false);
+        installation.turnOff();
+    }));
+
+    oscRouter.addRule(new OSCAction("/aben/settings/load", [](IOSCPublisher *publisher, OSCMessage &msg) {
+        installation.loadFromEEPROM();
+        osc.send("/aben/status", "Status: loaded");
+    }));
+
+    oscRouter.addRule(new OSCAction("/aben/settings/save", [](IOSCPublisher *publisher, OSCMessage &msg) {
+        installation.saveToEEPROM();
+        osc.send("/aben/portal/save", 0);
+        osc.send("/aben/status", "Status: saved");
+    }));
+
+    oscRouter.addRule(new OSCAction("/aben/settings/default", [](IOSCPublisher *publisher, OSCMessage &msg) {
+        installation.loadDefaultSettings();
+
+        // send portal values
+        osc.send("/aben/portal/threshold", installation.getSettings()->getPortalMinTreshold());
+
+        // send back update info
+        osc.send("/aben/status", "Status: default");
+    }));
+
+    oscRouter.addRule(new OSCAction("/aben/portal/debug/activate", [](IOSCPublisher *publisher, OSCMessage &msg) {
+        int id = static_cast<int>(msg.getFloat(0));
+        Serial.printf("portal %d actived by debug console\n", id);
+        installation.getPortal(id)->setActivated(true);
+    }));
+
+    oscRouter.addRule(new OSCAction("/aben/portal/online", [](IOSCPublisher *publisher, OSCMessage &msg) {
+        auto id = msg.getInt(0);
+        installation.getPortal(id)->onlineStateReceived();
+        Serial.printf("portal %d: online\n", id);
+    }));
+
+    oscRouter.addRule(new OSCAction("/aben/portal/activated", [](IOSCPublisher *publisher, OSCMessage &msg) {
+        auto id = msg.getInt(0);
+        installation.getPortal(id)->setActivated(true);
+        installation.getSettings()->incActivatedPortalStats(static_cast<unsigned int>(id));
+        Serial.printf("portal %d: activated\n", id);
+    }));
 }
 
 void handleOsc(OSCMessage &msg) {

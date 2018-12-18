@@ -6,13 +6,13 @@
 
 #include "OSCAction.h"
 
-OSCAction::OSCAction(const char *address, std::function<void(IOSCPublisher *publisher)> f)
+OSCAction::OSCAction(const char *address, std::function<void(IOSCPublisher *publisher, OSCMessage &msg)> f)
         : OSCRule(address), function(f) {
 
 }
 
 void OSCAction::receive(IOSCPublisher *publisher, OSCMessage &msg) {
-    function(publisher);
+    function(publisher, msg);
 }
 
 void OSCAction::publish(IOSCPublisher *publisher) {

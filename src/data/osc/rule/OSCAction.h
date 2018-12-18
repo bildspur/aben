@@ -15,10 +15,10 @@
 class OSCAction : public OSCRule {
     // based on: https://stackoverflow.com/a/9186537/1138326
 
-    std::function<void(IOSCPublisher *publisher)> function;
+    std::function<void(IOSCPublisher *publisher, OSCMessage &msg)> function;
 
 public:
-    explicit OSCAction(const char *address, std::function<void(IOSCPublisher *publisher)> f);
+    explicit OSCAction(const char *address, std::function<void(IOSCPublisher *publisher, OSCMessage &msg)> f);
 
     void receive(IOSCPublisher *publisher, OSCMessage &msg) override;
 

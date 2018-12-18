@@ -65,7 +65,7 @@ void Installation::loadFromEEPROM() {
     // check version and set default if needed
     if (settings->getVersion() != ABEN_SETTINGS_VERSION) {
         Serial.println("applying default app settings!");
-        settingsStorage->reset();
+        settingsStorage->loadDefault();
     }
 }
 
@@ -74,7 +74,7 @@ void Installation::saveToEEPROM() {
 }
 
 void Installation::loadDefaultSettings() {
-    settingsStorage->reset();
+    settingsStorage->loadDefault();
 }
 
 void Installation::timedLoop() {
