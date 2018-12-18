@@ -13,8 +13,11 @@ void OSCDataRouter::addRule(OSCDataRouter::OSCRulePtr rule) {
 }
 
 void OSCDataRouter::onReceive(OSCMessage &msg) {
+    char *address = new char[50];
+    msg.getAddress(address);
+
     for (OSCRulePtr rule : rules) {
-        if (msg.fullMatch(rule->getAddress())) {
+        if (strcmp(address, rule->getAddress()) == 0) {
             rule->receive(publisher, msg);
         };
     }
@@ -34,6 +37,6 @@ void OSCDataRouter::publish(const char *address) {
     }
 }
 
-void OSCDataRouter::publish(String address) {
-    publish(address.c_str());
+const std::vector<OSCDataRouter::OSCRulePtr> &OSCDataRouter::getRules() const {
+    return rules;
 }

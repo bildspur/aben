@@ -6,8 +6,8 @@
 
 #include "OSCDataBinding.h"
 
-OSCDataBinding::OSCDataBinding(String address, OSCDataBinding::DataModelPtr model, bool publishOnReceive)
-        : OSCRule(std::move(address)) {
+OSCDataBinding::OSCDataBinding(const char *address, OSCDataBinding::DataModelPtr model, bool publishOnReceive)
+        : OSCRule(address) {
     this->model = model;
     this->publishOnReceive = publishOnReceive;
 }

@@ -6,8 +6,8 @@
 
 #include "OSCAction.h"
 
-OSCAction::OSCAction(String address, std::function<void(IOSCPublisher *publisher)> f)
-        : OSCRule(std::move(address)), function(std::move(f)) {
+OSCAction::OSCAction(const char *address, std::function<void(IOSCPublisher *publisher)> f)
+        : OSCRule(address), function(f) {
 
 }
 

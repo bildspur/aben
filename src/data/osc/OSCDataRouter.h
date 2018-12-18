@@ -29,9 +29,9 @@ public:
 
     void publishAll();
 
-    void publish(String address);
-
     void publish(const char *address);
+
+    const std::vector<OSCRulePtr> &getRules() const;
 };
 
 

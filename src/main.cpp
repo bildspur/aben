@@ -9,6 +9,7 @@
 #include <data/model/DataModel.h>
 #include <data/eeprom/EEPROMStorage.h>
 #include <data/osc/OSCDataRouter.h>
+#include <data/osc/rule/OSCAction.h>
 
 #include "controller/BaseController.h"
 #include "model/Portal.h"
@@ -115,7 +116,14 @@ void setup() {
     // add osc mdns
     MDNS.addService("_osc", "_udp", OSC_IN_PORT);
 
+    // hook action
+    oscRouter.addRule(new OSCAction("/aben/refresh", [](IOSCPublisher *publisher) {
+        Serial.println("sending refresh...");
+        sendRefresh();
+    }));
+
     Serial.println("setup finished!");
+    Serial.printf("OSC Rule Count: %d\n", oscRouter.getRules().size());
     sendRefresh();
 }
 

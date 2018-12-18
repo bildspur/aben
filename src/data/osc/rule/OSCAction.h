@@ -18,7 +18,7 @@ class OSCAction : public OSCRule {
     std::function<void(IOSCPublisher *publisher)> function;
 
 public:
-    explicit OSCAction(String address, std::function<void(IOSCPublisher *publisher)> f);
+    explicit OSCAction(const char *address, std::function<void(IOSCPublisher *publisher)> f);
 
     void receive(IOSCPublisher *publisher, OSCMessage &msg) override;
 

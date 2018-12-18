@@ -19,7 +19,7 @@ private:
 public:
     DataModelPtr model;
 
-    explicit OSCDataBinding(String address, DataModelPtr model, bool publishOnReceive = false);
+    explicit OSCDataBinding(const char *address, DataModelPtr model, bool publishOnReceive = false);
 
     void receive(IOSCPublisher *publisher, OSCMessage &msg) override;
 
