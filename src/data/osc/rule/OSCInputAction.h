@@ -4,21 +4,22 @@
 // Created by Florian Bruggisser on 17.12.18.
 //
 
-#ifndef ABEN_OSCACTION_H
-#define ABEN_OSCACTION_H
+#ifndef ABEN_OSCINPUTACTION_H
+#define ABEN_OSCINPUTACTION_H
 
 
 #include <functional>
 #include <WString.h>
 #include "OSCRule.h"
 
-class OSCAction : public OSCRule {
+class OSCInputAction : public OSCRule {
     // based on: https://stackoverflow.com/a/9186537/1138326
+    typedef std::function<void(IOSCPublisher *publisher, OSCMessage &msg)> OSCInFunction;
 
-    std::function<void(IOSCPublisher *publisher, OSCMessage &msg)> function;
+    OSCInFunction function;
 
 public:
-    explicit OSCAction(const char *address, std::function<void(IOSCPublisher *publisher, OSCMessage &msg)> f);
+    explicit OSCInputAction(const char *address, OSCInFunction f);
 
     void receive(IOSCPublisher *publisher, OSCMessage &msg) override;
 
@@ -26,4 +27,4 @@ public:
 };
 
 
-#endif //ABEN_OSCACTION_H
+#endif //ABEN_OSCINPUTACTION_H
