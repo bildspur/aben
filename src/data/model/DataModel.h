@@ -7,10 +7,11 @@
 
 #include <EEPROM.h>
 #include <data/eeprom/IEEPROMDataModel.h>
+#include <data/osc/IOSCDataModel.h>
 #include "IDataModel.h"
 
 template<typename T>
-class DataModel : public IDataModel, public IEEPROMDataModel {
+class DataModel : public IDataModel, public IEEPROMDataModel, public IOSCDataModel {
 
 private:
     T value;
@@ -34,6 +35,10 @@ public:
     void loadFromEEPROM(int address) override;
 
     int sizeInEEPROM() override;
+
+    float getOSCValue() override;
+
+    void setOSCValue(float value) override;
 };
 
 template<typename T>
@@ -60,6 +65,16 @@ void DataModel<T>::loadFromEEPROM(int address) {
 template<typename T>
 int DataModel<T>::sizeInEEPROM() {
     return sizeof(value);
+}
+
+template<typename T>
+float DataModel<T>::getOSCValue() {
+    return static_cast<float>(value);
+}
+
+template<typename T>
+void DataModel<T>::setOSCValue(float value) {
+    this->value = static_cast<T>(value);
 }
 
 
