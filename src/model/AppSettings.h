@@ -80,6 +80,8 @@ private:
 
     DataModel<unsigned int> minPortalToActivate = DataModel<unsigned int>(3);
 
+    DataModel<bool> sceneControllerOn = DataModel<bool>(true);
+
 public:
     AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStorage);
 
@@ -202,6 +204,10 @@ public:
     unsigned int getStatsPortal4() const;
 
     void setStatsPortal4(unsigned int statsPortal4);
+
+    const bool isSceneControllerOn() const;
+
+    void setSceneControllerOn(bool value);
 };
 
 

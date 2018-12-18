@@ -13,8 +13,6 @@ protected:
 
     BaseScene *activeScene;
 
-    bool running = true;
-
 public:
     explicit SceneController(Installation *installation, BaseScene *defaultScene);
 
@@ -25,10 +23,6 @@ public:
     virtual BaseScene *getActiveScene() const;
 
     virtual void setActiveScene(BaseScene *activeScene);
-
-    virtual bool isRunning() const;
-
-    virtual void setRunning(bool running);
 
     virtual void changeScene(BaseScene *scene);
 };

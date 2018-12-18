@@ -7,8 +7,8 @@
 
 AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStorage) {
     // eeprom
+    eepromStorage->add(&sceneControllerOn);
     eepromStorage->add(&version);
-    //eepromStorage->add(&appFrameRate);
     eepromStorage->add(&minBrightness);
     eepromStorage->add(&maxBrightness);
     eepromStorage->add(&gammaCorrection);
@@ -42,7 +42,7 @@ AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStor
 
     // osc
     oscDataRouter->addRule(new OSCDataBinding("/aben/version", &version, true));
-    oscDataRouter->addRule(new OSCDataBinding("/aben/framerate", &appFrameRate, true));
+    oscDataRouter->addRule(new OSCDataBinding("/aben/scenemanager/on", &sceneControllerOn, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/brightness/min", &minBrightness, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/brightness/max", &maxBrightness, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/gamma/on", &gammaCorrection, true));
@@ -57,8 +57,8 @@ AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStor
     oscDataRouter->addRule(new OSCDataBinding("/aben/stats/portal/3", &statsPortal3, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/stats/portal/4", &statsPortal4, true));
 
-    oscDataRouter->addRule(new OSCDataBinding("/aben/timestar/brightness/min", &timeStarMinDuration, true));
-    oscDataRouter->addRule(new OSCDataBinding("/aben/timestar/brightness/max", &timeStarMaxDuration, true));
+    oscDataRouter->addRule(new OSCDataBinding("/aben/timestar/duration/min", &timeStarMinDuration, true));
+    oscDataRouter->addRule(new OSCDataBinding("/aben/timestar/duration/max", &timeStarMaxDuration, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/timestar/randomFactor", &timeStarRandomOnFactor, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/timestar/brightness/min", &timeStarMinBrightness, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/timestar/brightness/max", &timeStarMaxBrightness, true));
@@ -328,4 +328,12 @@ void AppSettings::incActivatedPortalStats(unsigned int index) {
 
     if (index == 4)
         statsPortal4.set(statsPortal4.get() + 1);
+}
+
+const bool AppSettings::isSceneControllerOn() const {
+    return sceneControllerOn.get();
+}
+
+void AppSettings::setSceneControllerOn(bool value) {
+    sceneControllerOn.set(value);
 }
