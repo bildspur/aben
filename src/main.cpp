@@ -156,14 +156,7 @@ void setupOSCActions() {
     }));
 
     oscRouter.addRule(new OSCInputAction("/aben/stats/reset", [](IOSCPublisher *publisher, OSCMessage &msg) {
-        installation.getSettings()->setActivatedPortalStats(0);
-        installation.getSettings()->setActivatedShowStats(0);
-
-        installation.getSettings()->setStatsPortal0(0);
-        installation.getSettings()->setStatsPortal1(0);
-        installation.getSettings()->setStatsPortal2(0);
-        installation.getSettings()->setStatsPortal3(0);
-        installation.getSettings()->setStatsPortal4(0);
+        installation.resetStats();
         sendRefresh();
     }));
 

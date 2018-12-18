@@ -6,7 +6,7 @@
 #include <model/converter/MSBindingConverter.h>
 #include "AppSettings.h"
 
-AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStorage) {
+AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStorage, EEPROMStorage *statsStorage) {
     // eeprom
     eepromStorage->add(&sceneControllerOn);
     eepromStorage->add(&version);
@@ -15,15 +15,6 @@ AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStor
     eepromStorage->add(&gammaCorrection);
     eepromStorage->add(&autoSave);
     eepromStorage->add(&autoSaveTime);
-    eepromStorage->add(&activatedPortalStats);
-    eepromStorage->add(&activatedShowStats);
-
-    eepromStorage->add(&statsPortal0);
-    eepromStorage->add(&statsPortal1);
-    eepromStorage->add(&statsPortal2);
-    eepromStorage->add(&statsPortal3);
-    eepromStorage->add(&statsPortal4);
-
     eepromStorage->add(&timeStarMinDuration);
     eepromStorage->add(&timeStarMaxDuration);
     eepromStorage->add(&timeStarRandomOnFactor);
@@ -40,6 +31,15 @@ AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStor
     eepromStorage->add(&interactionOn);
     eepromStorage->add(&showSpeed);
     eepromStorage->add(&minPortalToActivate);
+
+    // stats
+    statsStorage->add(&activatedPortalStats);
+    statsStorage->add(&activatedShowStats);
+    statsStorage->add(&statsPortal0);
+    statsStorage->add(&statsPortal1);
+    statsStorage->add(&statsPortal2);
+    statsStorage->add(&statsPortal3);
+    statsStorage->add(&statsPortal4);
 
     // create converter
     auto msConverter = new MSBindingConverter();

@@ -12,8 +12,9 @@ Installation::Installation(uint16_t size, PortalPtr *portals, OSCDataRouter *osc
     this->portals = portals;
     this->oscDataRouter = oscDataRouter;
     this->settingsStorage = new EEPROMStorage(EEPROM_START_ADDRESS, EEPROM_SIZE);
+    this->statsStorage = new EEPROMStorage(EEPROM_START_ADDRESS + EEPROM_SIZE, EEPROM_SIZE);
 
-    this->settings = new AppSettings(oscDataRouter, settingsStorage);
+    this->settings = new AppSettings(oscDataRouter, settingsStorage, statsStorage);
     this->autoSaveTimer = new Timer(settings->getAutoSaveTime());
 }
 
@@ -86,12 +87,17 @@ void Installation::timedLoop() {
         getPortal(i)->updateActivation(settings->getPortalActivationTime());
     }
 
-    // autosave
+    // auto save stats
     if (settings->isAutoSave() && autoSaveTimer->elapsed()) {
-        saveToEEPROM();
+        statsStorage->save();
     }
 }
 
 AppSettings *Installation::getSettings() {
     return settings;
+}
+
+void Installation::resetStats() {
+    statsStorage->loadDefault();
+    statsStorage->save();
 }

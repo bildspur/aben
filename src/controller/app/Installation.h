@@ -29,6 +29,8 @@ private:
 
     EEPROMStorage *settingsStorage;
 
+    EEPROMStorage *statsStorage;
+
 public:
     Installation(uint16_t size, PortalPtr *portals, OSCDataRouter *oscDataRouter);
 
@@ -55,6 +57,8 @@ public:
     void turnOff();
 
     AppSettings *getSettings();
+
+    void resetStats();
 };
 
 

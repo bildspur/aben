@@ -83,7 +83,7 @@ private:
     DataModel<bool> sceneControllerOn = DataModel<bool>(true);
 
 public:
-    AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStorage);
+    AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStorage, EEPROMStorage *statsStorage);
 
     int getVersion() const;
 
