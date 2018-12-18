@@ -107,6 +107,7 @@ void setup() {
 
     // load settings
     installation.loadFromEEPROM();
+    installation.loadStats();
 
     // setup controllers
     for (auto &controller : controllers) {
@@ -180,6 +181,8 @@ void setupOSCActions() {
 
     oscRouter.addRule(new OSCInputAction("/aben/settings/save", [](IOSCPublisher *publisher, OSCMessage &msg) {
         installation.saveToEEPROM();
+        installation.saveStats();
+
         osc.send("/aben/portal/save", 0);
         osc.send("/aben/status", "Status: saved");
         sendRefresh();

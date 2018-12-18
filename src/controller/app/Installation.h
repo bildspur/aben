@@ -59,6 +59,10 @@ public:
     AppSettings *getSettings();
 
     void resetStats();
+
+    void saveStats();
+
+    void loadStats();
 };
 
 

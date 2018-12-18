@@ -101,3 +101,11 @@ void Installation::resetStats() {
     statsStorage->loadDefault();
     statsStorage->save();
 }
+
+void Installation::saveStats() {
+    statsStorage->save();
+}
+
+void Installation::loadStats() {
+    statsStorage->load();
+}
