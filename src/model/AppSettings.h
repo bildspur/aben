@@ -9,7 +9,7 @@
 #include <data/eeprom/EEPROMStorage.h>
 #include <data/model/DataModel.h>
 
-#define ABEN_SETTINGS_VERSION 2013
+#define ABEN_SETTINGS_VERSION 2015
 
 #define APP_FRAME_RATE 60L
 

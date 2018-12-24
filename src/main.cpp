@@ -122,7 +122,7 @@ void setup() {
 
     setupOSCActions();
 
-    Serial.println("setup finished!");
+    Serial.printf("setup finished (V: %d)\n", installation.getSettings()->getVersion());
     Serial.printf("OSC Rule Count: %d\n", oscRouter.getRules().size());
     sendRefresh();
 }
