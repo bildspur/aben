@@ -22,6 +22,8 @@ private:
 
     void setupNatureShow();
 
+    void setupShortShow();
+
     // show methods
     void addRandomFlashTween(float time, float flashTime,
                              float startProbability, float endProbability,

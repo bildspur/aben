@@ -14,8 +14,8 @@ ShowScene::ShowScene(Installation *installation) : BaseScene(
 void ShowScene::setup() {
     BaseScene::setup();
 
-    //setupKeyPoints();
-    setupNatureShow();
+    //setupNatureShow();
+    setupShortShow();
     this->animation = new Animation<PORTAL_SIZE>(keyPoints, installation->getSettings()->getShowSpeed());
 
     // show info
@@ -169,4 +169,44 @@ void ShowScene::addShiftTween(float time, RGBColor startColor, RGBColor endColor
     }
 
     delete indexes;
+}
+
+void ShowScene::setupShortShow() {
+    // define default colors
+
+    // show colors
+    auto black = RGBColor::BLACK();
+    auto startColor = HSVColor(140.0f, 0.0f, 1.0f);
+
+    auto sunriseOrange = HSVColor(48.0f, 0.93f, 0.65f);
+    auto sunriseOrangeDark = sunriseOrange.shift(-10, 0, 0);
+
+    auto rainSkyBlue = HSVColor(14.0f, 0.96f, 0.80f);
+    auto rainSkyBlueGreen = rainSkyBlue.shift(-20.0f, 0.0f, 0.2f);
+
+    // define vars
+    auto rainFlashTime = 0.1f;
+    auto rainProbabilityLow = 0.99f;
+    auto rainProbabilityHigh = 0.7f;
+
+    // define show
+    keyPoints.clear();
+    keyPoints.emplace_back(0.0f, startColor);
+
+    // night scene
+    keyPoints.emplace_back(1.0f);
+    addShiftTween(0.5f,
+                  ColorSpace::hsvToRGB(sunriseOrange),
+                  ColorSpace::hsvToRGB(sunriseOrangeDark), 0.2f, true);
+
+    keyPoints.emplace_back(0.2f, ColorSpace::hsvToRGB(rainSkyBlue));
+    addRandomFlashTween(2.0, rainFlashTime, rainProbabilityLow, rainProbabilityHigh,
+                        ColorSpace::hsvToRGB(rainSkyBlue), ColorSpace::hsvToRGB((rainSkyBlueGreen)));
+
+    // end rain
+    keyPoints.emplace_back(rainFlashTime, ColorSpace::hsvToRGB(rainSkyBlue));
+    addRandomFlashTween(2.0, rainFlashTime, rainProbabilityHigh, rainProbabilityLow,
+                        ColorSpace::hsvToRGB(rainSkyBlue), ColorSpace::hsvToRGB((rainSkyBlueGreen)));
+
+    keyPoints.emplace_back(0.5f, sunriseOrangeDark);
 }
