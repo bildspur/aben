@@ -63,7 +63,7 @@ private:
 
     DataModel<float> defaultSaturation = DataModel<float>(0.8f);
 
-    DataModel<bool> rainbowMode = DataModel<bool>(true);
+    DataModel<bool> rainbowMode = DataModel<bool>(false);
 
     DataModel<unsigned long> rainbowTime = DataModel<unsigned long>(20 * 1000);
 
@@ -72,7 +72,7 @@ private:
     DataModel<float> rainbowEnd = DataModel<float>(30.0f);
 
     // installation
-    DataModel<unsigned long> portalActivationTime = DataModel<unsigned long>(15000L);
+    DataModel<unsigned long> portalActivationTime = DataModel<unsigned long>(5 * 1000);
 
     DataModel<bool> interactionOn = DataModel<bool>(true);
 
