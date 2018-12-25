@@ -178,11 +178,11 @@ void ShowScene::setupShortShow() {
     auto black = RGBColor::BLACK();
     auto startColor = HSVColor(140.0f, 0.0f, 1.0f);
 
-    auto sunriseOrange = HSVColor(48.0f, 0.93f, 0.65f);
+    auto sunriseOrange = HSVColor(230.0f, 0.93f, 0.65f);
     auto sunriseOrangeDark = sunriseOrange.shift(-10, 0, 0);
 
-    auto rainSkyBlue = HSVColor(14.0f, 0.96f, 0.80f);
-    auto rainSkyBlueGreen = rainSkyBlue.shift(-20.0f, 0.0f, 0.2f);
+    auto rainSkyBlue = HSVColor(179.0f, 0.96f, 0.80f);
+    auto rainSkyBlueGreen = rainSkyBlue.shift(-5.0f, -0.5f, 0.2f);
 
     // define vars
     auto rainFlashTime = 0.1f;
