@@ -49,6 +49,17 @@ void PortalScene::loop() {
                          clampedBrightness
                 )
         );
+
+        // add flash
+        // todo: make blink time a setting
+        if (portal->isActivated() && (millis() - portal->getActivatedTimeStamp()) < 250) {
+            portal->getLed()->setHSV(
+                    HSVColor(installation->getSettings()->getDefaultHue(),
+                             0.0f,
+                             LED_MAX_BRIGHTNESS
+                    ), false
+            );
+        }
     }
 }
 
