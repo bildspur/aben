@@ -3,7 +3,7 @@
 //
 
 #include <data/osc/rule/OSCDataBinding.h>
-#include <model/converter/MSBindingConverter.h>
+#include <model/converter/ScaleBindingConverter.h>
 #include "AppSettings.h"
 
 AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStorage, EEPROMStorage *statsStorage) {
@@ -42,7 +42,8 @@ AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStor
     statsStorage->add(&statsPortal4);
 
     // create converter
-    auto msConverter = new MSBindingConverter();
+    auto secondConverter = new ScaleBindingConverter(1000, true);
+    auto minuteConverter = new ScaleBindingConverter(1000 * 60, true);
 
     // osc
     oscDataRouter->addRule(new OSCDataBinding("/aben/version", &version, true));
@@ -50,8 +51,9 @@ AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStor
     oscDataRouter->addRule(new OSCDataBinding("/aben/brightness/min", &minBrightness, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/brightness/max", &maxBrightness, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/gamma/on", &gammaCorrection, true));
+
     oscDataRouter->addRule(new OSCDataBinding("/aben/autosave/on", &autoSave, true));
-    oscDataRouter->addRule(new OSCDataBinding("/aben/autosave/time", &autoSaveTime, true, msConverter));
+    oscDataRouter->addRule(new OSCDataBinding("/aben/autosave/time", &autoSaveTime, true, minuteConverter));
 
     oscDataRouter->addRule(new OSCDataBinding("/aben/stats/portals", &activatedPortalStats, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/stats/shows", &activatedShowStats, true));
@@ -61,8 +63,10 @@ AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStor
     oscDataRouter->addRule(new OSCDataBinding("/aben/stats/portal/3", &statsPortal3, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/stats/portal/4", &statsPortal4, true));
 
-    oscDataRouter->addRule(new OSCDataBinding("/aben/timestar/duration/min", &timeStarMinDuration, true, msConverter));
-    oscDataRouter->addRule(new OSCDataBinding("/aben/timestar/duration/max", &timeStarMaxDuration, true, msConverter));
+    oscDataRouter->addRule(
+            new OSCDataBinding("/aben/timestar/duration/min", &timeStarMinDuration, true, secondConverter));
+    oscDataRouter->addRule(
+            new OSCDataBinding("/aben/timestar/duration/max", &timeStarMaxDuration, true, secondConverter));
     oscDataRouter->addRule(new OSCDataBinding("/aben/timestar/randomFactor", &timeStarRandomOnFactor, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/timestar/brightness/min", &timeStarMinBrightness, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/timestar/brightness/max", &timeStarMaxBrightness, true));
@@ -70,10 +74,10 @@ AppSettings::AppSettings(OSCDataRouter *oscDataRouter, EEPROMStorage *eepromStor
     oscDataRouter->addRule(new OSCDataBinding("/aben/color/hue", &defaultHue, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/color/saturation", &defaultSaturation, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/rainbow/on", &rainbowMode, true));
-    oscDataRouter->addRule(new OSCDataBinding("/aben/rainbow/time", &rainbowTime, true, msConverter));
+    oscDataRouter->addRule(new OSCDataBinding("/aben/rainbow/time", &rainbowTime, true, secondConverter));
     oscDataRouter->addRule(new OSCDataBinding("/aben/rainbow/start", &rainbowStart, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/rainbow/end", &rainbowEnd, true));
-    oscDataRouter->addRule(new OSCDataBinding("/aben/activationtime", &portalActivationTime, true, msConverter));
+    oscDataRouter->addRule(new OSCDataBinding("/aben/activationtime", &portalActivationTime, true, secondConverter));
     oscDataRouter->addRule(new OSCDataBinding("/aben/interaction/on", &interactionOn, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/show/speed", &showSpeed, true));
     oscDataRouter->addRule(new OSCDataBinding("/aben/show/minportal", &minPortalToActivate, true));

@@ -10,8 +10,9 @@
 #include "EEPROM.h"
 #include "model/AppSettings.h"
 
-#define EEPROM_SIZE 1024
-#define EEPROM_START_ADDRESS 0x00
+#define EEPROM_SIZE 0x400
+#define EEPROM_SETTINGS_ADDRESS 0x000
+#define EEPROM_STATS_ADDRESS 0x300
 
 typedef Portal *PortalPtr;
 
