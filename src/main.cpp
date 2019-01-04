@@ -161,6 +161,13 @@ void setupOSCActions() {
         sendRefresh();
     }));
 
+    // hue control
+    auto updateLights = [](IOSCPublisher *publisher, OSCMessage &msg) {
+        installation.turnOn();
+    };
+    oscRouter.addRule(new OSCInputAction("/aben/color/hue", updateLights));
+    oscRouter.addRule(new OSCInputAction("/aben/color/saturation", updateLights));
+
     oscRouter.addRule(new OSCInputAction("/aben/installation/on", [](IOSCPublisher *publisher, OSCMessage &msg) {
         installation.getSettings()->setSceneControllerOn(false);
         installation.turnOn();
