@@ -21,7 +21,7 @@ private:
     float maxDistance = 200;
 
     // temperature
-    float theta = 22;
+    float theta = 0;
 
     float preciseSonicSpeed();
 

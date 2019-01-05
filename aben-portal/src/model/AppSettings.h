@@ -7,9 +7,9 @@
 
 #include <cstdint>
 
-#define ABEN_SETTINGS_VERSION 1005
+#define ABEN_SETTINGS_VERSION 1010
 
-#define APP_FRAME_RATE 60L
+#define APP_FRAME_RATE 30L
 
 struct AppSettings {
 private:
