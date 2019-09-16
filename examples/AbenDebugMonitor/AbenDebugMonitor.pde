@@ -30,8 +30,6 @@ void setup()
   size(800, 600, P3D);
   surface.setTitle("åben Debug Monitor");
 
-  //pixelDensity = 2;
-
   fx = new PostFX(this);
 
   cam = new PeasyCam(this, -20, 200, 0, 800);
@@ -168,7 +166,7 @@ void renderLights()
 
     // top
     pushMatrix();
-    translate(0f, 0f, portal.height / 2f);
+    translate(0f, 0f, portal.height / 2f + (portal.thickness / 2f));
     box(portal.width + portal.thickness, portal.thickness, portal.thickness);
     popMatrix();
 
