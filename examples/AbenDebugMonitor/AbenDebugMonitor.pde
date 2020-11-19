@@ -13,7 +13,7 @@ PostFX fx;
 
 int padding = 50;
 
-String mcuPath = "/dev/tty.SLAB_USBtoUART";
+String mcuPath = "/dev/tty.usbserial-14410";
 boolean isMcuAvailable = false;
 
 MicroControllerUnit mcu = new MicroControllerUnit(this, mcuPath);
@@ -206,6 +206,12 @@ void keyPressed()
   {
     OscMessage msg = new OscMessage("/aben/rainbow/on");
     msg.add(1.0f);
+    oscP5.send(msg, mcuAddress);
+  }
+
+  if (key == 'd') {
+    OscMessage msg = new OscMessage("/aben/portal/debug/activate");
+    msg.add(float(round(random(0, 5))));
     oscP5.send(msg, mcuAddress);
   }
 }
