@@ -18,7 +18,7 @@ HSVColor::HSVColor(float hue, float saturation, float value) {
 }
 
 HSVColor HSVColor::shift(float dh, float ds, float dv) {
-    float hue = static_cast<int>(std::llround(getH() + dh) % 360);
+    float hue = static_cast<int>(::llround(getH() + dh) % 360);
 
     return {hue,
             MathUtils::limit(getS() + ds, 0.0f, 1.0f),

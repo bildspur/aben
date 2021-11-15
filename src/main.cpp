@@ -1,3 +1,6 @@
+#undef min
+#undef max
+
 #include <Arduino.h>
 #include <Wire.h>
 #include <ESPmDNS.h>

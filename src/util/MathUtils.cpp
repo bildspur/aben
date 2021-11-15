@@ -52,7 +52,7 @@ float MathUtils::lerp(float a, float b, float t) {
 }
 
 float MathUtils::randomFloat(float minValue, float maxValue, float precision) {
-    return random(std::lround(minValue * precision), std::lround(maxValue * precision)) / precision;
+    return random(::lround(minValue * precision), ::lround(maxValue * precision)) / precision;
 }
 
 template<typename T>

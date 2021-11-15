@@ -226,7 +226,10 @@ void LXHardwareSerial::end() {
     if(uartGetDebug() == _uart_nr) {
         uartSetDebug(0);
     }
-    uartEnd(_uart);
+
+    // todo: Implement this again with three arguments:
+    // https://github.com/claudeheintz/LXESP32DMX/issues/25
+    //uartEnd(_uart);
     _uart = 0;
 }
 
